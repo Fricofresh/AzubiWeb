@@ -1,0 +1,1336 @@
+/* stand 20171215*/
+
+/* hausfarbe #64c3d5; 30%haus #e0f3f7; 10%haus #f3fafc; rot #890D48; link #004f80, hellgrau #e1e3e6; superhellgrau #f8f9fa  #f9fafa; */
+
+
+body {line-height: 1.5; }
+
+/* ############################### Schriften einbinden ###############################*/
+
+@font-face {
+    font-family: BundesSansWeb;
+    src: url(../fonts/bundessansweb-regular.eot) format("eot"), url(../fonts/bundessansweb-regular.woff) format("woff"), url(../fonts/bundessansweb-regular.ttf) format("ttf");
+    font-style: normal;
+    font-weight: normal;
+}
+@font-face {
+    font-family: BundesSansWeb;
+    src: url(../fonts/bundessansweb-bold.eot) format("eot"), url(../fonts/bundessansweb-bold.woff) format("woff"), url(../fonts/bundessansweb-bold.ttf) format("ttf");
+    font-style: normal;
+    font-weight: bold;
+}
+@font-face {
+    font-family: BundesSansWeb;
+    src: url(../fonts/bundessansweb-bolditalic.eot) format("eot"), url(../fonts/bundessansweb-bolditalic.woff) format("woff"), url(../fonts/bundessansweb-bolditalic.ttf) format("ttf");
+    font-style: italic;
+    font-weight: bold;
+}
+@font-face {
+    font-family: BundesSansWeb;
+    src: url(../fonts/bundessansweb-italic.eot) format("eot"), url(../fonts/bundessansweb-italic.woff) format("woff"), url(../fonts/bundessansweb-italic.ttf) format("ttf");
+    font-style: italic;
+    font-weight: normal;
+}
+@font-face {
+    font-family: BundesSerifWeb;
+    src: url(../fonts/bundesserifweb-regular.eot) format("eot"), url(../fonts/bundesserifweb-regular.woff) format("woff"), url(../fonts/bundesserifweb-regular.ttf) format("ttf");
+    font-style: normal;
+    font-weight: normal;
+}
+@font-face {
+    font-family: BundesSerifWeb;
+    src: url(../fonts/bundesserifweb-bold.eot) format("eot"), url(../fonts/bundesserifweb-bold.woff) format("woff"), url(../fonts/bundesserifweb-bold.ttf) format("ttf");
+    font-style: normal;
+    font-weight: bold;
+}
+@font-face {
+    font-family: BundesSerifWeb;
+    src: url(../fonts/bundesserifweb-bolditalic.eot) format("eot"), url(../fonts/bundesserifweb-bolditalic.woff) format("woff"), url(../fonts/bundesserifweb-bolditalic.ttf) format("ttf");
+    font-style: italic;
+    font-weight: bold;
+}
+@font-face {
+    font-family: BundesSerifWeb;
+    src: url(../fonts/bundesserifweb-italic.eot) format("eot"), url(../fonts/bundesserifweb-italic.woff) format("woff"), url(../fonts/bundesserifweb-italic.ttf) format("ttf");
+    font-style: italic;
+    font-weight: normal;
+}
+
+
+/* ###################### sprungnavigation ###############################  */
+	
+#skipnav li {
+	position: absolute;  
+	width: 10em;  
+	z-index: 11; 
+	font-size: 100%; 
+	line-height: 100%; 
+	list-style-type: none;
+	}
+
+#skipnav li a {
+	position: absolute; 
+	left: -20em; 
+	top: -10em;
+	}
+
+#skipnav li a:focus, #skipnav li a:active {
+	position: absolute;
+	left: 0; 
+	top: 0;
+	padding: 5px;
+	background: #f8f9fa;
+	width: 10em;
+	height: 2.8em;
+	font-weight: bold;
+	left: 4px;
+	}
+	
+
+/* ############################################# Header ############################################# */
+
+/* ########## meta service nav suchfeld bereichskennz ########## */
+
+#ident {
+	padding-top: 15px; 
+	margin-left: -15px;
+	}
+
+#ident .logo img {
+	width: 100%;
+	height: auto;
+	max-width: 250px;
+	min-width: 200px;
+}
+
+/* #metanav ul li {padding: 20px 0 0 20px;}  20170818*/
+#metanav ul li {
+	font-size: 12px; 
+	text-transform: uppercase;
+	padding: 20px 0 0 20px;
+	}
+
+#servicenav {
+	text-align: right;
+	padding: 0px;
+}
+
+#servicenav li {
+	display: inline; 
+	font-size: 8px; 
+	padding-left: 1em;
+	white-space: pre; /* Kein Umbruch zwischen Icon und Text (DGS, Leichte Spr.) */
+	}
+
+#suchblock .navbar-form {
+	padding: 10px 0px;
+	margin-top: 5px;
+ 	margin-bottom: 37px;
+	}
+
+#bereichskennz {
+	font-size: 30px; 
+	font-family: "BundesSerifWeb",Georgia, Times New Romans, serif;
+	}
+
+/* .hgrand {background: #f3fafc;}	 Rand re u li Inhaltsbereich weg????????????????? 20170817 klaeren  */
+	
+@media (max-width: 767px) {
+	#ident {
+		padding-top: 5px; 
+		margin-left: 0px;
+	}
+}
+
+@media (min-width: 768px) {
+	#metanav {margin-bottom: 24px;}
+}
+
+/* ############################### Hauptnav ############################### */
+.navbar {
+	margin-bottom: 0px;
+	min-height: 0;
+	}
+
+#hauptnav {
+	text-align: left;
+	xmargin-left: -15px;
+	margin-right: 15px
+	}
+
+#hauptnav .nav > li > a {
+	font-family: "BundesSansWeb",Arial, helvetica, sans-serif;
+	font-size: 20px!important;
+	font-weight: bold;
+	margin: 0px;
+	padding: 0.5em 1em 0.5em 1em; /* 1em */
+	font-size: 1.6em;
+	display: inline-block;
+	color: #000;
+	}
+
+#hauptnav .nav li .dropdown .active a:link {background-color: #e1e3e6;}
+
+@media (max-width: 1199px) {
+	#hauptnav .nav > li > a {
+		padding: 0.5em 0.75em;
+		font-size: 1.5em;
+	}
+}
+
+@media (max-width: 991px) {
+	#hauptnav .nav > li > a {
+		padding: 0.5em 0.4em;
+		font-size: 1.3em;
+	}
+}
+
+@media (max-width: 767px) {
+	#hauptnav .nav > li > a {
+	/* padding: 1em 2em; */
+	font-size: 1.5em;
+	}
+	
+	#hauptnav li.dropdown {border-bottom: 2px solid #ecedef;}
+	
+	#hauptnav .dropdown-menu li {padding-left: 20px;}
+	
+	#hauptnav .dropdown-menu > li > a {
+	border-top: 1px solid #ecedef;
+	border-bottom: none !important;
+	}
+}
+
+#hauptnav .nav > li > a:hover, 
+#hauptnav .nav > li > a:focus  {
+	background-color: #fff; /* Überschreibt grauen Hintergrund von Bootstrap */
+	color: #337ab7;
+	text-decoration: underline;
+	}
+
+#hauptnav .nav .open > a, 
+#hauptnav .nav .open > a:hover, 
+#hauptnav .nav .open > a:focus {background-color: #fff;}
+
+
+#hauptnav ul.navbar-nav {
+	padding-left: 0;
+	min-height: 0; /* 50px */
+	margin-bottom: 0px;
+	}
+
+@media (min-width: 768px) {
+.navbar-nav > li {float: left;}
+}
+
+#hauptnav ul li h3 {
+	font-family: "BundesSansWeb",Arial, helvetica, sans-serif;
+	/* color: #000; */
+	font-weight: bold; 
+	font-size: 18px; 
+	display: inline-block;
+	padding: 10px 15px; /* 10px 15px  hier noch anpassen*/
+	margin: 0px;
+}
+	
+.navbar-collapse {padding-right: 0;}
+	
+	
+/* Pfeile und Abstand nur bei Desktop-Ansicht */
+@media (min-width: 768px){
+#hauptnav .dropdown-menu {
+	margin-top: 1.5em;
+	overflow: visible;
+	left: 50%;
+	right: auto;
+	-webkit-transform: translate(-50%, 0);
+	-moz-transform: translate(-50%, 0);
+	-ms-transform: translate(-50%, 0);
+	-o-transform: translate(-50%, 0);
+	transform: translate(-50%, 0);
+	}
+	
+/* Pfeil mittig unter Hauptmenü-Punkt, bei hover(open), sowie bei aktiver Seite (active) */
+#hauptnav li.dropdown.open::before,
+#hauptnav li.dropdown.active::before {
+	 content: " ";
+	 border-style: solid;
+	 border-width: 1.5em;
+	 border-color: transparent;
+	 border-top-color: white;
+	 z-index: 1002;
+	 position: absolute;
+	 bottom: 0;
+	 left: 50%;
+	 margin-left: -1.5em;
+	 margin-bottom: -2.5em;
+	}
+}	
+
+#hauptnav .dropdown-menu > li > a {
+	color: #000; 
+	font-weight: bold; 
+	border-bottom: 1px solid #ecedef; 
+	padding: 0.5em 1em 0.5em 1em;
+	}
+
+/*Hamburger-Button sichtbar machen*/
+#ident .navbar-toggle {
+	border: 1px solid #64c3d5;
+	margin: 0px 15px 15px 0px;
+	background: #64c3d5;
+	color: #fff;
+	transition: all 0.1s ease-in;
+}
+#ident .navbar-toggle.collapsed {
+	background: #fff;
+	color: #000;
+	border-color: #ccc;
+}
+
+/* #ident .navbar-toggle .icon-bar {background: gray;} */
+
+/* Responsive Anpassungen */
+@media (max-width: 767px) 
+{
+	/* Überschreibt Bootstrap */
+	.navbar-collapse.in {
+		overflow-y: visible;
+	}	
+
+	#dpma-hauptnavigation .navbar-right {
+		background: #eee;
+		border-top: 4px solid #64c3d5;
+	}
+	
+	#dpma-hauptnavigation .navbar-right .dropdown-menu {
+			background: #fff;
+	}
+
+	#hauptnav li.dropdown {
+		border-bottom: 2px solid #64c3d5;
+	}
+
+	#dpma-hauptnavigation .nav li a {
+		display: block;
+	}
+	
+	#hauptnav .nav > li > a {
+		font-size: 1.1em !important;
+	}
+
+	#dpma-hauptnavigation #servicenav-mobil {
+		margin-bottom: -2px;
+	}
+	
+	#dpma-hauptnavigation #servicenav-mobil li {
+		border-bottom: 2px solid #64c3d5;
+		font-weight: normal;
+	}
+
+	#dpma-hauptnavigation #servicenav-mobil > li > a {
+		font-weight: normal;
+	}
+	
+	#dpma-hauptnavigation .navbar-right li.dropdown > a::after {
+		font-family: 'Glyphicons Halflings';
+		content: "\e080";
+		float: right;
+		color: grey;
+	}
+	
+	#dpma-hauptnavigation .navbar-right li.dropdown.open > a::after {
+		content: "\e114";
+	}	
+}
+
+/* ############################### Seitennavi ###############################*/
+
+#inhalt #main {
+	border: 1px solid #fff;
+	xbackground: #f8f9fa;
+	}
+
+/* #inhalt .seitennavi {border-left: 1px solid #e1e3e6;} */
+
+#inhalt .texthauptbereich {
+	background: #fff;
+	margin-left: -15px;
+	padding-left: 45px;
+	}
+	
+#inhalt .texthauptbereich ul {overflow: hidden;} /* bug-Ausgleich, wenn Listenpunkte unter Bild rutschen */
+
+#unternavi {font-size: 100%;}
+
+#inhalt ul#unternav {
+	background-color: #fff;
+	margin-left: -30px
+	} 
+
+#inhalt ul#unternav li{
+	border-top: 1px dashed #64c3d5;
+	font-size: 14px;
+	display: block;
+	padding-left: 0.9em;
+	}
+
+#inhalt ul#unternav>li:first-child {border-top: none;}
+
+#inhalt ul#unternav>li:last-child {border-bottom: 1px dashed #64c3d5;}
+
+#inhalt ul#unternav li a:link, #inhalt ul#unternav li a:visited,
+#inhalt ul#unternav li a:active, #inhalt ul#unternav li a:hover {
+	text-decoration:none;
+	font-size: 14px;
+	font-weight: normal;
+	}
+
+ul#unternav li.auf, ul#unternav li.auf li.auf {font-weight: bold;}
+
+ul#unternav li.auf li{font-weight: normal;}
+
+#inhalt ul#unternav li a {
+	display: block;
+	padding-top: 7px;
+	padding-bottom: 7px;
+	color: #f9fafa;
+	}
+
+#inhalt ul#unternav li a:link {color: #004f80;}
+
+#inhalt ul#unternav li a:visited, #inhalt ul#unternav li a:active,
+#inhalt ul#unternav li a:hover {
+		background-color: #fff;
+		border-right: 12px solid #64c3d5;
+		color: #004f80;
+		}
+
+#inhalt ul#unternav a:visited {color: #000;}
+
+#inhalt ul#unternav li span.standort {
+	background: #f9fafa;
+	padding-top: 9px;
+	padding-bottom: 9px;
+	xpadding-left: 0.5em;
+	border-right: 12px solid #64c3d5;
+	display: block;
+	}
+
+	
+/* Button zum Einklappen der Unternavigation */
+	
+#bereichskennz .container {
+	position: relative;
+	height: 105px;
+	}
+
+#bereichskennz .container #unternav_collapse_button {
+	position: absolute;
+	right: 0px;
+	bottom: 0px;
+	}
+	
+	
+/* Responsive Anpassungen */
+@media (max-width: 991px) {
+	#inhalt ul#unternav {
+		margin: 0px;
+	}
+}	
+
+@media (max-width: 767px) { 
+	#bereichskennz .container {
+		height: 75px; /* mit #bereichskennz Höhe abgleichen */
+	}
+}
+
+
+
+/* ############################################# allgemeine Angaben ############################################# */
+
+html {
+	font-family: "BundesSansWeb",Arial, helvetica, sans-serif;
+	-webkit-text-size-adjust: 100%;
+	-ms-text-size-adjust: 100%;
+	}
+
+body {
+	xfont-size:x62.5%;
+	color: #000;
+	border-top: 10px solid #64c3d5;
+	margin:0 auto;
+	font-family: "BundesSansWeb",Arial, helvetica, sans-serif;
+	font-style: normal;
+	font-weight: normal;
+	} 
+	
+/* innerhalb des Textbereichs */
+#inhalt h1, #inhalt h2, #inhalt h3, #inhalt h4, #inhalt h5, #inhalt h6 {font-family: "BundesSerifWeb",Georgia, Times New Romans, serif;}
+#inhalt h1 {font-size: 26px;}
+#inhalt h2 {font-size: 22px; margin: .67em 0;}
+#inhalt h3 {font-size: 20px;}
+#inhalt h4 {font-size: 18px;}
+#inhalt h5 {font-size: 18px;}
+#inhalt h6 {font-size: 18px; font-weight: normal;}
+
+#inhalt h1, #inhalt h2, #inhalt h3, #inhalt h4,#inhalt h5, #inhalt h6 {margin-top: 20px; margin-bottom: 10px;}	
+	
+#inhalt p, #index p {font-size: 15px;}
+	
+#inhalt a , #index a {color: #004f80;} 
+	
+#inhalt a:link {
+ 	font-size: 15px; 
+	text-decoration: underline;
+	}
+		
+#inhalt a:hover, #inhalt a:active, #inhalt a:focus {color:#6b7581;}
+
+#inhalt a:visited, #index a:visited {color: #004f80;}
+	
+#inhalt .clearer {clear: both; margin:0;}
+	
+#inhalt hr {border: solid #e1e3e6 1px; height:1px;}	
+	
+#inhalt .abstract {
+	font-size: 15px; 
+	font-family: "BundesSansWeb",Arial, helvetica, sans-serif; 
+	font-weight: bold;
+	}
+
+#inhalt em {font-weight: bold; font-style: normal;}
+
+#inhalt strong {background: #e0f3f7;}/* 20% der Hausfarbe*/
+
+#inhalt cite {font-style: italic;}
+
+#inhalt .totop {
+	text-align: right; 
+	line-height: 0.5em;
+	}
+
+#inhalt .totop a {
+	font-size: 80%; 
+	padding-left: 3em;
+	} 
+
+#inhalt a.download_pdf {
+	background: url("../images/icon_extension_pdf.gif"); 
+	background-position: 0 0.5em; 
+	background-repeat: no-repeat; 
+	padding-left: 16px;
+	}
+#inhalt .download_type {
+	font-weight: normal; 
+	font-size: 90%;
+	}
+
+#inhalt a.ext_link {
+	background: url("../images/ext_link.png") no-repeat; 
+	padding-left: 16px;
+	}
+		
+#index .baustein_farbe, #inhalt .baustein_farbe {
+	color: #64c3d5;
+	font-weight: bold;
+	}
+	
+#index .baustein_weight, #inhalt .baustein_weight {font-weight: bold;}
+
+#index  a:hover .baustein_farbe, #index  a:focus .baustein_farbe,
+#inhalt a:hover .baustein_farbe, #inhalt a:focus .baustein_farbe {
+	color: #64c3d5; 
+	font-weight: bold;
+	}
+	
+#index a:visited .baustein_farbe, #inhalt a:visited .baustein_farbe {color: #64c3d5;}
+
+ul {font-size: 15px;}
+		
+/* listenpunkte mit groesserem abstand */
+#inhalt ul.textlisten li {padding-bottom: 1em;}/* line-height: 1.7; */
+
+#inhalt ul.textlisten li ul li:first-child {padding-top: 1em;}
+
+#inhalt ul.textlisten li ul li:last-child {padding-bottom: 0em;}
+
+
+/* ######################## Bilder ######################## */
+
+#inhalt .pic_xxl {
+	max-width: 810px;
+	border: 1px solid silver; 
+	margin-bottom: 1em; 
+	}
+
+#inhalt .pic_xxl img {width:100%; height:auto;}
+
+#inhalt .pic_xxl .bildutext, #inhalt .article_img_lin_q .bildutext, #inhalt .article_img_rec_q .bildutext,
+#inhalt .article_img_lin_h .bildutext, #inhalt .article_img_rec_h .bildutext {
+	font-size: 90%; 
+	color: #333; 
+	padding: 0.5em 0.5em 0 0.5em;
+	}
+
+#inhalt .article_img_lin_q {
+	width: 234px;
+	float: left; 
+	border: 1px solid #ecedef; 
+	margin: 0 1em 0.5em 0;
+	}
+
+#inhalt .article_img_lin_h {
+	width: 156px; 
+	float: left; 
+	border: 1px solid #ecedef; 
+	margin: 0 1em 0.5em 0;
+	}
+
+#inhalt .article_img_rec_q {
+	width: 234px; 
+	float: right; 
+	border: 1px solid #ecedef; 
+	margin: 0 0 0.5em 0.8em;
+	}
+
+#inhalt .article_img_rec_h {
+	width: 156px; 
+	float: right; 
+	border: 1px solid #ecedef; 
+	margin: 0 0 0.5em 0.8em;
+	}
+	
+#inhalt .article_img_lin_q img, #inhalt .article_img_lin_h img, .article_img_rec_r img, .article_img_rec_h img {display: block;}
+	
+
+.clear {clear: both;}
+
+
+/* ######################## Tabellen ######################## */
+
+/* @media (min-width: 1200px) fuer welche groessen??? noch klaeren */
+table caption {
+	border-bottom: 2px solid #64c3d5;
+	padding: 8px 6px 8px 0px;
+	font-size: 18px;
+	color: #000;
+	text-align: left;
+	font-family: "BundesSerifWeb",Georgia, Times New Romans, serif;
+	}
+
+.table-striped > tbody > tr:nth-of-type(odd) {
+	background-color: #f9fafa; /* #f9f9f9 */
+	}
+
+.table > thead > tr > th,
+.table > tbody > tr > th {background: #e8f6f9;}
+	
+#inhalt tr th.doknr {padding-right: 5em;}
+
+
+/* ######################## Textkaesten ######################## */
+
+#inhalt .infoBox {
+	background-color: #f9fafa;
+	border: 1px solid #64c3d5;
+	border-radius: 6px;
+	margin: 6px 1.5% 0px 0; 
+	max-width: 300px;
+	padding: 8px 20px 8px;
+	width: 48.5%; 
+	}
+
+#inhalt .infoBox.rechts {
+	clear: right;
+	float: right;
+	margin-left: 1.5%;
+	margin-right: 0;
+	}
+
+#inhalt .infoBox.links {
+	float: left;
+	margin-right: 1.5%;
+	margin-left: 0;
+	}
+
+#inhalt .infoBox.rechts h2 {
+	font-family: "BundesSansWeb",Arial, helvetica, sans-serif;
+	margin-top: 0.2em;
+	font-size: 15px;
+	}
+
+#inhalt .infoBox.links h2 {
+	font-family: "BundesSansWeb",Arial, helvetica, sans-serif;
+	margin: 0.2em;
+	font-size: 16px;
+	}
+
+#inhalt .infoBox.rechts p, #inhalt .infoBox.links p, 
+#inhalt .infoBox.rechts a, #inhalt .infoBox.links a, 
+#inhalt .infoBox.rechts ul, #inhalt .infoBox.links ul {
+	font-size: 13px;
+	} 
+
+#inhalt .infoBox.rechts ul li,	#inhalt .infoBox.links ul li {margin-left: -1.5em;}
+	
+#inhalt .container .jumbotron, #inhalt .container-fluid .jumbotron {
+	padding: 0 30px 0 30px;
+	background-color: #f9fafa;
+	border: 1px solid #64c3d5;
+	}
+
+#inhalt .jumbotron {margin: 10px 20px 10px 15px;}
+
+#inhalt .jumbotron h2 {
+	font-family: "BundesSansWeb", Arial, helvetica, sans-serif;
+	margin-top: 0.6em;
+	font-size: 15px;
+	}
+
+#inhalt .jumbotron p {font-size: 13px;}
+
+#inhalt .jumbotron ul {font-size: 13px;}
+
+#inhalt .jumbotron a {font-size: 13px;}
+
+
+/* ######################## Seiten-Teaserkaesten  ######################## */
+
+.seitenteaser:first-of-type {margin-top: 1.5em;}
+
+.seitenteaser {
+ 	clear: both; 
+ 	position: relative; 
+ 	border-radius: 6px; 
+ 	border-bottom: 2px solid #64c3d5; 
+ 	border-top: 2px solid #64c3d5; 
+ 	background: #f9fafa; 
+ 	margin-bottom: 1.5em; 
+ 	overflow: hidden;
+ 	}
+ 	
+.seitenteaser img {
+	float: left; 
+	padding: 1em;
+	}
+	
+#inhalt .seitenteaser_box {padding: 1em;}
+
+#inhalt .seitenteaser_box h3, #inhalt .seitenteaser_box h3 a:link {
+	font-size: 18px; 
+	clear: none; 
+	padding-top: 0; 
+	margin-top: 0;
+	}
+	
+#inhalt .seitenteaser_box h3 a:link {text-decoration: none;}
+
+#inhalt .seitenteaser_box span.sub_header {
+	font-family: "BundesSansWeb",Arial, helvetica, sans-serif; 
+	font-size: 14px; 
+	font-weight: bold; 
+	color: #890d48;
+	}
+	
+#inhalt .seitenteaser_box p {font-size: 15px;}
+
+#inhalt .seitenteaser_box em.more a {text-decoration: none;}
+
+#inhalt .seitenteaser_box em.more img {padding: 0 0.3em 0 0;}
+
+
+/* ######################## newsletter  ######################## */
+
+#inhalt p.news_banner {overflow: hidden; margin-top:-2px;}
+#inhalt p.news_banner img {max-width: 140%;}
+@media (max-width: 767px) { 
+	#inhalt p.news_banner {margin-right: -15px; margin-left: -30px;}
+}
+
+#inhalt .textbereich h1.newslett {xfont-size: 2px;}
+
+#inhalt .textbereich h1.newslett .newsausgabe {font-size: 18px;}
+
+
+/* ######################## presseverteiler ########################*/
+
+.f_presseverteiler fieldset legend {
+	padding-top: 1em; 
+	font-family: "BundesSerifWeb",Georgia, Times New Romans, serif;
+	}
+
+.f_presseverteiler .randli {margin-left: 15px;}
+
+.f_presseverteiler .checkbox_abs label, .f_presseverteiler .radio_abs label{
+	width: 20em; 
+	margin-left: 0;
+	}
+
+.f_presseverteiler .checkbox-inline + .checkbox-inline {margin-left: 0;}
+
+.f_presseverteiler .button_re {margin-right: 2em;}
+
+
+/* noch auskommentiert ######################## faq - akkordion ########################
+
+#faqAccordion .panel-heading h4 {
+  font-size: 17px;
+  margin: 0px;
+  font-weight: normal;
+}
+
+#faqAccordion .panel-heading h4 a {
+  font-size: inherit;
+}
+
+#faqAccordion .panel-faq > .panel-heading {
+	border-bottom: 1px dashed #64c3d5;
+	border-top: 1px dashed #64c3d5;
+}
+
+#faqAccordion .panel-heading {
+  position: relative;
+}
+
+#faqAccordion .panel-heading h4 span.glyphicon,
+#faqAccordion .panel-heading h4 span.glyphicon-minus {
+	color: #666;
+	padding-right: 0.5em;
+	font-size: small;
+	}
+
+#faqAccordion .panel-body p {padding-left: 1.7em;}
+
+*/
+
+/* ####################################################### Indexseite #######################################################*/
+
+
+#index a {font-weight: normal;}
+
+#index .teaseraktuell ul li h3 a {font-weight: normal;}
+
+#index #teaser {background: #f3fafc;} /* #e0f3f7 #f8f9f9 */
+
+/* Responsive Anpassungen */
+@media (max-width: 767px) {
+	#index #teaser {
+		margin-left: -15px;
+		margin-right: -15px;
+		padding-left: 15px;
+		padding-right: 15px;
+		padding-bottom: 15px;
+	}
+}
+
+
+/* ######################## serviceleiste mit den drei diensten ######################## */
+
+#index .service_leiste .row {margin-left: 0; margin-top: 0.5em;}
+
+#index .service_leiste {background: #e1e3e6;}
+
+#index .service_leiste .service_box {
+	margin: 0 0.5em 0 0;
+	padding: 0.5em;
+	}
+
+#index .service_leiste .service_box .service_box_pic {
+	display: inline-block;
+	position: absolute;
+	border: 1px solid #fff;
+	width: 50px;
+	height: 50px;
+	padding: 6px;
+	}
+
+#index .service_leiste .service_box h3 {
+	font-family: "BundesSansWeb",Helvetica,Arial,sans-serif;
+	font-size: 16px;
+	color: #000;
+	margin-left: 60px;
+	margin-top: 0;
+	margin-bottom: 0;
+	}
+
+#index .service_leiste .service_box h3 a {color: #000;}
+
+#index .service_leiste .service_box p {
+	margin-left: 60px;
+	font-size: 12px;
+	}
+
+/* Responsive-Anpassungen */
+@media (max-width: 991px) {
+	#index .service_leiste .row {
+		margin-top: 0px;
+	}
+	#index .service_leiste .container {
+		padding-bottom: 5px;
+	}
+}
+
+@media (max-width: 767px) 
+{	
+	#index .service_leiste .service_box {
+		border-bottom: 1px solid white;
+		padding-bottom: 10px;
+	}
+}
+
+/* ######################## teaser kaesten ######################## */
+
+#index .headerbox {
+	padding-left: 0; 
+	padding-right:0; 
+	margin-left: 0; 
+	margin-top: 1em;
+	}
+
+
+/* auf alle bilder anwenden???? */
+#index .headerbox img {
+	max-width:100%;
+	height:auto; 
+	width: auto; /* ie 8 */
+	}
+
+#index .headerbox h2 {
+	background: #e1e3e6; 
+	font-size: 14px; 
+	padding: 10px;
+	/* ueberarbeiten margin-Ausgleich */		
+	margin-top: 0; 
+	font-family: "BundesSerifWeb",Georgia, Times New Romans, serif; 
+	font-size: 18px;
+	}
+		
+#index .headerbox h3 {
+	font-size: 14px; 
+	font-family: "BundesSerifWeb",Georgia, Times New Romans, serif; 
+	margin-top: 0; 
+	padding-top:0; 
+	padding-bottom: 0.8em; 
+	margin-bottom: 0;
+	}
+		
+#index .headerbox p {font-size: 15px;}	
+	
+#index .teaseraktuell {
+	border-right: 2px dotted #ecedef; 
+	border-left: 2px dotted #ecedef; 
+	border-bottom: 2px dotted #ecedef;
+	margin-bottom: 1em;
+	}
+		
+#index .teaseraktuell ul.list-unstyled {padding-left: 25px;}
+	
+#index .teaseraktuell ul li p.datum {
+	font-size: 12px; 
+	margin-bottom: 0; 
+	padding-bottom: 0; 
+	color: #288193; 
+	font-weight: bold;
+	}
+					
+#index .teaseraktuell ul li h3 {padding-bottom: 1.2em;}
+	
+#index .teaseraktuell ul li h3 a {
+	font-size: 16px; 
+	font-family: "BundesSansWeb",Helvetica,Arial,sans-serif; 	
+	}
+	
+#index .alles {margin: 1em 0 1.5em 1em;}
+	
+#index .alles a {
+	background: #ecedef;
+	padding: 0.8em 1em 0.8em 1em; 
+	font-size: 0.8em; 
+	font-weight: bold;
+	}
+			
+#index .headerbox .dienstbox {
+	border-top: 2px dotted #ecedef; 
+	min-height: 155px; 
+	overflow: hidden; 
+	margin-bottom: 1em; 
+	padding-top: 0.5em;			
+	}
+			
+#index .headerbox .dienstbox img {
+	max-width:100%; 
+	height:auto; width: auto; /* ie 8 */
+	}
+
+#index .headerbox .dienstbox h3 {font-size: 18px;}
+			
+#index .dienst {margin-top: 0;}
+
+#index .dienst img {
+	float:left; 
+	margin-right: 10px;
+	}
+
+#index .dienstbox ul {
+	overflow: hidden;
+	min-width: 250px;
+}
+
+#index .dienstbox .metawort {
+	font-size: 13px; 
+	font-family: "BundesSansWeb",Helvetica,Arial,sans-serif; 
+	color: #288193; 
+	margin-bottom: 0;
+	}
+	
+#index .teaseraktuell, #index .dienst, #index .themen, #index .service, #index .direktzu {background: #fff;}
+	
+#index .service p {
+	font-size: 14px; 
+	padding: 1em; 
+	line-height: 2em;
+	}
+	
+#index .service img {margin-top: -10px;} 
+
+#index .themen, #index .service, #index .direktzu {
+	border-left: 2px dotted #ecedef; 
+	border-right: 2px dotted #ecedef; 
+	border-bottom: 2px dotted #ecedef; 
+	background: #fff;
+	}
+	
+#index .themen ul li a, .direktzu ul li a {line-height: 2em;}
+
+#index .themen ul.list_link,
+#index .direktzu ul.list_link,
+#index .dienstbox  ul.list_link {
+	padding-left: 0; 
+	margin-left: 0;
+	list-style: none;
+	}
+
+#index .themen ul.list_link li,
+#index .direktzu ul.list_link li,
+#index .dienstbox ul.list_link li {
+	margin-left: 0.7em;
+	padding-left: 1.5em;
+	background-image: url(../images/linkpfeil.png); 
+	background-repeat: no-repeat;
+	background-position:  left center;
+	overflow: hidden;
+	}	
+
+
+	
+/* ############################### Buehne (neu) ############################### */
+
+#buehne {
+	/* background-color: #333; */
+	/* background-color: #64c3d5; */
+	background-color: #eee;
+	border-top: 5px solid #ccc;
+	border-bottom: 5px solid #ccc;
+	}
+
+#dpma-carousel {padding: 0px;}
+
+#dpma-carousel-nav {
+	position: absolute;
+	z-index: 500;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+	margin: auto;
+	}
+
+#dpma-carousel-controls {
+	display: none;
+	position: absolute;
+	top: 1em;
+	left: 1em;
+	z-index: 200;
+	}
+
+#dpma-carousel-controls #carousel-pause-button {
+	background-color: #64c3d5; 
+	border: 0; 
+	border-radius: 0px;
+	opacity: 0.8;
+	color: white;
+	}
+
+/* Abstand der Kaesten*/
+#dpma-carousel-nav .col-sm-4 {
+	padding-left: 8px;
+	padding-right: 8px;
+	}
+
+
+#buehne #buehne-container-slider {
+	position: relative;
+	padding: 0px;
+	overflow: hidden;
+	max-height: 400px;
+	min-height: 300px;
+	}
+	
+#buehne #buehne-container-slider .item a img {
+		width: 100%;
+	}
+
+
+.buehne-box {
+	height: 7.5em; 
+	background: #fff;
+	opacity: 0.9; 
+	padding: 1em;
+	border-top: 5px solid transparent;
+	}
+
+.active .buehne-box {border-top-color: #64c3d5;}
+
+.active .buehne-box::before {
+	content: " ";
+	height: 0;
+	width: 0;
+	border-width: 30px;
+	border-color: transparent;
+	border-bottom-color: #64c3d5;
+	position: absolute;
+	bottom: 100%;
+	z-index: 600;
+	border-style: solid;
+	left: 50%;
+	margin-left: -30px;
+	}
+
+.buehne-box h3 {
+	font-size: 1.4em; 
+	font-family: "BundesSerifWeb",Georgia, Times New Romans, serif;
+	letter-spacing: 0.05em;
+	font-weight: bold;
+	margin: 0.5em;
+	}
+
+.buehne-box h3 span.kategorie {
+	font-size: 0.6em;
+	font-family: "BundesSansWeb",Arial, helvetica, sans-serif;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	font-weight: normal;
+	display: block;
+	margin-bottom: 0.25em;
+	min-height: 1em;
+	}
+
+#buehne-container-accordion .panel {
+  border-radius: 0px;
+  margin-top: 0px;
+}
+
+	
+#buehne-container-accordion .panel-body {
+	padding: 0px;
+}
+
+#buehne-container-accordion {
+	padding: 0px;
+}
+
+#buehne-container-accordion .panel-group {
+	margin-bottom: 0px;
+}
+
+#buehne-container-accordion .panel-heading a:after {
+    font-family:'Glyphicons Halflings';
+    content:"\e114";
+    float: right;
+    color: grey;
+}
+
+#buehne-container-accordion .panel-heading a.collapsed:after {
+    content:"\e080";
+}
+
+/* Responsive-Anpassungen */
+@media (max-width: 1200px) {
+	#buehne #buehne-container-slider {
+		max-height: 350px;
+	}
+	/*
+	#buehne #buehne-container-slider .item a img {
+		margin-top: -10% !important;
+	}
+	*/
+	.buehne-box h3 { 
+		margin: 0px;
+	}
+}
+
+@media (max-width: 992px) {
+	#buehne #buehne-container-slider {
+		max-height: 300px;
+	}
+	/*
+	#buehne #buehne-container-slider .item a img {
+		margin-top: 0px !important;
+	}
+	
+	.buehne-box h3 { 
+		margin: 0px;
+	}
+	*/
+}
+/* ---------------------- */
+	
+/* ############################### Ende Indexseite ############################### */
+
+
+
+/* ####################################################### Bildnachweis + Fuss #######################################################*/
+
+/* Datum/Stand */
+
+#inhalt .stand {
+	text-align: right; 
+	border-top: 3px dotted #f5f5f5; 
+	font-size: 0.8em; 
+	font-weight: bold; 
+	padding-top: 1em;
+	}
+
+/* Bildrechte */
+#index .bildnachweis {
+	border-top: 2px dotted #ecedef; 
+	border-bottom: 2px dotted #ecedef; 
+	padding: 3px 15px 3px 15px; 
+	margin-top: 5px; 
+	background-color: #fff;
+	}
+	
+#index p.bildrecht, #inhalt p.bildrecht {
+	font-size: 90%; 
+	font-style: italic; 
+	padding-top: 1em; 
+	/* padding-left: 0.5em; */
+	xmargin-bottom: -0.2em;
+	
+	}
+p.bildrecht span {
+	font-weight: bold; 
+	padding-right: 1em;
+	}
+
+#standort p {
+	margin-bottom: 20px;
+	font-weight: bold;
+	font-size: 11px;
+	padding: 10px 5px 0 0;
+	}
+
+#standort {
+	background: #f5f5f5;
+	margin-top: 0.5em;
+	}
+
+#standort p, ol.breadcrumb {float: left;}
+
+#standort ol.breadcrumb li {
+	display: inline;
+	}
+	
+#standort ol.breadcrumb {font-size: 11px;}
+
+.breadcrumb {	
+	padding: 10px 15px;
+	list-style: none;
+	border-radius: 0px;
+	margin-bottom: 0;
+	}	
+
+
+.fusscontainer {
+	font-size: 12px; 
+	background: #64c3d5;
+	}
+
+.fussliste, .fussliste a, #index .fussliste a {color: #000;}
+
+.fussliste h4 {font-size: 14px;}
+
+.fussliste ul {font-size: 12px;}
+
+.copyright {background: #64c3d5; color: #000; padding: 2em 0 2em 0; font-size: 9px;} 
+
+
+
+/* ############################### Unterseiten ############################### */
+
+#bereichskennz {
+	background-color: #64c3d5;
+	height: 105px; 
+	color: #fff; 
+	font-size: 30px; 
+	font-family: "BundesSerifWeb",Georgia, Times New Romans, serif;
+	}
+
+@media (max-width: 767px) { 
+	#bereichskennz {
+		height: 75px;
+		padding-left: 15px;
+	}
+}
+
+/* ########## Leichte Sprache ########## */
+#lei_sprache #inhalt h1 {font-size: 28px; line-height: 1.4;}
+#lei_sprache #inhalt h2 {font-size: 24px; line-height: 1.4;}
+#lei_sprache #inhalt h3 {font-size: 22px; line-height: 1.4;}
+#lei_sprache #inhalt h4 {font-size: 22px; line-height: 1.4;}
+#lei_sprache #inhalt h5 {font-size: 22px; line-height: 1.4;}
+#lei_sprache #inhalt h6 {font-size: 22px; line-height: 1.4;}
+#lei_sprache #inhalt p {font-size: 18px; line-height: 1.4;}
+#lei_sprache #inhalt a:link {font-size: 18px; line-height: 1.4;}
+#lei_sprache #inhalt ul {font-size: 18px; line-height: 1.4;}
+#lei_sprache #inhalt p.bildutext {font-size: 15px; line-height: 1.4;}
+
+	
+/* ########################### Videoplayer (Imagefilm, etc.) ######################## */
+/* TODO: <video>-Elemente mit Klasse statt ID ansprechen (falls mehrere Videoplayer auf einer Seite) */
+#videoplayer {
+	max-width: 95%; /* Fuer kleine Bildschirme */
+}
+
+/* ########## Aktuelles Rubrik - Datum ########## */
+span.rubrikdatum {
+	font-size: 60%; 
+	font-family: "BundesSansWeb",Arial, helvetica, sans-serif; 
+	color: #666; 
+	font-weight: bold;
+	}
+
+/* ############################### Locarno ############################### */
+
+#locarno-panel-group .panel .panel-heading h3 {
+	margin: 0px;
+	font-weight: bold;
+}
+
+#locarno-panel-group .panel .panel-heading h3 small {
+	font-size: 0.8em;
+	font-weight: normal;
+}
+
+#locarno-panel-group .panel .panel-body .alert-locarno, 
+.alert-locarno {
+	background: #f3fafc;
+}
+
+#locarno-panel-group .panel .panel-body .alert-locarno h4 {
+  margin-top: 0px;
+}
+
+#locarno-panel-group .panel .panel-body .alert-locarno p {
+  padding: 0px 15px;
+}

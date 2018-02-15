@@ -1,0 +1,36 @@
+/* nav { */
+/* 	display: flex; */
+/* } */
+
+/* nav * { */
+/* 	margin-right: 5px; */
+/* } */
+
+
+/* .nobullet li { */
+/* 	display: block; */
+/* 	list-style: none;	 */
+/* } */
+/* .nobullet { */
+/* 	width: fit-content; */
+/* 	padding: 0px; */
+/* 	margin: 0px; */
+/* } */
+
+#servicenav {
+	display: flex;
+}
+
+#servicenav li {
+	white-space: normal;
+}
+
+#settingsicon {
+	margin-right: 0px;
+    width: 30px;
+    height: 30px;
+}
+
+/* .nopadding li{ */
+/* 	padding: 0px;	 */
+/* } */
