@@ -65,7 +65,7 @@ public class RootPage extends WebPage {
 			@Override
 			public void onClick() {
 				
-				setResponsePage(BenutzerBearbeiten.class);
+				setResponsePage(BenutzerListe.class);
 			}
 		});
 		

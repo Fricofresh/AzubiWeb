@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="de">
+	<head>
+		<title>Azubiweb - Benutzer Liste</title>
+	</head>
+	<body>
+		<wicket:extend>
+            <ul class="list-group">
+                <li class="list-group-item d-flex flex-column list-group-item-action" wicket:id="benutzerListView"> 
+                    <a wicket:id="listPunktLabel"></a>
+                    
+                    <a wicket:id="bearbeitenLink">
+                        <span class="mr-auto p-1 glyphicon glyphicon-pencil"></span>
+                    </a>
+                    <a wicket:id="löschenLink">
+                        <span class="mr-auto p-1 glyphicon glyphicon-trash"></span>
+                    </a>
+
+                </li><br/>
+            </ul>
+        </wicket:extend>
+    </body>
+</html>

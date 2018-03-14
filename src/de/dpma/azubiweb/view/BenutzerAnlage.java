@@ -63,6 +63,11 @@ public class BenutzerAnlage extends BenutzerVerwaltungsBasePage {
 		// BUG user.getAusbildungsart() ist immer leer oder null
 		Form<?> userForm = new Form<Void>("userForm") {
 			
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+			
 			@Override
 			protected void onSubmit() {
 				

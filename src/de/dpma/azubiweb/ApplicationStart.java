@@ -13,10 +13,6 @@ import de.dpma.azubiweb.view.LoginPage;
 import de.dpma.azubiweb.view.StartPage;
 
 @SpringBootApplication
-// @EnableAutoConfiguration
-// @Configuration
-// @ComponentScan(basePackages = {"service", "model"})
-// @EnableJpaRepositories("model")
 public class ApplicationStart extends WicketBootSecuredWebApplication {
 	
 	public static void main(String[] args) {

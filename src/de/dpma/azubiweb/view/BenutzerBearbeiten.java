@@ -2,7 +2,6 @@ package de.dpma.azubiweb.view;
 
 import java.util.Arrays;
 
-import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.markup.html.form.CheckBox;
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.EmailTextField;
@@ -15,8 +14,12 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 
 import de.dpma.azubiweb.model.User.Geschlecht;
 
-@AuthorizeInstantiation("Ausbildungsleiter")
-public class BenutzerBearbeiten extends RootPage {
+public class BenutzerBearbeiten extends BenutzerVerwaltungsBasePage {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1996614134364296195L;
 	
 	public BenutzerBearbeiten() {
 		
@@ -48,6 +51,11 @@ public class BenutzerBearbeiten extends RootPage {
 		if (user.getAusbildungsart() != null && !user.getAusbildungsart().isEmpty())
 			täglichesBerichtsheftCheckBox.setModel(Model.of(user.getAusbildungsart().get(0).isTäglichesberichtsheft()));
 		Form<?> userForm = new Form<Void>("userForm") {
+			
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
 			
 			@Override
 			protected void onSubmit() {

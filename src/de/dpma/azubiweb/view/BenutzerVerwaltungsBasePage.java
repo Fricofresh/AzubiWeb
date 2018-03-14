@@ -10,6 +10,17 @@ import de.dpma.azubiweb.service.RolleService;
 @AuthorizeInstantiation("Ausbildungsleiter")
 public class BenutzerVerwaltungsBasePage extends RootPage {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8938080241246551570L;
+	
+	@SpringBean
+	protected AusbildungsartService ausbildungsartService;
+	
+	@SpringBean
+	protected RolleService rolleService;
+	
 	public BenutzerVerwaltungsBasePage() {
 		
 		super();
@@ -19,11 +30,4 @@ public class BenutzerVerwaltungsBasePage extends RootPage {
 		
 		super(pageParameters);
 	}
-	
-	@SpringBean
-	protected AusbildungsartService ausbildungsartService;
-	
-	@SpringBean
-	protected RolleService rolleService;
-	
 }

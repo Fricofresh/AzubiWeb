@@ -15,7 +15,6 @@ import de.dpma.azubiweb.service.AusbildungsartService;
 import de.dpma.azubiweb.service.AusbildungsreferatService;
 import de.dpma.azubiweb.service.RolleService;
 import de.dpma.azubiweb.service.UserService;
-import de.dpma.azubiweb.util.PasswordAuthentication;
 
 public class InitialInsert {
 	
@@ -64,17 +63,16 @@ public class InitialInsert {
 				new Ausbildungsart("Kaufmann für Büromanagement", "Kauffrau für Büromanagement", "KFB", false));
 		ausbildungsartService
 				.saveAusbildungsart(new Ausbildungsart("Fachangestellter für Medien- und Informationsdienste",
-						"Fachangestellte für Medien- und Informationsdienste", "FAMI", false));
+						"Fachangestellte für Medien- und Informationsdienste", "FAMI", true));
 		ausbildungsartService.saveAusbildungsart(new Ausbildungsart("Tischler", "Tischlerin", null, false));
 		ausbildungsartService.saveAusbildungsart(new Ausbildungsart("Elektroniker für Energie- und Gebäudetechnik",
 				"Elektronikerin für Energie- und Gebäudetechnik", null, false));
 		ausbildungsartService.saveAusbildungsart(
-				new Ausbildungsart("Verwaltungsfachangestellter", "Verwaltungsfachangestellte", "VFA", false));
+				new Ausbildungsart("Verwaltungsfachangestellter", "Verwaltungsfachangestellte", "VFA", true));
 	}
 	
 	private void insertAllUser() {
 		
-		PasswordAuthentication pa = new PasswordAuthentication();
 		String password = "Anfang12";
 		
 		// Alle Azubis

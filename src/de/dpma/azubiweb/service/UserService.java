@@ -1,5 +1,7 @@
 package de.dpma.azubiweb.service;
 
+import java.util.List;
+
 import org.apache.wicket.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -54,6 +56,8 @@ public class UserService {
 		return userRepository.findById(id);
 	}
 	
+	// TODO Richtiges Update statement ausführen
+	@SuppressWarnings("Nicht Benutzbar")
 	public boolean updateUser(User user) {
 		
 		try {
@@ -62,8 +66,7 @@ public class UserService {
 			// user.getVorname(), user.getNachname(), user.getEmail(),
 			// user.getEinstiegsjahr());
 			checkUser(user);
-			deleteUserById(user.getId());
-			user.setPassword(pa.hash(user.getPassword().toCharArray()));
+			
 			userRepository.save(user);
 			
 			return true;
@@ -126,5 +129,10 @@ public class UserService {
 			e.printStackTrace();
 			return false;
 		}
+	}
+	
+	public List<User> getAllUser() {
+		
+		return userRepository.findAll();
 	}
 }
