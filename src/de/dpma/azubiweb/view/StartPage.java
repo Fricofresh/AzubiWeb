@@ -1,50 +1,33 @@
 package de.dpma.azubiweb.view;
 
-import org.apache.wicket.markup.html.WebPage;
+import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.form.Button;
-import org.apache.wicket.markup.html.link.Link;
-import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.apache.wicket.model.Model;
+import org.apache.wicket.request.mapper.parameter.PageParameters;
 
-import com.giffing.wicket.spring.boot.context.scan.WicketHomePage;
-
-import de.dpma.azubiweb.service.UserService;
-
-@WicketHomePage
-public class StartPage extends WebPage {
+@AuthorizeInstantiation({"Auszubildende", "Ausbildungsleiter", "Ausbilder"})
+public class StartPage extends RootPage {
 	
-	@SpringBean
-	UserService us;
-	// public StartPage(String id, IModel<?> model) {
-	//
-	// super(id, model);
-	// // Hier kommen die Methoden, was passieren soll.
-	// }
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6466367063767148609L;
 	
 	public StartPage() {
 		
-		// handleAll();
+		super();
+		initial();
 	}
 	
-	private void handleAll() {
+	public StartPage(PageParameters pageParameters) {
 		
-		// "azubiAnlageButton", "berichtsheftButton", "steckbriefButton",
-		// "einsatzpalnButton", "loginLink"
-		Button azubiAnlegen = new Button("azubiAnlageButton");
+		super(pageParameters);
+		initial();
+	}
+	
+	public void initial() {
 		
-		azubiAnlegen.add(i -> System.out.println("hi") /*
-														 * ur.save(new User())
-														 */);
-		Link<Label> loginLink = new Link<Label>("loginHref") {
-			
-			@Override
-			public void onClick() {
-				
-				System.out.println("Viel Spaß beim Anmelden");
-			}
-		};
-		loginLink.add(new Label("loginLink", "Login"));
-		add(azubiAnlegen, new Button("berichtsheftButton"), new Button("steckbriefButton"),
-				new Button("einsatzpalnButton"), loginLink, new Label("startpage", "Das ist ein Test"));
+		add(new Label("headerLabel", Model.of("Hallo " + user.getVorname())));
+		
 	}
 }

@@ -1,11 +1,14 @@
 package de.dpma.azubiweb.model;
 
 import java.io.Serializable;
+import java.sql.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 /**
  * Entity implementation class for Entity: Berichtsheft
@@ -19,13 +22,21 @@ public class Berichtsheft implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	
-	private int userID;
+	@Column(nullable = false)
+	private User user;
 	
 	private String betrieblicheTätigkeiten;
 	
 	private String schulungen;
 	
 	private String berufsschule;
+	
+	@Column(nullable = false)
+	private Date woche;
+	
+	// TODO defauled 4.1.3 und getter/setter
+	@ManyToOne
+	private Ausbildungsreferat referat;
 	
 	private boolean abgegeben;
 	
@@ -48,16 +59,6 @@ public class Berichtsheft implements Serializable {
 	public void setId(int id) {
 		
 		this.id = id;
-	}
-	
-	public int getUserID() {
-		
-		return this.userID;
-	}
-	
-	public void setUserID(int userID) {
-		
-		this.userID = userID;
 	}
 	
 	public String getBetrieblicheTätigkeiten() {
@@ -118,6 +119,26 @@ public class Berichtsheft implements Serializable {
 	public void setAbgezeichnetAusbildungsleiter(boolean abgezeichnetAusbildungsleiter) {
 		
 		this.abgezeichnetAusbildungsleiter = abgezeichnetAusbildungsleiter;
+	}
+	
+	public Date getWoche() {
+		
+		return woche;
+	}
+	
+	public void setWoche(Date woche) {
+		
+		this.woche = woche;
+	}
+	
+	public User getUser() {
+		
+		return user;
+	}
+	
+	public void setUser(User user) {
+		
+		this.user = user;
 	}
 	
 }

@@ -3,6 +3,7 @@ package de.dpma.azubiweb.model;
 import java.io.Serializable;
 import java.sql.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,7 +21,16 @@ public class Ausbildungsart implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	
-	private String berufsbild;
+	// TODO Getter und Setter
+	@Column(nullable = false)
+	private String berufsbildM;
+	
+	// TODO Getter und Setter
+	@Column(nullable = false)
+	private String berufsbildW;
+	
+	// @Column(nullable = false)
+	private String berufsbildAbkürzung;
 	
 	private boolean täglichesberichtsheft;
 	
@@ -30,12 +40,41 @@ public class Ausbildungsart implements Serializable {
 	
 	public Ausbildungsart() {
 		
-		super();
+	}
+	
+	public Ausbildungsart(int id, String berufsbildM, String berufsbildW, String berufsbildAbkürzung,
+			boolean täglichesberichtsheft, Date gültigAb) {
+		
+		this.id = id;
+		this.berufsbildM = berufsbildM;
+		this.berufsbildW = berufsbildW;
+		this.berufsbildAbkürzung = berufsbildAbkürzung;
+		this.täglichesberichtsheft = täglichesberichtsheft;
+		this.gültigAb = gültigAb;
+	}
+	
+	public Ausbildungsart(String berufsbildM, String berufsbildW, String berufsbildAbkürzung,
+			boolean täglichesberichtsheft, Date gültigAb) {
+		
+		this.berufsbildM = berufsbildM;
+		this.berufsbildW = berufsbildW;
+		this.berufsbildAbkürzung = berufsbildAbkürzung;
+		this.täglichesberichtsheft = täglichesberichtsheft;
+		this.gültigAb = gültigAb;
+	}
+	
+	public Ausbildungsart(String berufsbildM, String berufsbildW, String berufsbildAbkürzung,
+			boolean täglichesberichtsheft) {
+		
+		this.berufsbildM = berufsbildM;
+		this.berufsbildW = berufsbildW;
+		this.berufsbildAbkürzung = berufsbildAbkürzung;
+		this.täglichesberichtsheft = täglichesberichtsheft;
 	}
 	
 	public int getId() {
 		
-		return this.id;
+		return id;
 	}
 	
 	public void setId(int id) {
@@ -43,19 +82,39 @@ public class Ausbildungsart implements Serializable {
 		this.id = id;
 	}
 	
-	public String getBerufsbild() {
+	public String getBerufsbildM() {
 		
-		return this.berufsbild;
+		return berufsbildM;
 	}
 	
-	public void setBerufsbild(String berufsbild) {
+	public void setBerufsbildM(String berufsbildM) {
 		
-		this.berufsbild = berufsbild;
+		this.berufsbildM = berufsbildM;
 	}
 	
-	public boolean getTäglichesberichtsheft() {
+	public String getBerufsbildW() {
 		
-		return this.täglichesberichtsheft;
+		return berufsbildW;
+	}
+	
+	public void setBerufsbildW(String berufsbildW) {
+		
+		this.berufsbildW = berufsbildW;
+	}
+	
+	public String getBerufsbildAbkürzung() {
+		
+		return berufsbildAbkürzung;
+	}
+	
+	public void setBerufsbildAbkürzung(String berufsbildAbkürzung) {
+		
+		this.berufsbildAbkürzung = berufsbildAbkürzung;
+	}
+	
+	public boolean isTäglichesberichtsheft() {
+		
+		return täglichesberichtsheft;
 	}
 	
 	public void setTäglichesberichtsheft(boolean täglichesberichtsheft) {
@@ -65,12 +124,11 @@ public class Ausbildungsart implements Serializable {
 	
 	public Date getGültigAb() {
 		
-		return this.gültigAb;
+		return gültigAb;
 	}
 	
 	public void setGültigAb(Date gültigAb) {
 		
 		this.gültigAb = gültigAb;
 	}
-	
 }
