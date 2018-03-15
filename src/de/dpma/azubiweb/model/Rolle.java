@@ -98,4 +98,10 @@ public class Rolle implements Serializable {
 		
 		this.beschreibung = beschreibung;
 	}
+	
+	@Override
+	public String toString() {
+		
+		return this.beschreibung;
+	}
 }

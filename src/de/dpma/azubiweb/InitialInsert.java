@@ -64,9 +64,9 @@ public class InitialInsert {
 		ausbildungsartService
 				.saveAusbildungsart(new Ausbildungsart("Fachangestellter für Medien- und Informationsdienste",
 						"Fachangestellte für Medien- und Informationsdienste", "FAMI", true));
-		ausbildungsartService.saveAusbildungsart(new Ausbildungsart("Tischler", "Tischlerin", null, false));
+		ausbildungsartService.saveAusbildungsart(new Ausbildungsart("Tischler", "Tischlerin", "Tischler/in", false));
 		ausbildungsartService.saveAusbildungsart(new Ausbildungsart("Elektroniker für Energie- und Gebäudetechnik",
-				"Elektronikerin für Energie- und Gebäudetechnik", null, false));
+				"Elektronikerin für Energie- und Gebäudetechnik", "Elektroniker/in", false));
 		ausbildungsartService.saveAusbildungsart(
 				new Ausbildungsart("Verwaltungsfachangestellter", "Verwaltungsfachangestellte", "VFA", true));
 	}

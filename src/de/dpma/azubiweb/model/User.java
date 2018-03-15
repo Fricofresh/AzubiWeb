@@ -61,6 +61,22 @@ public class User implements Serializable {
 		super();
 	}
 	
+	public User(int id, String username, String password, Rolle rolle, String vorname, String nachname, String email,
+			Ausbildungsart ausbildung, int einstiegsjahr, Geschlecht geschlecht) {
+		
+		super();
+		this.id = id;
+		this.username = username;
+		this.password = password;
+		this.rolle = rolle;
+		this.vorname = vorname;
+		this.nachname = nachname;
+		this.email = email;
+		this.ausbildungsart = Arrays.asList(ausbildung);
+		this.einstiegsjahr = einstiegsjahr;
+		this.geschlecht = geschlecht;
+	}
+	
 	public User(String username, String password, Rolle rolle, String vorname, String nachname, String email,
 			Ausbildungsart ausbildung, int einstiegsjahr, Geschlecht geschlecht) {
 		
@@ -335,7 +351,11 @@ public class User implements Serializable {
 	@Override
 	public String toString() {
 		
-		return String.format("id=%d, Username=%s, Password=%s", id, username, password);
+		return String.format(
+				"id=%d, Username=%s, Password=%s, Rolle=%s, Vorname=%s, Nachname=%s, E-Mail=%s, Ausbildungsart=%s, Einstiegsjahr=%d, Geschlecht=%s",
+				id, username, password, rolle.toString(), vorname, nachname, email,
+				ausbildungsart.size() == 1 ? ausbildungsart.get(0).toString() : ausbildungsart.toString(),
+				einstiegsjahr, geschlecht.toString());
 	}
 	
 }

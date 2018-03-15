@@ -29,6 +29,7 @@ public class UserSession extends /* SecureWebSession */ AuthenticatedWebSession 
 	@Override
 	public boolean authenticate(final String username, final String password) {
 		
+		// new InitialInsert();
 		boolean signedIn = userService.validateUser(username, password);
 		if (signedIn) {
 			this.username = username;
@@ -59,11 +60,9 @@ public class UserSession extends /* SecureWebSession */ AuthenticatedWebSession 
 	
 	public User getUser() {
 		
-		if (!isSignedIn())
-			return null;
 		// Falls der Benutzer angemeldet ist aber eine neue Session startet.
 		// Wird der User gelöscht, deshalb wird der Benutzer wieder gesetzt.
-		if (user == null && username != null || !username.isEmpty())
+		if (user == null && username != null && !username.isEmpty())
 			this.user = userService.getUserByName(username);
 		// Sicherheitsweiße wird hier der Benutzer abgemeldet
 		else if (username == null || username.isEmpty())
