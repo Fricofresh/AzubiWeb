@@ -35,6 +35,6 @@
 	margin-right: 5px;
 }
 
-/* .nopadding li{ */
-/* 	padding: 0px;	 */
-/* } */
+.nopadding {
+	padding: 0px;	
+}

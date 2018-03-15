@@ -51,10 +51,9 @@ public class BenutzerListe extends BenutzerVerwaltungsBasePage {
 				item.add(new Label("rolleLabel", Model.of(rolle.getBeschreibung())));
 				List<Integer> ausbildungjahreData = new ArrayList<>();
 				for (User u : session.getUserService().getAllUser())
-					if (u.getEinstiegsjahr() != null)
-						ausbildungjahreData.add(u.getEinstiegsjahr());
+					// if (u.getEinstiegsjahr() != null)
+					ausbildungjahreData.add(u.getEinstiegsjahr());
 				ausbildungjahreData = new ArrayList<>(new HashSet<>(ausbildungjahreData));
-				System.out.println(ausbildungjahreData);
 				ListView<?> ausbildungsJahrListView = new ListView<Integer>("ausbildungsJahrListView",
 						ausbildungjahreData) {
 					
@@ -67,7 +66,7 @@ public class BenutzerListe extends BenutzerVerwaltungsBasePage {
 					protected void populateItem(ListItem<Integer> item) {
 						
 						Integer einstellungsjahr = item.getModelObject();
-						if (einstellungsjahr != null)
+						if (einstellungsjahr != null && rolle.getId() == Beschreibung.AZUBI.getRolleId())
 							item.add(new Label("ausbildungsJahrLabel", einstellungsjahr));
 						else
 							item.add(new Label("ausbildungsJahrLabel").setVisible(false));
@@ -100,7 +99,7 @@ public class BenutzerListe extends BenutzerVerwaltungsBasePage {
 									// .valueOf(user.getEinstiegsjahr()).equals(String.valueOf(einstellungsjahr)))
 									// {
 									if (String.valueOf(user.getEinstiegsjahr()).equals(String.valueOf(einstellungsjahr))
-											&& user.getRolle().getBeschreibung().equals(rolle.getBeschreibung()))
+											&& user.getRolle().getId() == rolle.getId())
 										userData.add(user);
 									// }
 								}
@@ -117,6 +116,10 @@ public class BenutzerListe extends BenutzerVerwaltungsBasePage {
 										User user = item.getModelObject();
 										item.add(new Label("listPunktLabel",
 												user.getVorname() + " " + user.getNachname()));
+										if (!ausbildungsart.getBerufsbildAbkürzung().equals("FISI")
+												&& rolle.getId() != Beschreibung.AZUBI.getRolleId())
+											item.setVisible(false);
+										
 										item.add(new Link<String>("bearbeitenLink") {
 											
 											/**
@@ -139,6 +142,7 @@ public class BenutzerListe extends BenutzerVerwaltungsBasePage {
 											@Override
 											public void onClick() {
 												
+												// TODO confirm Alert
 											}
 										});
 									}
