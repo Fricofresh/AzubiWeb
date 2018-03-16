@@ -23,6 +23,8 @@ public class BenutzerListe extends BenutzerVerwaltungsBasePage {
 	 */
 	private static final long serialVersionUID = -7429354950006342422L;
 	
+	List<User> allUser = session.getUserService().getAllUser();
+	
 	public BenutzerListe() {
 		
 		super();
@@ -37,7 +39,46 @@ public class BenutzerListe extends BenutzerVerwaltungsBasePage {
 	
 	public void initial() {
 		
-		ListView<?> rolleListView = new ListView<Rolle>("rolleListView", rolleService.getAllRolles()) {
+		setAzubiListe();
+		setAusbilderListe();
+		setAusbildungsleiterListe();
+		
+	}
+	
+	private void setAusbildungsleiterListe() {
+		
+		List<User> userData = new ArrayList<>();
+		for (User user : allUser) {
+			if (user.getRolle().getId() == Beschreibung.AL.getRolleId()) {
+				userData.add(user);
+			}
+		}
+		
+		add(addAllUserToListView(userData));
+	}
+	
+	private void setAusbilderListe() {
+		
+		List<User> userData = new ArrayList<>();
+		for (User user : allUser) {
+			if (user.getRolle().getId() == Beschreibung.A.getRolleId()) {
+				userData.add(user);
+			}
+		}
+		
+		add(addAllUserToListView(userData));
+	}
+	
+	private void setAzubiListe() {
+		
+		Rolle rolle = rolleService.getRolle(Beschreibung.AZUBI);
+		add(new Label("azubiLabel", Model.of(rolle.getBeschreibung())));
+		List<Integer> ausbildungjahreData = new ArrayList<>();
+		for (User u : session.getUserService().getAllUser())
+			if (u.getRolle().getId() == Beschreibung.AZUBI.getRolleId())
+				ausbildungjahreData.add(u.getEinstiegsjahr());
+		ausbildungjahreData = new ArrayList<>(new HashSet<>(ausbildungjahreData));
+		ListView<?> ausbildungsJahrListView = new ListView<Integer>("ausbildungsJahrListView", ausbildungjahreData) {
 			
 			/**
 			 * 
@@ -45,17 +86,16 @@ public class BenutzerListe extends BenutzerVerwaltungsBasePage {
 			private static final long serialVersionUID = 1L;
 			
 			@Override
-			protected void populateItem(ListItem<Rolle> item) {
+			protected void populateItem(ListItem<Integer> item) {
 				
-				Rolle rolle = item.getModelObject();
-				item.add(new Label("rolleLabel", Model.of(rolle.getBeschreibung())));
-				List<Integer> ausbildungjahreData = new ArrayList<>();
-				for (User u : session.getUserService().getAllUser())
-					// if (u.getEinstiegsjahr() != null)
-					ausbildungjahreData.add(u.getEinstiegsjahr());
-				ausbildungjahreData = new ArrayList<>(new HashSet<>(ausbildungjahreData));
-				ListView<?> ausbildungsJahrListView = new ListView<Integer>("ausbildungsJahrListView",
-						ausbildungjahreData) {
+				Integer einstellungsjahr = item.getModelObject();
+				if (einstellungsjahr != null && rolle.getId() == Beschreibung.AZUBI.getRolleId())
+					item.add(new Label("ausbildungsJahrLabel", einstellungsjahr));
+				else
+					item.add(new Label("ausbildungsJahrLabel").setVisible(false));
+				List<Ausbildungsart> ausbildungsartData = ausbildungsartService.getAllAusbildungsart();
+				ListView<?> ausbildungsartListView = new ListView<Ausbildungsart>("ausbildungsartListView",
+						ausbildungsartData) {
 					
 					/**
 					 * 
@@ -63,99 +103,74 @@ public class BenutzerListe extends BenutzerVerwaltungsBasePage {
 					private static final long serialVersionUID = 1L;
 					
 					@Override
-					protected void populateItem(ListItem<Integer> item) {
+					protected void populateItem(ListItem<Ausbildungsart> item) {
 						
-						Integer einstellungsjahr = item.getModelObject();
+						Ausbildungsart ausbildungsart = item.getModelObject();
 						if (einstellungsjahr != null && rolle.getId() == Beschreibung.AZUBI.getRolleId())
-							item.add(new Label("ausbildungsJahrLabel", einstellungsjahr));
+							item.add(new Label("ausbildungsartLabel",
+									Model.of(ausbildungsart.getBerufsbildAbkürzung())));
 						else
-							item.add(new Label("ausbildungsJahrLabel").setVisible(false));
-						List<Ausbildungsart> ausbildungsartData = ausbildungsartService.getAllAusbildungsart();
-						ListView<?> ausbildungsartListView = new ListView<Ausbildungsart>("ausbildungsartListView",
-								ausbildungsartData) {
-							
-							/**
-							 * 
-							 */
-							private static final long serialVersionUID = 1L;
-							
-							@Override
-							protected void populateItem(ListItem<Ausbildungsart> item) {
-								
-								Ausbildungsart ausbildungsart = item.getModelObject();
-								if (einstellungsjahr != null && rolle.getId() == Beschreibung.AZUBI.getRolleId())
-									item.add(new Label("ausbildungsartLabel",
-											Model.of(ausbildungsart.getBerufsbildAbkürzung())));
-								else
-									item.add(new Label("ausbildungsartLabel").setVisible(false));
-								List<User> userData = new ArrayList<>();
-								for (User user : session.getUserService().getAllUser()) {
-									
-									if ((user.getRolle().getId() != Beschreibung.AZUBI.getRolleId()
-											|| !user.getAusbildungsart().isEmpty()
-													&& user.getAusbildungsart().get(0).getBerufsbildAbkürzung()
-															.equals(ausbildungsart.getBerufsbildAbkürzung()))
-											&& String.valueOf(user.getEinstiegsjahr())
-													.equals(String.valueOf(einstellungsjahr))
-											&& user.getRolle().getId() == rolle.getId()) {
-										userData.add(user);
-									}
-								}
-								ListView<?> benutzerListeListView = new ListView<User>("benutzerListView", userData) {
-									
-									/**
-									 * 
-									 */
-									private static final long serialVersionUID = 1L;
-									
-									@Override
-									protected void populateItem(ListItem<User> item) {
-										
-										User user = item.getModelObject();
-										item.add(new Label("listPunktLabel",
-												user.getVorname() + " " + user.getNachname()));
-										// Um Doppelungen zu vermeiden bei
-										// Abildungsleiter und Ausbilder
-										if (!ausbildungsart.getBerufsbildAbkürzung().equals("FISI")
-												&& rolle.getId() != Beschreibung.AZUBI.getRolleId())
-											item.setVisible(false);
-										
-										item.add(new Link<String>("bearbeitenLink") {
-											
-											/**
-											 * 
-											 */
-											private static final long serialVersionUID = 1L;
-											
-											@Override
-											public void onClick() {
-												
-												setResponsePage(new BenutzerBearbeiten(user));
-											}
-										}, new Link<String>("löschenLink") {
-											
-											/**
-											 * 
-											 */
-											private static final long serialVersionUID = 1L;
-											
-											@Override
-											public void onClick() {
-												
-												// TODO confirm Alert
-											}
-										});
-									}
-								};
-								item.add(benutzerListeListView);
+							item.add(new Label("ausbildungsartLabel").setVisible(false));
+						List<User> userData = new ArrayList<>();
+						for (User user : allUser) {
+							if ((user.getRolle().getId() == rolle.getId() && user.getAusbildungsart().get(0)
+									.getBerufsbildAbkürzung().equals(ausbildungsart.getBerufsbildAbkürzung()))
+									&& String.valueOf(user.getEinstiegsjahr())
+											.equals(String.valueOf(einstellungsjahr))) {
+								userData.add(user);
 							}
-						};
-						item.add(ausbildungsartListView);
+						}
+						
+						item.add(addAllUserToListView(userData));
 					}
 				};
-				item.add(ausbildungsJahrListView);
+				item.add(ausbildungsartListView);
 			}
 		};
-		add(rolleListView);
+		add(ausbildungsJahrListView);
+	}
+	
+	private ListView<User> addAllUserToListView(List<User> userData) {
+		
+		return new ListView<User>("benutzerListView", userData) {
+			
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+			
+			@Override
+			protected void populateItem(ListItem<User> item) {
+				
+				User user = item.getModelObject();
+				item.add(new Label("listPunktLabel", user.getVorname() + " " + user.getNachname()));
+				
+				item.add(new Link<String>("bearbeitenLink") {
+					
+					/**
+					 * 
+					 */
+					private static final long serialVersionUID = 1L;
+					
+					@Override
+					public void onClick() {
+						
+						setResponsePage(new BenutzerBearbeiten(user));
+					}
+				}, new Link<String>("löschenLink") {
+					
+					/**
+					 * 
+					 */
+					private static final long serialVersionUID = 1L;
+					
+					@Override
+					public void onClick() {
+						
+						// TODO confirm Alert
+					}
+				});
+			}
+		};
 	}
 }

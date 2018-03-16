@@ -14,6 +14,10 @@
 							<option>Frau</option>
 						</select>
 					</div>
+					<div class="col-md-2 mb-3">
+						<label for="rolle">Rolle</label>
+						<select class="form-control" wicket:id="rolleDropDownChoice" id="rolle"/>
+					</div>
 				</div>
 				<div class="form-group row">
 					<div class="col-md-3 mb-3">
@@ -26,8 +30,8 @@
 						<input class="form-control" type="text" placeholder="Nachname" wicket:id="nachnameTextField" id="nachname">
 					</div>
 					<div class="col-md-3 mb-3">
-						<label for="passwort">Passwort</label>
-						<input class="form-control" type="password" placeholder="Passwort" wicket:id="passwordPasswordField" id="passwort">
+						<label for="benutzername">Benutzername</label>
+						<input class="form-control" type="text" placeholder="Benutzername" wicket:id="benutzernameTextField" id="benutzername">
 					</div>
 				</div>
 				<div class="form-group row">
@@ -39,15 +43,11 @@
 						<label for="einstellungsjahr">Einstellungsjahr</label>
 						<input class="form-control" type="number" placeholder="Einstellungsjahr" wicket:id="einstellungsjahrNumberTextField" id="einstellungsjahr">
 					</div>
-				</div>
-				<fieldset disabled>
-					<div class="form-group row">
-						<div class="col-md-3 mb-3">
-							<input class="form-check-input" type="checkbox" id="täglichesBerichtsheft"wicket:id="täglichesBerichtsheftCheckBox">
-							<label class="form-check-label" for="täglichesBerichtsheft">Tägliches Berichtsheft</label>
-						</div>
+					<div class="col-md-3 mb-3">
+						<label for="ausbildungsart">Ausbildungsart</label>
+						<select class="form-control" wicket:id="ausbildungsartDropDownChoice" id="ausbildungsart"/>
 					</div>
-				</fieldset>
+				</div>
 				<button class="btn btn-primary" type="submit">Speichern</button>
 			</form>
 		</wicket:extend>
