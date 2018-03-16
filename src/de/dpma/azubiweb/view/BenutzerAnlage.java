@@ -1,5 +1,6 @@
 package de.dpma.azubiweb.view;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -48,7 +49,7 @@ public class BenutzerAnlage extends BenutzerVerwaltungsBasePage {
 		PasswordTextField passwordPasswordField = new PasswordTextField("passwordPasswordField");
 		EmailTextField emailEmailTextField = new EmailTextField("emailEmailTextField");
 		NumberTextField<Integer> einstellungsjahrNumberTextField = new NumberTextField<>(
-				"einstellungsjahrNumberTextField");
+				"einstellungsjahrNumberTextField", Model.of(LocalDate.now().getYear()));
 		List<String> ausbildungsart = new ArrayList<>();
 		for (Ausbildungsart ausbildungsarten : ausbildungsartService.getAllAusbildungsart()) {
 			if (ausbildungsarten.getBerufsbildAbkürzung() == null
@@ -60,7 +61,6 @@ public class BenutzerAnlage extends BenutzerVerwaltungsBasePage {
 		DropDownChoice<String> ausbildungsartDropDownChoice = new DropDownChoice<>("ausbildungsartDropDownChoice",
 				Model.ofList(ausbildungsart));
 		CheckBox täglichesBerichtsheftCheckBox = new CheckBox("täglichesBerichtsheftCheckBox");
-		// BUG user.getAusbildungsart() ist immer leer oder null
 		Form<?> userForm = new Form<Void>("userForm") {
 			
 			/**

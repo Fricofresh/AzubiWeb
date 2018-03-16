@@ -131,4 +131,12 @@ public class Ausbildungsart implements Serializable {
 		
 		this.gültigAb = gültigAb;
 	}
+	
+	@Override
+	public String toString() {
+		
+		return String.format(
+				"id=%d, Berufsbildküzel=%s, BerufsbildM=%s, BerufsbildW=%s, GültigAb=%tF, Täglichesberichtsheft=%b", id,
+				berufsbildAbkürzung, berufsbildM, berufsbildW, gültigAb, täglichesberichtsheft);
+	}
 }

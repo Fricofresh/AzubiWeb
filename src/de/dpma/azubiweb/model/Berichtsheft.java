@@ -36,7 +36,7 @@ public class Berichtsheft implements Serializable {
 	
 	// TODO defauled 4.1.3 und getter/setter
 	@ManyToOne
-	private Ausbildungsreferat referat;
+	private Referat referat;
 	
 	private boolean abgegeben;
 	

@@ -90,18 +90,16 @@ public class BenutzerListe extends BenutzerVerwaltungsBasePage {
 									item.add(new Label("ausbildungsartLabel").setVisible(false));
 								List<User> userData = new ArrayList<>();
 								for (User user : session.getUserService().getAllUser()) {
-									// TODO Wenn BUG user.getAusbildungsart()
-									// ist immer
-									// leer oder null behoben wurde
-									// if
-									// (user.getAusbildungsart().contains(ausbildungsart)
-									// && String
-									// .valueOf(user.getEinstiegsjahr()).equals(String.valueOf(einstellungsjahr)))
-									// {
-									if (String.valueOf(user.getEinstiegsjahr()).equals(String.valueOf(einstellungsjahr))
-											&& user.getRolle().getId() == rolle.getId())
+									
+									if ((user.getRolle().getId() != Beschreibung.AZUBI.getRolleId()
+											|| !user.getAusbildungsart().isEmpty()
+													&& user.getAusbildungsart().get(0).getBerufsbildAbkürzung()
+															.equals(ausbildungsart.getBerufsbildAbkürzung()))
+											&& String.valueOf(user.getEinstiegsjahr())
+													.equals(String.valueOf(einstellungsjahr))
+											&& user.getRolle().getId() == rolle.getId()) {
 										userData.add(user);
-									// }
+									}
 								}
 								ListView<?> benutzerListeListView = new ListView<User>("benutzerListView", userData) {
 									
@@ -116,6 +114,8 @@ public class BenutzerListe extends BenutzerVerwaltungsBasePage {
 										User user = item.getModelObject();
 										item.add(new Label("listPunktLabel",
 												user.getVorname() + " " + user.getNachname()));
+										// Um Doppelungen zu vermeiden bei
+										// Abildungsleiter und Ausbilder
 										if (!ausbildungsart.getBerufsbildAbkürzung().equals("FISI")
 												&& rolle.getId() != Beschreibung.AZUBI.getRolleId())
 											item.setVisible(false);

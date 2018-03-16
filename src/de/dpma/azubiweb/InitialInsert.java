@@ -6,13 +6,13 @@ import org.apache.wicket.injection.Injector;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import de.dpma.azubiweb.model.Ausbildungsart;
-import de.dpma.azubiweb.model.Ausbildungsreferat;
+import de.dpma.azubiweb.model.Referat;
 import de.dpma.azubiweb.model.Rolle;
 import de.dpma.azubiweb.model.Rolle.Beschreibung;
 import de.dpma.azubiweb.model.User;
 import de.dpma.azubiweb.model.User.Geschlecht;
 import de.dpma.azubiweb.service.AusbildungsartService;
-import de.dpma.azubiweb.service.AusbildungsreferatService;
+import de.dpma.azubiweb.service.ReferatService;
 import de.dpma.azubiweb.service.RolleService;
 import de.dpma.azubiweb.service.UserService;
 
@@ -28,7 +28,7 @@ public class InitialInsert {
 	private AusbildungsartService ausbildungsartService;
 	
 	@SpringBean
-	private AusbildungsreferatService ausbildungsreferatService;
+	private ReferatService referatService;
 	
 	public InitialInsert() {
 		
@@ -157,11 +157,9 @@ public class InitialInsert {
 						ausbildungsartService.getAusbildungsartByBerufsbildM("Elektriker"),
 						ausbildungsartService.getAusbildungsartByBerufsbildM("Tischler")),
 				Geschlecht.männlich));
-		// TODO Check Vorname
-		// userService.saveUser(new User("IlStremm", password,
-		// rolleService.getRolle(Rolle.Beschreibung.AL), "", "Stremme",
-		// Arrays.asList(ausbildungsartService.getAusbildungsartByAbkürzung("VFA")),
-		// Geschlecht.weiblich));
+		userService.saveUser(
+				new User("IlStremm", password, rolleService.getRolle(Rolle.Beschreibung.AL), "Ilona", "Stremme",
+						Arrays.asList(ausbildungsartService.getAusbildungsartByAbkürzung("VFA")), Geschlecht.weiblich));
 		// End Alle AusbildungsLeiter
 		
 		// Alle Ausbilder
@@ -188,9 +186,9 @@ public class InitialInsert {
 	
 	private void insertAllAusbildungsreferat() {
 		
-		ausbildungsreferatService.saveAusbildungsreferat(
-				new Ausbildungsreferat("2.3.3", userService.getUserByName("Ol????"), "Strategische IT-Aufgaben"));
-		ausbildungsreferatService.saveAusbildungsreferat(new Ausbildungsreferat("", userService.getUserByName(""), ""));
+		referatService.saveAusbildungsreferat(
+				new Referat("2.3.3", userService.getUserByName("Ol????"), "Strategische IT-Aufgaben"));
+		referatService.saveAusbildungsreferat(new Referat("", userService.getUserByName(""), ""));
 	}
 	
 }

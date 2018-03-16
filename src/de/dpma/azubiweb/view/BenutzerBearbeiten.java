@@ -49,17 +49,15 @@ public class BenutzerBearbeiten extends BenutzerVerwaltungsBasePage {
 		geschlechtDropDownChoice.setModel(Model.of(user.getGeschlecht()));
 		TextField<String> vornameTextField = new TextField<>("vornameTextField", Model.of(user.getVorname()));
 		TextField<String> nachnameTextField = new TextField<>("nachnameTextField", Model.of(user.getNachname()));
-		PasswordTextField passwordPasswordField = new PasswordTextField("passwordPasswordField");
+		PasswordTextField passwordPasswordField = new PasswordTextField("passwordPasswordField", Model.of());
 		EmailTextField emailEmailTextField = new EmailTextField("emailEmailTextField", Model.of(user.getEmail()));
 		NumberTextField<Integer> einstellungsjahrNumberTextField = new NumberTextField<>(
 				"einstellungsjahrNumberTextField");
 		if (user.getEinstiegsjahr() != null)
 			einstellungsjahrNumberTextField.setModel(Model.of(user.getEinstiegsjahr()));
 		CheckBox täglichesBerichtsheftCheckBox = new CheckBox("täglichesBerichtsheftCheckBox");
-		// BUG user.getAusbildungsart() ist immer leer oder null
-		// if (user.getAusbildungsart() != null &&
-		// !user.getAusbildungsart().isEmpty())
-		täglichesBerichtsheftCheckBox.setModel(Model.of(user.getAusbildungsart().get(0).isTäglichesberichtsheft()));
+		if (user.getAusbildungsart() != null && !user.getAusbildungsart().isEmpty())
+			täglichesBerichtsheftCheckBox.setModel(Model.of(user.getAusbildungsart().get(0).isTäglichesberichtsheft()));
 		Form<?> userForm = new Form<Void>("userForm") {
 			
 			/**
