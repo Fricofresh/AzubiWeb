@@ -2,6 +2,7 @@ package de.dpma.azubiweb.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,18 +21,26 @@ public class Referat implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	
+	@Column(nullable = false)
 	private String referat;
 	
-	private String referatsbezeichnung;
+	@Column(nullable = false)
+	private String referatsname;
 	
 	@OneToOne
-	private User verantwortlich;
+	private User ansprechpartner;
 	
 	private static final long serialVersionUID = 1L;
 	
 	public Referat() {
 		
-		super();
+	}
+	
+	public Referat(String referat, User ansprechpartner, String referatsname) {
+		
+		this.referat = referat;
+		this.ansprechpartner = ansprechpartner;
+		this.referatsname = referatsname;
 	}
 	
 	public int getId() {
@@ -54,24 +63,23 @@ public class Referat implements Serializable {
 		this.referat = referat;
 	}
 	
-	public String getReferatsbezeichnung() {
+	public String getReferatsname() {
 		
-		return this.referatsbezeichnung;
+		return referatsname;
 	}
 	
-	public void setReferatsbezeichnung(String referatsbezeichnung) {
+	public void setReferatsname(String referatsname) {
 		
-		this.referatsbezeichnung = referatsbezeichnung;
+		this.referatsname = referatsname;
 	}
 	
-	public User getVerantwortlich() {
+	public User getAnsprechpartner() {
 		
-		return this.verantwortlich;
+		return ansprechpartner;
 	}
 	
-	public void setVerantwortlich(User verantwortlich) {
+	public void setAnsprechpartner(User ansprechpartner) {
 		
-		this.verantwortlich = verantwortlich;
+		this.ansprechpartner = ansprechpartner;
 	}
-	
 }

@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 /**
@@ -22,6 +23,9 @@ public class Steckbrief implements Serializable {
 	// TODO In Service überprüfen ob es das Referat auch gibt.
 	@ManyToMany
 	private List<Referat> besuchteReferate;
+	
+	@ManyToOne
+	private Referat kommendesReferat;
 	
 	private String erwartungen;
 	
@@ -73,6 +77,16 @@ public class Steckbrief implements Serializable {
 	public void setUser(User user) {
 		
 		this.user = user;
+	}
+	
+	public Referat getKommendesReferat() {
+		
+		return kommendesReferat;
+	}
+	
+	public void setKommendesReferat(Referat kommendesReferat) {
+		
+		this.kommendesReferat = kommendesReferat;
 	}
 	
 }

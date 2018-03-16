@@ -5,32 +5,32 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import de.dpma.azubiweb.model.Ausbildungsreferat;
-import de.dpma.azubiweb.model.AusbildungsreferatRepository;
+import de.dpma.azubiweb.model.Referat;
+import de.dpma.azubiweb.model.ReferatRepository;
 
 @Service
-public class AusbildungsreferatService {
+public class ReferatService {
 	
 	@Autowired
-	private AusbildungsreferatRepository ausbildungsreferatRepository;
+	private ReferatRepository referatRepository;
 	
-	public List<Ausbildungsreferat> getAllAusbildungsreferat() {
+	public List<Referat> getAllAusbildungsreferat() {
 		
-		return ausbildungsreferatRepository.findAll();
+		return referatRepository.findAll();
 	}
 	
-	public void saveAusbildungsreferat(Ausbildungsreferat ausbildungsreferat) {
+	public void saveAusbildungsreferat(Referat referate) {
 		
-		ausbildungsreferatRepository.save(ausbildungsreferat);
+		referatRepository.save(referate);
 	}
 	
-	public Ausbildungsreferat getAusbildungsreferatById(int id) {
+	public Referat getAusbildungsreferatById(int id) {
 		
-		return ausbildungsreferatRepository.findById(id).get();
+		return referatRepository.findById(id).get();
 	}
 	
-	public Ausbildungsreferat getAusbildungsreferatByReferat(String referat) {
+	public Referat getAusbildungsreferatByReferat(String referat) {
 		
-		return ausbildungsreferatRepository.findByReferat(referat);
+		return referatRepository.findByReferat(referat);
 	}
 }
