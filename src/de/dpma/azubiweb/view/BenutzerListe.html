@@ -6,13 +6,13 @@
 	<body>
 		<wicket:extend>
 			<ul class="list-group">
-            	<li class="list-group-item d-flex flex-column list-group-item-action" wicket:id="azubiLabel"/> 
+            	<li class="list-group-item d-flex flex-column list-group-item-action">Auszubildende</li>
 				<ul class="list-group" wicket:id="ausbildungsJahrListView")>
 	            	<li class="list-group-item d-flex flex-column list-group-item-action" wicket:id="ausbildungsJahrLabel"/> 
 	            	<ul class="nopadding" wicket:id="ausbildungsartListView">
 						<li class="list-group-item d-flex flex-column list-group-item-action" wicket:id="ausbildungsartLabel"/> 
-		                <li class="list-group-item d-flex flex-column list-group-item-action" wicket:id="benutzerListView"> 
-		                    <a wicket:id="listPunktLabel"></a>
+		                <li class="list-group-item d-flex flex-column list-group-item-action" wicket:id="azubiListView"> 
+		                    <a wicket:id="azubiLabel"></a>
 		                    
 		                     <a class="pull-right" wicket:id="löschenLink">
 		                        <span class="p-1 glyphicon glyphicon-trash"></span>
@@ -25,10 +25,10 @@
 					</ul>
 				</ul>
             </ul>
-            <ul class="list-group>
-            	<li class="list-group-item d-flex flex-column list-group-item-action" wicket:id="ausbilderLabel"/> 
-            	<li class="list-group-item d-flex flex-column list-group-item-action" wicket:id="benutzerListView"> 
-                    <a wicket:id="listPunktLabel"/>
+            <ul class="list-group">
+            	<li class="list-group-item d-flex flex-column list-group-item-action">Ausbilder</li>
+            	<li class="list-group-item d-flex flex-column list-group-item-action" wicket:id="ausbilderListView"> 
+                    <a wicket:id="ausbilderLabel"/>
                     
 					<a class="pull-right" wicket:id="löschenLink">
 						<span class="p-1 glyphicon glyphicon-trash"/>
@@ -40,9 +40,9 @@
                 </li>
             </ul>
             <ul class="list-group">
-            	<li class="list-group-item d-flex flex-column list-group-item-action" wicket:id="ausbilderLabel"/> 
-            	<li class="list-group-item d-flex flex-column list-group-item-action" wicket:id="benutzerListView"> 
-                    <a wicket:id="listPunktLabel"/>
+            	<li class="list-group-item d-flex flex-column list-group-item-action">Ausbildungsleiter</li>
+            	<li class="list-group-item d-flex flex-column list-group-item-action" wicket:id="ausbildungsleiterListView"> 
+                    <a wicket:id="ausbildungsleiterLabel"/>
                     
 					<a class="pull-right" wicket:id="löschenLink">
 						<span class="p-1 glyphicon glyphicon-trash"/>

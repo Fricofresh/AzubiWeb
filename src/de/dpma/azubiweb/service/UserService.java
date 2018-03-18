@@ -6,6 +6,7 @@ import org.apache.wicket.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import de.dpma.azubiweb.model.Rolle;
 import de.dpma.azubiweb.model.User;
 import de.dpma.azubiweb.model.UserRepository;
 import de.dpma.azubiweb.util.PasswordAuthentication;
@@ -27,9 +28,7 @@ public class UserService {
 	// @Transactional
 	public void saveUser(User user) {
 		
-		user.setPassword(pa.hash(user.getPassword().toCharArray()));
-		if (user.getEmail() == null || user.getEmail().isEmpty())
-			user.setEmail(user.getVorname() + "." + user.getNachname() + "@dpma.de");
+		user = checkUser(user);
 		userRepository.save(user);
 	}
 	
@@ -65,7 +64,7 @@ public class UserService {
 			// user.getPassword(), user.getRights(),
 			// user.getVorname(), user.getNachname(), user.getEmail(),
 			// user.getEinstiegsjahr());
-			checkUser(user);
+			user = checkUser(user);
 			
 			userRepository.save(user);
 			
@@ -78,6 +77,9 @@ public class UserService {
 	
 	private User checkUser(User user) {
 		
+		if (user.getUsername() == null || user.getUsername().trim().isEmpty())
+			user.setUsername(user.getVorname().substring(0, 2)
+					+ (user.getNachname().length() <= 6 ? user.getNachname() : user.getNachname().substring(0, 5)));
 		if (user.getEmail() == null || user.getEmail().isEmpty())
 			user.setEmail(user.getVorname() + "." + user.getNachname() + "@dpma.de");
 		if (!pa.isHashed(user.getPassword()))
@@ -121,7 +123,7 @@ public class UserService {
 	public boolean updateUserPasswort(User user) {
 		
 		try {
-			checkUser(user);
+			user = checkUser(user);
 			userRepository.updateUserPassword(user.getId(), user.getPassword());
 			return true;
 		}
@@ -134,5 +136,10 @@ public class UserService {
 	public List<User> getAllUser() {
 		
 		return userRepository.findAll();
+	}
+	
+	public List<User> getUserByRolle(Rolle rolle) {
+		
+		return userRepository.findByRolle(rolle);
 	}
 }

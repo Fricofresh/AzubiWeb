@@ -25,4 +25,5 @@ public interface UserRepository extends CrudRepository<User, Integer> {
 	@Override
 	public List<User> findAll();
 	
+	public List<User> findByRolle(Rolle rolle);
 }
