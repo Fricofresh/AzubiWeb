@@ -15,6 +15,7 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 
 import de.dpma.azubiweb.model.Ausbildungsart;
 import de.dpma.azubiweb.model.Rolle;
+import de.dpma.azubiweb.model.Rolle.Beschreibung;
 import de.dpma.azubiweb.model.User;
 import de.dpma.azubiweb.model.User.Geschlecht;
 
@@ -44,8 +45,10 @@ public class BenutzerAnlage extends BenutzerVerwaltungsBasePage {
 		DropDownChoice<Geschlecht> geschlechtDropDownChoice = new DropDownChoice<>("geschlechtDropDownChoice",
 				Model.ofList(Arrays.asList(Geschlecht.values())));
 		geschlechtDropDownChoice.setDefaultModel(Model.of());
-		DropDownChoice<Rolle> rolleDropDownChoice = new DropDownChoice<>("rolleDropDownChoice",
-				Model.ofList(rolleService.getAllRolles()));
+		List<String> rollenData = new ArrayList<>();
+		for (Rolle rolle : rolleService.getAllRolles())
+			rollenData.add(rolle.getBeschreibung());
+		DropDownChoice<String> rolleDropDownChoice = new DropDownChoice<>("rolleDropDownChoice", rollenData);
 		rolleDropDownChoice.setDefaultModel(Model.of());
 		TextField<String> vornameTextField = new TextField<>("vornameTextField", Model.of());
 		TextField<String> nachnameTextField = new TextField<>("nachnameTextField", Model.of());
@@ -64,6 +67,7 @@ public class BenutzerAnlage extends BenutzerVerwaltungsBasePage {
 		DropDownChoice<String> ausbildungsartDropDownChoice = new DropDownChoice<>("ausbildungsartDropDownChoice",
 				Model.ofList(ausbildungsart));
 		ausbildungsartDropDownChoice.setDefaultModel(Model.of());
+		
 		Form<?> userForm = new Form<Void>("userForm") {
 			
 			/**
@@ -75,19 +79,22 @@ public class BenutzerAnlage extends BenutzerVerwaltungsBasePage {
 			protected void onSubmit() {
 				
 				user.setGeschlecht(geschlechtDropDownChoice.getModelObject());
-				user.setRolle(rolleDropDownChoice.getModelObject());
+				user.setRolle(rolleService.getRolle(Beschreibung.valueOfString(rolleDropDownChoice.getModelObject())));
 				if (!vornameTextField.getModelObject().trim().isEmpty())
 					user.setVorname(vornameTextField.getModelObject().trim());
 				if (!nachnameTextField.getModelObject().trim().isEmpty())
 					user.setNachname(nachnameTextField.getModelObject().trim());
-				if (!benutzernameTextField.getModelObject().trim().isEmpty())
+				if (benutzernameTextField.getModelObject() != null
+						&& !benutzernameTextField.getModelObject().trim().isEmpty())
 					user.setUsername(benutzernameTextField.getModelObject().trim());
-				if (!emailEmailTextField.getModelObject().trim().isEmpty())
+				if (emailEmailTextField.getModelObject() != null
+						&& !emailEmailTextField.getModelObject().trim().isEmpty())
 					user.setEmail(emailEmailTextField.getModelObject().trim());
-				if (!(einstellungsjahrNumberTextField.getModelObject().intValue() == 0))
-					user.setEinstiegsjahr(einstellungsjahrNumberTextField.getModelObject());
-				user.setAusbildungsart(Arrays.asList(ausbildungsartService
-						.getAusbildungsartByAbkürzung(ausbildungsartDropDownChoice.getModelObject())));
+				user.setEinstiegsjahr(einstellungsjahrNumberTextField.getModelObject());
+				if (user.getRolle().getId() == Beschreibung.AZUBI.getRolleId())
+					user.setAusbildungsart(Arrays.asList(ausbildungsartService
+							.getAusbildungsartByAbkürzung(ausbildungsartDropDownChoice.getModelObject())));
+				
 				// TODO Passwort generieren und per E-Mail senden
 				user.setPassword("Anfang12");
 				session.getUserService().saveUser(user);
