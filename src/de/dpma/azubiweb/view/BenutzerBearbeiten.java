@@ -9,13 +9,13 @@ import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.EmailTextField;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.NumberTextField;
-import org.apache.wicket.markup.html.form.PasswordTextField;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
 import de.dpma.azubiweb.model.Ausbildungsart;
 import de.dpma.azubiweb.model.Rolle;
+import de.dpma.azubiweb.model.Rolle.Beschreibung;
 import de.dpma.azubiweb.model.User;
 import de.dpma.azubiweb.model.User.Geschlecht;
 
@@ -50,14 +50,15 @@ public class BenutzerBearbeiten extends BenutzerVerwaltungsBasePage {
 		DropDownChoice<Geschlecht> geschlechtDropDownChoice = new DropDownChoice<>("geschlechtDropDownChoice",
 				Model.ofList(Arrays.asList(Geschlecht.values())));
 		geschlechtDropDownChoice.setModel(Model.of(user.getGeschlecht()));
-		DropDownChoice<Rolle> rolleDropDownChoice = new DropDownChoice<>("rolleDropDownChoice",
-				Model.ofList(rolleService.getAllRolles()));
-		rolleDropDownChoice.setModel(Model.of(user.getRolle()));
+		List<String> rollenData = new ArrayList<>();
+		for (Rolle rolle : rolleService.getAllRolles())
+			rollenData.add(rolle.getBeschreibung());
+		DropDownChoice<String> rolleDropDownChoice = new DropDownChoice<>("rolleDropDownChoice", rollenData);
+		rolleDropDownChoice.setModel(Model.of(user.getRolle().getBeschreibung()));
 		TextField<String> vornameTextField = new TextField<>("vornameTextField", Model.of(user.getVorname()));
 		TextField<String> nachnameTextField = new TextField<>("nachnameTextField", Model.of(user.getNachname()));
 		TextField<String> benutzernameTextField = new TextField<>("benutzernameTextField",
 				Model.of(user.getUsername()));
-		PasswordTextField passwordPasswordField = new PasswordTextField("passwordPasswordField", Model.of());
 		EmailTextField emailEmailTextField = new EmailTextField("emailEmailTextField", Model.of(user.getEmail()));
 		NumberTextField<Integer> einstellungsjahrNumberTextField = new NumberTextField<>(
 				"einstellungsjahrNumberTextField");
@@ -85,7 +86,8 @@ public class BenutzerBearbeiten extends BenutzerVerwaltungsBasePage {
 			protected void onSubmit() {
 				
 				user.setGeschlecht(geschlechtDropDownChoice.getModelObject());
-				user.setRolle(rolleDropDownChoice.getModelObject());
+				user.setRolle(
+						rolleService.getRolle(Beschreibung.valueOfString(rolleDropDownChoice.getModelObject())));
 				if (!vornameTextField.getModelObject().trim().isEmpty())
 					user.setVorname(vornameTextField.getModelObject().trim());
 				if (!nachnameTextField.getModelObject().trim().isEmpty())
