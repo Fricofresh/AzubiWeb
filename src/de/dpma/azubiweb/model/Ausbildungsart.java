@@ -21,15 +21,13 @@ public class Ausbildungsart implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	
-	// TODO Getter und Setter
-	@Column(nullable = false)
+	@Column(unique = true, nullable = false)
 	private String berufsbildM;
 	
-	// TODO Getter und Setter
-	@Column(nullable = false)
+	@Column(unique = true, nullable = false)
 	private String berufsbildW;
 	
-	// @Column(nullable = false)
+	@Column(unique = true)
 	private String berufsbildAbkürzung;
 	
 	private boolean täglichesberichtsheft;

@@ -77,7 +77,7 @@ public class Rolle implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	
-	@Column(nullable = false)
+	@Column(unique = true, nullable = false)
 	private String beschreibung;
 	
 	public Rolle() {
