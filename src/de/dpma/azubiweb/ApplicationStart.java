@@ -9,6 +9,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import com.giffing.wicket.spring.boot.starter.app.WicketBootSecuredWebApplication;
 
 import de.dpma.azubiweb.service.UserSession;
+import de.dpma.azubiweb.view.BenutzerAnlage;
+import de.dpma.azubiweb.view.BenutzerBearbeiten;
+import de.dpma.azubiweb.view.BenutzerListe;
+import de.dpma.azubiweb.view.Einstellungen;
 import de.dpma.azubiweb.view.LoginPage;
 import de.dpma.azubiweb.view.StartPage;
 
@@ -45,23 +49,30 @@ public class ApplicationStart extends WicketBootSecuredWebApplication {
 		return LoginPage.class;
 	}
 	
-	// @Override
-	// public void init() {
-	//
-	// mountPage("/LoginPage", LoginPage.class);
-	
-	// IUnauthorizedComponentInstantiationListener iucil = new
-	// IUnauthorizedComponentInstantiationListener() {
-	//
-	// @Override
-	// public void onUnauthorizedInstantiation(Component component) {
-	//
-	// component.setResponsePage(LoginPage.class, new
-	// PageParameters().add("auth", "failed"));
-	// }
-	// };
-	// getSecuritySettings().setUnauthorizedComponentInstantiationListener(iucil);
-	// getApplicationSettings().setPageExpiredErrorPage(LoginPage.class);
-	// getApplicationSettings().setAccessDeniedPage(LoginPage.class);
-	// }
+	@Override
+	public void init() {
+		
+		super.init();
+		getDebugSettings().setAjaxDebugModeEnabled(false);
+		
+		mountPage("/LoginPage", LoginPage.class);
+		mountPage("/Einstellungen", Einstellungen.class);
+		mountPage("/BenutzerAnlage", BenutzerAnlage.class);
+		mountPage("/BenutzerBearbeiten", BenutzerBearbeiten.class);
+		mountPage("/BenutzerListe", BenutzerListe.class);
+		
+		// IUnauthorizedComponentInstantiationListener iucil = new
+		// IUnauthorizedComponentInstantiationListener() {
+		//
+		// @Override
+		// public void onUnauthorizedInstantiation(Component component) {
+		//
+		// component.setResponsePage(LoginPage.class, new
+		// PageParameters().add("auth", "failed"));
+		// }
+		// };
+		// getSecuritySettings().setUnauthorizedComponentInstantiationListener(iucil);
+		// getApplicationSettings().setPageExpiredErrorPage(LoginPage.class);
+		// getApplicationSettings().setAccessDeniedPage(LoginPage.class);
+	}
 }
