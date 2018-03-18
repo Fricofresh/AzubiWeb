@@ -16,7 +16,7 @@ import de.dpma.azubiweb.model.Ausbildungsart;
 import de.dpma.azubiweb.model.Rolle;
 import de.dpma.azubiweb.model.Rolle.Beschreibung;
 import de.dpma.azubiweb.model.User;
-import de.dpma.azubiweb.util.BestätigenLink;
+import de.dpma.azubiweb.util.BestätigenPannel;
 
 public class BenutzerListe extends BenutzerVerwaltungsBasePage {
 	
@@ -138,7 +138,7 @@ public class BenutzerListe extends BenutzerVerwaltungsBasePage {
 						setResponsePage(new BenutzerBearbeiten(user));
 					}
 				});
-				item.add(new BestätigenLink<String>("löschenLink", "Möchten Sie wicklich den Benutzer "
+				item.add(new BestätigenPannel<String>("löschenLink", "Möchten Sie wicklich den Benutzer "
 						+ user.getVorname() + " " + user.getNachname() + " löschen?") {
 					
 					/**
