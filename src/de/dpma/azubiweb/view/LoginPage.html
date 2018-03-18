@@ -5,24 +5,41 @@
 	</head>
 	<body>
 		<wicket:extend>
-<!--  			<form wicket:id="form" method="post"> -->
-<!-- 				<div class="form-group"> -->
-<!-- 					Benutzername: <br/> -->
-<!-- 					<input wicket:id="username" type="text"> -->
-<!-- 				</div> -->
-<!-- 				<div class="form-group"> -->
-<!-- 					Passwort: <br/> -->
-<!-- 					<input wicket:id="password" type="password"> -->
-<!-- 				</div> -->
-<!-- 			    <div class="form-check"> -->
-<!-- 					<label class="form-check-label"> -->
-<!-- 						<input wicket:id="rememberMe" class="form-check-input" type="checkbox"/> Angemeldet bleiben -->
-<!-- 					</label> -->
-<!-- 				</div> -->
-<!-- 				<div wicket:id="feedback" style="color=red"></div> -->
-<!-- 				<button wicket:id="loginButton" type="submit" class="btn btn-primary">Anmelden</button> -->
-<!-- 			</form> -->
-			<span wicket:id="signInPanel"/>
+ 			<form wicket:id="form" method="post">
+				<div class="form-group">
+					Benutzername: <br/>
+						<div class="input-group">
+							<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+							<input wicket:id="username" type="text" id="username">
+						</div>
+				</div>
+				<div class="form-group">
+					Passwort: <br/>
+						<div class="input-group">
+							<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+						<input wicket:id="password" type="password">
+						</div>
+				</div>
+			    <div class="form-check">
+					<label class="form-check-label">
+						<input wicket:id="rememberMe" class="form-check-input" type="checkbox"/> Angemeldet bleiben
+					</label>
+				</div>
+				<div wicket:id="feedback" style="color:red"></div>
+ 				<button wicket:id="loginButton" type="submit" class="btn btn-success">Anmelden</button>
+				<a class="forgot-password" onclick="openPasswordForgett()">Passwort Vergessen?</a>
+				<button class="hidden" wicket:id="user" id="user"></button>
+			 </form>
+			<script>
+				function openPasswordForgett() {
+					var user = prompt("Bitte geben Sie Ihren Benutzernamen ein.", document.getElementById('username').value);
+					if(user != null) {
+						document.getElementById("user").innerHTML = user;
+						document.getElementById("user").submit();
+					}
+				}
+			</script>
+			
 		</wicket:extend>
 	</body>
 </html>
