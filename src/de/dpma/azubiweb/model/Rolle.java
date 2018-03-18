@@ -46,13 +46,29 @@ public class Rolle implements Serializable {
 			return rollen;
 		}
 		
-		public String getRolle(int rolle) {
+		public String getRolleName(int rolle) {
 			
 			for (Beschreibung value : Beschreibung.values()) {
 				if (value.rollen == rolle) {
 					return value.name();
 				}
 			}
+			return null;
+		}
+		
+		public static Beschreibung valueOfString(String beschreibung) {
+			
+			if (beschreibung == null || beschreibung.isEmpty())
+				return null;
+			if (beschreibung.equalsIgnoreCase("A") || beschreibung.equalsIgnoreCase("Ausbilder")
+					|| beschreibung.equalsIgnoreCase("Ausbilderin"))
+				return A;
+			else if (beschreibung.equalsIgnoreCase("AL") || beschreibung.equalsIgnoreCase("Ausbildungsleiter")
+					|| beschreibung.equalsIgnoreCase("Ausbildungsleiterin"))
+				return AL;
+			else if (beschreibung.equalsIgnoreCase("Azubi") || beschreibung.equalsIgnoreCase("Auszubildende")
+					|| beschreibung.equalsIgnoreCase("Auszubildender"))
+				return AZUBI;
 			return null;
 		}
 	}
@@ -102,6 +118,6 @@ public class Rolle implements Serializable {
 	@Override
 	public String toString() {
 		
-		return this.beschreibung;
+		return String.format("id=%d, Beschreibung=%s", id, beschreibung);
 	}
 }
