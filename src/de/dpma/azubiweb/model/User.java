@@ -355,16 +355,18 @@ public class User implements Serializable {
 		
 		return String.format(
 				"id=%d, Username=%s, Password=%s, Rolle=%s, Vorname=%s, Nachname=%s, E-Mail=%s, Ausbildungsart=%s, Einstiegsjahr=%d, Geschlecht=%s",
-				id, username, password, rolle.toString(), vorname, nachname, email,
+				id, username, password, rolle, vorname, nachname, email,
 				ausbildungsart.size() == 1 ? ausbildungsart.get(0).toString() : ausbildungsart.toString(),
-				einstiegsjahr, geschlecht.toString());
+				einstiegsjahr, geschlecht);
 	}
 	
 	public boolean isEmpty() {
 		
-		if (id == 0 && username.isEmpty() && password.isEmpty() && rolle.toString().isEmpty() && vorname.isEmpty()
-				&& nachname.isEmpty() && email.isEmpty() && ausbildungsart.isEmpty() && einstiegsjahr != null
-				&& einstiegsjahr.toString().isEmpty() && geschlecht.toString().isEmpty())
+		if (id == 0 && username == null || username.isEmpty() && password == null || password.isEmpty() && rolle == null
+				|| rolle.toString().isEmpty() && vorname == null || vorname.isEmpty() && nachname == null
+				|| nachname.isEmpty() && email == null || email.isEmpty() && ausbildungsart == null
+				|| ausbildungsart.isEmpty() && einstiegsjahr == null
+				|| einstiegsjahr.toString().isEmpty() && geschlecht == null || geschlecht.toString().isEmpty())
 			return true;
 		return false;
 	}
