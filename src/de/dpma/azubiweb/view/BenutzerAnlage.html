@@ -3,61 +3,6 @@
 	<head>
 		<title>Azubiweb - Einstellungen</title>
 	</head>
-	<body>
 		<wicket:extend>
-			<form wicket:id="userForm">
-				<div class="form-group row">
-					<div class="col-md-2 mb-3">
-						<label for="geschlecht">Geschlecht</label>
-						<select class="form-control" wicket:id="geschlechtDropDownChoice" id="geschlecht" required/>
-					</div>
-					<div class="col-md-2 mb-3">
-						<label for="rolle">Rolle</label>
-						<select class="form-control" wicket:id="rolleDropDownChoice" id="rolle" onchange="isRequiredNeeded()" required/>
-					</div>
-				</div>
-				<div class="form-group row">
-					<div class="col-md-3 mb-3">
-						<label for="vorname">Vorname</label>
-						<input class="form-control" type="text" placeholder="Vorname" wicket:id="vornameTextField" id="vorname" required>
-					</div>
-				
-					<div class="col-md-3 mb-3">
-						<label for="nachname">Nachname</label>
-						<input class="form-control" type="text" placeholder="Nachname" wicket:id="nachnameTextField" id="nachname" required>
-					</div>
-					<div class="col-md-3 mb-3">
-						<label for="benutzername">Benutzername</label>
-						<input class="form-control" type="text" placeholder="Benutzername" wicket:id="benutzernameTextField" id="benutzername">
-					</div>
-				</div>
-				<div class="form-group row">
-					<div class="col-md-3 mb-3">
-						<label for="email">E-Mail</label>
-						<input class="form-control" type="email" placeholder="E-Mail" wicket:id="emailEmailTextField" id="email">
-					</div>
-					<div class="col-md-3 mb-3">
-						<label for="einstellungsjahr">Einstellungsjahr</label>
-						<input class="form-control" type="number" placeholder="Einstellungsjahr" wicket:id="einstellungsjahrNumberTextField" id="einstellungsjahr">
-					</div>
-					<div class="col-md-3 mb-3">
-						<label for="ausbildungsart">Ausbildungsart</label>
-						<select class="form-control" wicket:id="ausbildungsartDropDownChoice" id="ausbildungsart"/>
-					</div>
-				</div>
-				<script>
-						function isRequiredNeeded() {
-							var rolleValue = document.getElementById('rolle').value;
-							if (rolleValue.toUpperCase() == "Auszubildende".toUpperCase()) {
-								document.getElementById('ausbildungsart').setAttribute('required', '');
-							}
-							else {
-								document.getElementById('ausbildungsart').removeAttribute('required');
-							}
-						}
-				</script>
-				<button class="btn btn-primary" type="submit">Speichern</button>
-			</form>
 		</wicket:extend>
-	</body>
 </html>
