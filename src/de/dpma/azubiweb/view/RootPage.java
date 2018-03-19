@@ -6,6 +6,7 @@ import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
+import de.dpma.azubiweb.model.Rolle.Beschreibung;
 import de.dpma.azubiweb.model.User;
 import de.dpma.azubiweb.service.UserSession;
 
@@ -72,6 +73,8 @@ public class RootPage extends WebPage {
 		// TODO
 		// https://ci.apache.org/projects/wicket/guide/8.x/single.html#_implement_visibilities_of_components_correctly
 		navLeisteWebMarkupContainer.add(benutzerVerwaltungWebMarkupContainer);
+		if (user != null && user.getRolle().getId() != Beschreibung.AL.getRolleId())
+			benutzerVerwaltungWebMarkupContainer.setVisible(false);
 		navLeisteWebMarkupContainer.add(new Link<String>("abmeldenLink") {
 			
 			/**
