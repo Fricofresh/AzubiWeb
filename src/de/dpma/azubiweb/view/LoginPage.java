@@ -30,8 +30,6 @@ public class LoginPage extends RootPage {
 	
 	private void initial() {
 		
-		setVisibleNav(true);
-		
 		FeedbackPanel fp = new FeedbackPanel("feedback");
 		
 		CheckBox rememberMeCheckBox = new CheckBox("rememberMe", new Model<>());

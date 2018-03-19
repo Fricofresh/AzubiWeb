@@ -85,7 +85,7 @@ public class RootPage extends WebPage {
 			@Override
 			public void onClick() {
 				
-				Session.get().invalidateNow();
+				session.invalidateNow();
 				setResponsePage(LoginPage.class);
 			}
 		});
@@ -144,6 +144,7 @@ public class RootPage extends WebPage {
 				// TODO Do Something
 			}
 		});
+		navLeisteWebMarkupContainer.setVisible(session.isSignedIn());
 	}
 	
 	protected void setVisibleNav(boolean hide) {
