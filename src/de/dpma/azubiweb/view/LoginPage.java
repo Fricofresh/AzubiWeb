@@ -39,7 +39,9 @@ public class LoginPage extends RootPage {
 		TextField<String> usernameTextField = new TextField<>("username", new PropertyModel<>(new User(), "username"));
 		PasswordTextField passwordTextfield = new PasswordTextField("password",
 				new PropertyModel<>(new User(), "password"));
-		Button passwortVergessenButton = new Button("user", Model.of()) {
+		// Button passwortVergessenButton = new Button("user", Model.of()) {
+		TextField<String> userLabel = new TextField<>("userLabel", Model.of());
+		Form<String> passwortVergessen = new Form<String>("passwortVergessen") {
 			
 			/**
 			 * 
@@ -49,8 +51,8 @@ public class LoginPage extends RootPage {
 			@Override
 			public void onSubmit() {
 				
-				System.out.println(this.getModelObject());
-				User user = session.getUserService().getUserByName(getModelObject());
+				System.out.println(userLabel.getModelObject());
+				User user = session.getUserService().getUserByName(userLabel.getModelObject());
 				
 				if (user != null) {
 					// Simple Mail ... hinzufügen und eine E-Mail Senden lassen
@@ -62,8 +64,11 @@ public class LoginPage extends RootPage {
 				// setResponsePage(getPage());
 			}
 		};
-		passwortVergessenButton.setDefaultFormProcessing(false);
-		anmeldung.add(usernameTextField, passwordTextfield, fp, rememberMeCheckBox, passwortVergessenButton);
+		// passwortVergessenButton.setDefaultFormProcessing(false);
+		// add(passwortVergessenButton);
+		passwortVergessen.add(userLabel);
+		add(passwortVergessen);
+		anmeldung.add(usernameTextField, passwordTextfield, fp, rememberMeCheckBox);
 		anmeldung.add(new Button("loginButton") {
 			
 			private static final long serialVersionUID = 1196988521149423209L;

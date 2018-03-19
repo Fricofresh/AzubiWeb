@@ -28,18 +28,20 @@
 				<div wicket:id="feedback" style="color:red"></div>
  				<button wicket:id="loginButton" type="submit" class="btn btn-success">Anmelden</button>
 				<a class="forgot-password" onclick="openPasswordForgett()">Passwort Vergessen?</a>
-				<button class="hidden" wicket:id="user" id="user"></button>
+			 </form>
+			 <form class="hidden" id="passwortVergessen" wicket:id="passwortVergessen">
+				 <input wicket:id="userLabel" id="userLabel" name="">
 			 </form>
 			<script>
 				function openPasswordForgett() {
-					var user = prompt("Bitte geben Sie Ihren Benutzernamen ein.", document.getElementById('username').value);
+					var user = prompt("Bitte geben Sie Ihren Benutzernamen ein.", $('#username').val());
 					if(user != null) {
-						document.getElementById("user").innerHTML = user;
-						document.getElementById("user").submit();
+						$("#userLabel").val(user);
+						$("#passwortVergessen").submit();
 					}
 				}
 			</script>
-			
+
 		</wicket:extend>
 	</body>
 </html>
