@@ -360,4 +360,13 @@ public class User implements Serializable {
 				einstiegsjahr, geschlecht.toString());
 	}
 	
+	public boolean isEmpty() {
+		
+		if (id == 0 && username.isEmpty() && password.isEmpty() && rolle.toString().isEmpty() && vorname.isEmpty()
+				&& nachname.isEmpty() && email.isEmpty() && ausbildungsart.isEmpty() && einstiegsjahr != null
+				&& einstiegsjahr.toString().isEmpty() && geschlecht.toString().isEmpty())
+			return true;
+		return false;
+	}
+	
 }
