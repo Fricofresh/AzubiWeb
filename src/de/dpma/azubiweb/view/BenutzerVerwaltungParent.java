@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.EmailTextField;
 import org.apache.wicket.markup.html.form.Form;
@@ -73,6 +74,20 @@ public class BenutzerVerwaltungParent extends BenutzerVerwaltungsBasePage {
 		DropDownChoice<String> ausbildungsartDropDownChoice = new DropDownChoice<>("ausbildungsartDropDownChoice",
 				Model.ofList(ausbildungsart));
 		ausbildungsartDropDownChoice.setDefaultModel(Model.of());
+		
+		Button speichernUndZurückButton = new Button("speichernUndZurückButton", Model.of()) {
+			
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+			
+			@Override
+			public void onSubmit() {
+				
+				setResponsePage(BenutzerListe.class);
+			}
+		};
 		if (!isNew) {
 			geschlechtDropDownChoice.setModel(Model.of(user.getGeschlecht()));
 			rolleDropDownChoice.setModel(Model.of(user.getRolle().getBeschreibung()));
@@ -103,12 +118,8 @@ public class BenutzerVerwaltungParent extends BenutzerVerwaltungsBasePage {
 					user.setVorname(vornameTextField.getModelObject().trim());
 				if (!nachnameTextField.getModelObject().trim().isEmpty())
 					user.setNachname(nachnameTextField.getModelObject().trim());
-				if (benutzernameTextField.getModelObject() != null
-						&& !benutzernameTextField.getModelObject().trim().isEmpty())
-					user.setUsername(benutzernameTextField.getModelObject().trim());
-				if (emailEmailTextField.getModelObject() != null
-						&& !emailEmailTextField.getModelObject().trim().isEmpty())
-					user.setEmail(emailEmailTextField.getModelObject().trim());
+				user.setUsername(benutzernameTextField.getModelObject());
+				user.setEmail(emailEmailTextField.getModelObject());
 				user.setEinstiegsjahr(einstellungsjahrNumberTextField.getModelObject());
 				if (user.getRolle().getId() == Beschreibung.AZUBI.getRolleId())
 					user.setAusbildungsart(Arrays.asList(ausbildungsartService
@@ -126,7 +137,7 @@ public class BenutzerVerwaltungParent extends BenutzerVerwaltungsBasePage {
 		
 		userForm.add(geschlechtDropDownChoice, rolleDropDownChoice, vornameTextField, nachnameTextField,
 				benutzernameTextField, emailEmailTextField, einstellungsjahrNumberTextField,
-				ausbildungsartDropDownChoice);
+				ausbildungsartDropDownChoice, speichernUndZurückButton);
 		
 		add(userForm);
 	}
