@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.wicket.markup.html.WebMarkupContainer;
+import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.EmailTextField;
@@ -101,7 +103,10 @@ public class BenutzerVerwaltungParent extends BenutzerVerwaltungsBasePage {
 				ausbildungsartDropDownChoice
 						.setModel(Model.of(user.getAusbildungsart().get(0).getBerufsbildAbkürzung()));
 		}
-		
+		WebMarkupContainer erfolgreicherAlertLabelParent = new WebMarkupContainer("erfolgreicherAlertLabelParent");
+		Label erfolgreicherAlertLabel = new Label("erfolgreicherAlertLabel");
+		erfolgreicherAlertLabelParent.setVisible(false);
+		erfolgreicherAlertLabelParent.add(erfolgreicherAlertLabel);
 		Form<?> userForm = new Form<Void>("userForm") {
 			
 			/**
@@ -132,6 +137,11 @@ public class BenutzerVerwaltungParent extends BenutzerVerwaltungsBasePage {
 					user.setPassword("Anfang12");
 					userService.saveUser(user);
 				}
+				erfolgreicherAlertLabel.setEscapeModelStrings(false);
+				erfolgreicherAlertLabel
+						.setDefaultModel(Model.of("Der Benutzer <strong>" + user.getVorname() + " " + user.getNachname()
+								+ "</strong> wurde erfolgreich " + (isNew ? "angelegt" : "bearbeitet") + "."));
+				erfolgreicherAlertLabelParent.setVisible(true);
 			}
 		};
 		
@@ -139,7 +149,7 @@ public class BenutzerVerwaltungParent extends BenutzerVerwaltungsBasePage {
 				benutzernameTextField, emailEmailTextField, einstellungsjahrNumberTextField,
 				ausbildungsartDropDownChoice, speichernUndZurückButton);
 		
-		add(userForm);
+		add(userForm, erfolgreicherAlertLabelParent);
 	}
 	
 }
