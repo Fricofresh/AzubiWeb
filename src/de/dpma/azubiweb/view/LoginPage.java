@@ -80,33 +80,6 @@ public class LoginPage extends RootPage {
 					setResponsePage(StartPage.class);
 			}
 		});
-		// anmeldung.add(new InputPannel<String>("passwortVergessenLink", "Bitte
-		// geben Sie Ihren Benutzernamen ein.") {
-		//
-		// /**
-		// *
-		// */
-		// private static final long serialVersionUID = 1L;
-		//
-		// @Override
-		// public void onClick(AjaxRequestTarget arg0) {
-		//
-		// User user = session.getUserService().getUserByName(getModelObject());
-		//
-		// if (user != null) {
-		// // Simple Mail ... hinzufügen und eine E-Mail Senden lassen
-		// // (user.getEmail());
-		// LoginPage.this.success("Es wurde eine E-Mail an den Benutzer
-		// gesendet");
-		// }
-		// else
-		// LoginPage.this.error("Es wurde kein Benutzer mit den Benutzernamen
-		// gefunden");
-		// setResponsePage(getPage());
-		// }
-		//
-		// });
-		
 		add(anmeldung);
 	}
 }
