@@ -6,6 +6,7 @@ import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
+import de.dpma.azubiweb.InitialInsert;
 import de.dpma.azubiweb.model.Rolle.Beschreibung;
 import de.dpma.azubiweb.model.User;
 import de.dpma.azubiweb.service.UserSession;
@@ -38,6 +39,9 @@ public class RootPage extends WebPage {
 	}
 	
 	private void initial() {
+		
+		if (session.getUserService().getAllUser().isEmpty())
+			new InitialInsert();
 		
 		navLeisteWebMarkupContainer = new WebMarkupContainer("navLeisteWebMarkupContainer");
 		
