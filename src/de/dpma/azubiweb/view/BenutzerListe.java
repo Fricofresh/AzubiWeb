@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
@@ -28,21 +29,38 @@ public class BenutzerListe extends BenutzerVerwaltungsBasePage {
 	public BenutzerListe() {
 		
 		super();
-		initial();
+		initial(null);
 	}
 	
 	public BenutzerListe(PageParameters pageParameters) {
 		
 		super(pageParameters);
-		initial();
+		initial(pageParameters);
 	}
 	
-	public void initial() {
+	public void initial(PageParameters pageParameters) {
 		
 		setAzubiListe();
 		setAusbilderListe();
 		setAusbildungsleiterListe();
+		boolean isNew = false;
+		WebMarkupContainer erfolgreicherAlertLabelParent = new WebMarkupContainer("erfolgreicherAlertLabelParent");
+		Label erfolgreicherAlertLabel = new Label("erfolgreicherAlertLabel");
+		erfolgreicherAlertLabelParent.setVisible(false);
+		erfolgreicherAlertLabelParent.add(erfolgreicherAlertLabel);
+		add(erfolgreicherAlertLabelParent);
 		
+		if (pageParameters != null && !pageParameters.isEmpty() && !pageParameters.get("user").isNull()
+				&& !pageParameters.get("user").isEmpty()) {
+			isNew = (pageParameters.get("isNew").isNull() || pageParameters.get("isNew").isEmpty() ? false
+					: pageParameters.get("isNew").toBoolean());
+			System.out.println("KäseKas");
+			String name = pageParameters.get("user").toString();
+			erfolgreicherAlertLabel.setEscapeModelStrings(false);
+			erfolgreicherAlertLabel.setDefaultModel(Model.of("Der Benutzer <strong>" + name
+					+ "</strong> wurde erfolgreich " + (isNew ? "angelegt" : "bearbeitet") + "."));
+			erfolgreicherAlertLabelParent.setVisible(true);
+		}
 	}
 	
 	private void setAusbildungsleiterListe() {

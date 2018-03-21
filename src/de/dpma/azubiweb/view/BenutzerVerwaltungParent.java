@@ -32,6 +32,7 @@ public class BenutzerVerwaltungParent extends BenutzerVerwaltungsBasePage {
 	public BenutzerVerwaltungParent() {
 		
 		super();
+		initial(null);
 	}
 	
 	@SuppressWarnings("Nicht verwendbar")
@@ -87,7 +88,8 @@ public class BenutzerVerwaltungParent extends BenutzerVerwaltungsBasePage {
 			@Override
 			public void onSubmit() {
 				
-				setResponsePage(BenutzerListe.class);
+				setResponsePage(BenutzerListe.class, new PageParameters().add("isNew", isNew).add("user",
+						user.getVorname() + " " + user.getNachname()));
 			}
 		};
 		if (!isNew) {
