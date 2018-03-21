@@ -34,7 +34,6 @@ public class Berichtsheft implements Serializable {
 	@Column(nullable = false)
 	private Date woche;
 	
-	// TODO defauled 4.1.3 und getter/setter
 	@ManyToOne
 	private Referat referat;
 	
