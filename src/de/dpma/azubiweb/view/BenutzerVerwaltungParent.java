@@ -17,6 +17,7 @@ import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
 import de.dpma.azubiweb.model.Ausbildungsart;
+import de.dpma.azubiweb.model.Referat;
 import de.dpma.azubiweb.model.Rolle;
 import de.dpma.azubiweb.model.Rolle.Beschreibung;
 import de.dpma.azubiweb.model.User;
@@ -60,6 +61,10 @@ public class BenutzerVerwaltungParent extends BenutzerVerwaltungsBasePage {
 			rollenData.add(rolle.getBeschreibung());
 		DropDownChoice<String> rolleDropDownChoice = new DropDownChoice<>("rolleDropDownChoice", rollenData);
 		rolleDropDownChoice.setDefaultModel(Model.of());
+		List<String> referatData = new ArrayList<>();
+		for (Referat referat : referatService.getAllReferat())
+			referatData.add(referat.getReferat());
+		DropDownChoice<String> referatDropDownChoice = new DropDownChoice<>("referatDropDownChoice", referatData);
 		TextField<String> vornameTextField = new TextField<>("vornameTextField", Model.of());
 		TextField<String> nachnameTextField = new TextField<>("nachnameTextField", Model.of());
 		TextField<String> benutzernameTextField = new TextField<>("benutzernameTextField", Model.of());
@@ -92,9 +97,14 @@ public class BenutzerVerwaltungParent extends BenutzerVerwaltungsBasePage {
 						user.getVorname() + " " + user.getNachname()));
 			}
 		};
+		Referat referat = null;
 		if (!isNew) {
 			geschlechtDropDownChoice.setModel(Model.of(user.getGeschlecht()));
 			rolleDropDownChoice.setModel(Model.of(user.getRolle().getBeschreibung()));
+			if (user.getRolle().getId() == Beschreibung.A.getRolleId()
+					&& referatService.getReferatByAnsprechpartner(user) != null)
+				referatDropDownChoice
+						.setModel(Model.of((referat = referatService.getReferatByAnsprechpartner(user)).getReferat()));
 			vornameTextField.setModel(Model.of(user.getVorname()));
 			nachnameTextField.setModel(Model.of(user.getNachname()));
 			benutzernameTextField.setModel(Model.of(user.getUsername()));
@@ -109,6 +119,7 @@ public class BenutzerVerwaltungParent extends BenutzerVerwaltungsBasePage {
 		Label erfolgreicherAlertLabel = new Label("erfolgreicherAlertLabel");
 		erfolgreicherAlertLabelParent.setVisible(false);
 		erfolgreicherAlertLabelParent.add(erfolgreicherAlertLabel);
+		final Referat finalReferat = referat;
 		Form<?> userForm = new Form<Void>("userForm") {
 			
 			/**
@@ -121,6 +132,10 @@ public class BenutzerVerwaltungParent extends BenutzerVerwaltungsBasePage {
 				
 				user.setGeschlecht(geschlechtDropDownChoice.getModelObject());
 				user.setRolle(rolleService.getRolle(Beschreibung.valueOfString(rolleDropDownChoice.getModelObject())));
+				if (user.getRolle().getId() == Beschreibung.A.getRolleId()) {
+					finalReferat.addAnsprechpartner(user);
+					referatService.updateReferat(finalReferat);
+				}
 				if (!vornameTextField.getModelObject().trim().isEmpty())
 					user.setVorname(vornameTextField.getModelObject().trim());
 				if (!nachnameTextField.getModelObject().trim().isEmpty())
@@ -147,8 +162,8 @@ public class BenutzerVerwaltungParent extends BenutzerVerwaltungsBasePage {
 			}
 		};
 		
-		userForm.add(geschlechtDropDownChoice, rolleDropDownChoice, vornameTextField, nachnameTextField,
-				benutzernameTextField, emailEmailTextField, einstellungsjahrNumberTextField,
+		userForm.add(geschlechtDropDownChoice, rolleDropDownChoice, referatDropDownChoice, vornameTextField,
+				nachnameTextField, benutzernameTextField, emailEmailTextField, einstellungsjahrNumberTextField,
 				ausbildungsartDropDownChoice, speichernUndZurückButton);
 		
 		add(userForm, erfolgreicherAlertLabelParent);

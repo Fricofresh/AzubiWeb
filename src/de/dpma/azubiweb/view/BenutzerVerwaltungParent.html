@@ -10,7 +10,11 @@
 					</div>
 					<div class="col-md-2 mb-3">
 						<label for="rolle">Rolle</label>
-						<select class="form-control" wicket:id="rolleDropDownChoice" id="rolle" onchange="isRequiredNeeded()" required/>
+						<select class="form-control" wicket:id="rolleDropDownChoice" id="rolle" onchange="handleRolle()" required/>
+					</div>
+					<div class="col-md-2 mb-3 hidden">
+						<label for="referat">Referat</label>
+						<select class="form-control" wicket:id="referatDropDownChoice" id="referat"/>
 					</div>
 				</div>
 				<div class="form-group row">
@@ -42,25 +46,21 @@
 					</div>
 				</div>
 				<script>
-/* 						function isRequiredNeeded() {
-							var rolleValue = document.getElementById('rolle').value;
-							if (rolleValue.toUpperCase() == 0) {
-								document.getElementById('ausbildungsart').setAttribute('required', '');
-							}
-							else {
-								document.getElementById('ausbildungsart').removeAttribute('required');
-							}
-						} */
-
-						function isRequiredNeeded() {
+// 				BUG funktioniert nicht
+						$(document).ready(function handleRolle() {
 							var rolleValue = $("#rolle").val();
 							if (rolleValue == 0 && rolleValue != null && rolleValue != "") {
 								$("#ausbildungsart").attr("required", "");
-							}
+							} else if (rolleValue == 2 && rolleValue != null && rolleValue != "") {
+								$("#referat").attr("required", "");
+								$("#referat").parent().removeClass("hidden");
+							}							
 							else {
 								$("#ausbildungsart").removeAttr("required");
+								$("#referat").removeAttr("required");
+								$("#referat").parent().addClass("hidden");
 							}
-						}
+						});
 				</script>
 				<button class="btn btn-success" type="submit">Speichern</button>
 				<button class="btn btn-success" type="submit" wicket:id="speichernUndZurückButton">Speichern und zurück</button>
