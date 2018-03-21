@@ -39,7 +39,7 @@ public class InitialInsert {
 		insertAllAusbildungsart();
 		
 		insertAllUser();
-		// insertAllAusbildungsreferat();
+		insertAllAusbildungsreferat();
 	}
 	
 	private void insertAllRolle() {
@@ -163,9 +163,8 @@ public class InitialInsert {
 		// End Alle AusbildungsLeiter
 		
 		// Alle Ausbilder
-		// userService.saveUser(
-		// new User("", password, rolleService.getRolle(Rolle.Beschreibung.A),
-		// "", "", Geschlecht.männlich));
+		userService.saveUser(new User("PaStangl", password, rolleService.getRolle(Rolle.Beschreibung.A), "Patrik",
+				"Stangl", Geschlecht.männlich));
 		// userService.saveUser(
 		// new User("", password, rolleService.getRolle(Rolle.Beschreibung.A),
 		// "", "", Geschlecht.männlich));
@@ -186,9 +185,9 @@ public class InitialInsert {
 	
 	private void insertAllAusbildungsreferat() {
 		
-		referatService.saveAusbildungsreferat(
-				new Referat("2.3.3", userService.getUserByName("Ol????"), "Strategische IT-Aufgaben"));
-		referatService.saveAusbildungsreferat(new Referat("", userService.getUserByName(""), ""));
+		referatService
+				.saveReferat(new Referat("2.3.3", userService.getUserByName("PaStangl"), "Strategische IT-Aufgaben"));
+		referatService.saveReferat(new Referat("", userService.getUserByName(""), ""));
 	}
 	
 }
