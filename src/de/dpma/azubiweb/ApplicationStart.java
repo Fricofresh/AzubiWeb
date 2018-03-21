@@ -22,7 +22,6 @@ public class ApplicationStart extends WicketBootSecuredWebApplication {
 	public static void main(String[] args) {
 		
 		SpringApplication.run(ApplicationStart.class, args);
-		
 	}
 	
 	@Override
