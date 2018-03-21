@@ -11,4 +11,6 @@ public interface ReferatRepository extends CrudRepository<Referat, Integer> {
 	public Referat findByReferat(String referat);
 	
 	public void deleteByReferat(String referat);
+	
+	public Referat findByAnsprechpartner(User ansprechpartner);
 }
