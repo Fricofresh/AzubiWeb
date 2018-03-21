@@ -365,8 +365,8 @@ public class User implements Serializable {
 		if (id == 0 && username == null || username.isEmpty() && password == null || password.isEmpty() && rolle == null
 				|| rolle.toString().isEmpty() && vorname == null || vorname.isEmpty() && nachname == null
 				|| nachname.isEmpty() && email == null || email.isEmpty() && ausbildungsart == null
-				|| ausbildungsart.isEmpty() && einstiegsjahr == null
-				|| einstiegsjahr.toString().isEmpty() && geschlecht == null || geschlecht.toString().isEmpty())
+				|| ausbildungsart.isEmpty() && einstiegsjahr == null && geschlecht == null
+				|| geschlecht.toString().isEmpty())
 			return true;
 		return false;
 	}
