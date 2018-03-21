@@ -1,13 +1,15 @@
 package de.dpma.azubiweb.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 
 /**
  * Entity implementation class for Entity: Referat
@@ -27,8 +29,8 @@ public class Referat implements Serializable {
 	@Column(nullable = false)
 	private String referatsname;
 	
-	@OneToOne
-	private User ansprechpartner;
+	@OneToMany
+	private List<User> ansprechpartner = new ArrayList<>();
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -36,10 +38,17 @@ public class Referat implements Serializable {
 		
 	}
 	
-	public Referat(String referat, User ansprechpartner, String referatsname) {
+	public Referat(String referat, List<User> ansprechpartner, String referatsname) {
 		
 		this.referat = referat;
 		this.ansprechpartner = ansprechpartner;
+		this.referatsname = referatsname;
+	}
+	
+	public Referat(String referat, User ansprechpartner, String referatsname) {
+		
+		this.referat = referat;
+		this.ansprechpartner.add(ansprechpartner);
 		this.referatsname = referatsname;
 	}
 	
@@ -73,13 +82,18 @@ public class Referat implements Serializable {
 		this.referatsname = referatsname;
 	}
 	
-	public User getAnsprechpartner() {
+	public List<User> getAnsprechpartner() {
 		
 		return ansprechpartner;
 	}
 	
-	public void setAnsprechpartner(User ansprechpartner) {
+	public void setAnsprechpartner(List<User> ansprechpartner) {
 		
 		this.ansprechpartner = ansprechpartner;
+	}
+	
+	public void addAnsprechpartner(User ansprechpartner) {
+		
+		this.ansprechpartner.add(ansprechpartner);
 	}
 }
