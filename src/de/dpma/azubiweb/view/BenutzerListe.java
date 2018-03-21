@@ -43,7 +43,7 @@ public class BenutzerListe extends BenutzerVerwaltungsBasePage {
 		setAzubiListe();
 		setAusbilderListe();
 		setAusbildungsleiterListe();
-		boolean isNew = false;
+		Boolean isNew = false;
 		WebMarkupContainer erfolgreicherAlertLabelParent = new WebMarkupContainer("erfolgreicherAlertLabelParent");
 		Label erfolgreicherAlertLabel = new Label("erfolgreicherAlertLabel");
 		erfolgreicherAlertLabelParent.setVisible(false);
@@ -52,13 +52,19 @@ public class BenutzerListe extends BenutzerVerwaltungsBasePage {
 		
 		if (pageParameters != null && !pageParameters.isEmpty() && !pageParameters.get("user").isNull()
 				&& !pageParameters.get("user").isEmpty()) {
-			isNew = (pageParameters.get("isNew").isNull() || pageParameters.get("isNew").isEmpty() ? false
+			isNew = (pageParameters.get("isNew").isNull() || pageParameters.get("isNew").isEmpty() ? null
 					: pageParameters.get("isNew").toBoolean());
-			System.out.println("KäseKas");
 			String name = pageParameters.get("user").toString();
+			
 			erfolgreicherAlertLabel.setEscapeModelStrings(false);
-			erfolgreicherAlertLabel.setDefaultModel(Model.of("Der Benutzer <strong>" + name
-					+ "</strong> wurde erfolgreich " + (isNew ? "angelegt" : "bearbeitet") + "."));
+			if (isNew == null) {
+				erfolgreicherAlertLabel.setDefaultModel(
+						Model.of("Der Benutzer <strong>" + name + "</strong> wurde erfolgreich gelöscht."));
+			}
+			else {
+				erfolgreicherAlertLabel.setDefaultModel(Model.of("Der Benutzer <strong>" + name
+						+ "</strong> wurde erfolgreich " + (isNew ? "angelegt" : "bearbeitet") + "."));
+			}
 			erfolgreicherAlertLabelParent.setVisible(true);
 		}
 	}
@@ -168,7 +174,8 @@ public class BenutzerListe extends BenutzerVerwaltungsBasePage {
 					public void onClick(AjaxRequestTarget arg0) {
 						
 						userService.deleteUser(user);
-						setResponsePage(BenutzerListe.class);
+						setResponsePage(BenutzerListe.class,
+								new PageParameters().add("user", user.getVorname() + " " + user.getNachname()));
 					}
 				});
 			}
