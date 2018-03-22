@@ -14,10 +14,17 @@ public class BenutzerAnlage extends BenutzerVerwaltungParent {
 	public BenutzerAnlage() {
 		
 		super(new User());
+		initial();
 	}
 	
 	public BenutzerAnlage(PageParameters pageParameters) {
 		
 		super(pageParameters);
+		initial();
+	}
+	
+	private void initial() {
+		
+		titelLabel.setDefaultModelObject("Benutzer Anlegen");
 	}
 }

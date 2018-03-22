@@ -3,7 +3,9 @@ package de.dpma.azubiweb.view;
 import org.apache.wicket.Session;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.WebPage;
+import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.Link;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
 import de.dpma.azubiweb.InitialInsert;
@@ -25,6 +27,8 @@ public class RootPage extends WebPage {
 	protected UserSession session = (UserSession) Session.get();
 	
 	protected User user = session.getUser();
+	
+	protected Label titelLabel = new Label("titelLabel", Model.of(this.getClass().getSimpleName()));
 	
 	public RootPage() {
 		
@@ -148,6 +152,7 @@ public class RootPage extends WebPage {
 				// TODO Do Something
 			}
 		});
+		add(titelLabel);
 		navLeisteWebMarkupContainer.setVisible(session.isSignedIn());
 	}
 	

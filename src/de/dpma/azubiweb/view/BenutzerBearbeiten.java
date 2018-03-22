@@ -14,11 +14,17 @@ public class BenutzerBearbeiten extends BenutzerVerwaltungParent {
 	public BenutzerBearbeiten(PageParameters params) {
 		
 		super(params);
-		
+		initial();
 	}
 	
 	public BenutzerBearbeiten(User user) {
 		
 		super(user);
+		initial();
+	}
+	
+	private void initial() {
+		
+		titelLabel.setDefaultModelObject("Benutzer Bearbeiten");
 	}
 }
