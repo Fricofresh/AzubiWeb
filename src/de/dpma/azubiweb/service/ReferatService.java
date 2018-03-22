@@ -43,8 +43,11 @@ public class ReferatService {
 	public boolean updateReferat(Referat referat) {
 		
 		try {
-			referatRepository.delete(referat);
-			referatRepository.save(referat);
+			for (User user : referat.getAnsprechpartner()) {
+				referatRepository.updateAnsprechpartner(referat.getId(), user);
+			}
+			// referatRepository.delete(referat);
+			// referatRepository.save(referat);
 			return true;
 		}
 		catch (Exception e) {
