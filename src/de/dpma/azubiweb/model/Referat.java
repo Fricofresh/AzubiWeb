@@ -24,13 +24,14 @@ public class Referat implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	
-	@Column(nullable = false)
+	@Column(unique = true, nullable = false)
 	private String referat;
 	
-	@Column(nullable = false)
+	@Column(unique = true, nullable = false)
 	private String referatsname;
 	
 	@OneToMany(fetch = FetchType.EAGER)
+	// @Column(unique = true)
 	private List<User> ansprechpartner = new ArrayList<>();
 	
 	private static final long serialVersionUID = 1L;
