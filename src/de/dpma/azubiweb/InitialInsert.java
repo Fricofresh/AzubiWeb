@@ -163,22 +163,34 @@ public class InitialInsert {
 		// End Alle AusbildungsLeiter
 		
 		// Alle Ausbilder
-		userService.saveUser(new User("PaStangl", password, rolleService.getRolle(Rolle.Beschreibung.A), "Patrik",
-				"Stangl", Geschlecht.männlich));
+		userService.saveUser(new User(password, rolleService.getRolle(Rolle.Beschreibung.A), "Patrick", "Stangl",
+				Geschlecht.männlich));
+		userService.saveUser(
+				new User(password, rolleService.getRolle(Rolle.Beschreibung.A), "Hans", "Bayer", Geschlecht.männlich));
+		userService.saveUser(new User(password, rolleService.getRolle(Rolle.Beschreibung.A), "Harald", "Stemler",
+				Geschlecht.männlich));
+		// userService
+		// .saveUser(new User(password,
+		// rolleService.getRolle(Rolle.Beschreibung.A), "", "",
+		// Geschlecht.männlich));
+		// userService
+		// .saveUser(new User(password,
+		// rolleService.getRolle(Rolle.Beschreibung.A), "", "",
+		// Geschlecht.männlich));
+		// userService
+		// .saveUser(new User(password,
+		// rolleService.getRolle(Rolle.Beschreibung.A), "", "",
+		// Geschlecht.männlich));
+		userService.saveUser(new User(password, rolleService.getRolle(Rolle.Beschreibung.A), "Yasemin", "Bakomenko",
+				Geschlecht.weiblich));
+		userService.saveUser(new User(password, rolleService.getRolle(Rolle.Beschreibung.A), "Borislava", "Alexandrova",
+				Geschlecht.weiblich));
+		userService.saveUser(new User("BiFroesc", password, rolleService.getRolle(Rolle.Beschreibung.A), "Birgitt",
+				"Fröschl", Geschlecht.weiblich));
+		userService.saveUser(new User(password, rolleService.getRolle(Rolle.Beschreibung.A), "Andrea", "Buchberger",
+				Geschlecht.weiblich));
 		// userService.saveUser(
-		// new User("", password, rolleService.getRolle(Rolle.Beschreibung.A),
-		// "", "", Geschlecht.männlich));
-		// userService.saveUser(
-		// new User("", password, rolleService.getRolle(Rolle.Beschreibung.A),
-		// "", "", Geschlecht.männlich));
-		// userService.saveUser(
-		// new User("", password, rolleService.getRolle(Rolle.Beschreibung.A),
-		// "", "", Geschlecht.weiblich));
-		// userService.saveUser(
-		// new User("", password, rolleService.getRolle(Rolle.Beschreibung.A),
-		// "", "", Geschlecht.weiblich));
-		// userService.saveUser(
-		// new User("", password, rolleService.getRolle(Rolle.Beschreibung.A),
+		// new User(password, rolleService.getRolle(Rolle.Beschreibung.A),
 		// "", "", Geschlecht.weiblich));
 		// End Alle Ausbilder
 	}
@@ -187,7 +199,22 @@ public class InitialInsert {
 		
 		referatService
 				.saveReferat(new Referat("2.3.3", userService.getUserByName("PaStangl"), "Strategische IT-Aufgaben"));
-		referatService.saveReferat(new Referat("", userService.getUserByName(""), ""));
+		referatService.saveReferat(
+				new Referat("2.3.4", userService.getUserByName("HaBeyer"), "Management für Prozesse und SOA"));
+		referatService.saveReferat(
+				new Referat("2.4.1", userService.getUserByName("YaBakome"), "DPMApatente/-gebrauchsmuster und SAP"));
+		referatService
+				.saveReferat(new Referat("2.4.3", userService.getUserByName("BoAlexan"), "DEPATIS und DPMAmarken"));
+		referatService.saveReferat(new Referat("3", userService.getUserByName("HaStemle"), "Marke und Design"));
+		referatService.saveReferat(new Referat("4.2.4",
+				Arrays.asList(userService.getUserByName("AnBuchbe"), userService.getUserByName("BiFroesc")),
+				"Gebäude- und Raummanagement, Innerer Dienst"));
+		// referatService.saveReferat(new Referat("",
+		// userService.getUserByName(""), ""));
+		// referatService.saveReferat(new Referat("",
+		// userService.getUserByName(""), ""));
+		// referatService.saveReferat(new Referat("",
+		// userService.getUserByName(""), ""));
 	}
 	
 }
