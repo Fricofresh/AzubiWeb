@@ -98,14 +98,12 @@ public class BenutzerVerwaltungParent extends BenutzerVerwaltungsBasePage {
 						user.getVorname() + " " + user.getNachname()));
 			}
 		};
-		Referat referat = null;
 		if (!isNew) {
 			geschlechtDropDownChoice.setModel(Model.of(user.getGeschlecht()));
 			rolleDropDownChoice.setModel(Model.of(user.getRolle().getBeschreibung()));
 			if (user.getRolle().getId() == Beschreibung.A.getRolleId()
 					&& referatService.getReferatByAnsprechpartner(user) != null)
-				referatDropDownChoice
-						.setModel(Model.of((referat = referatService.getReferatByAnsprechpartner(user)).getReferat()));
+				referatDropDownChoice.setModel(Model.of(referatService.getReferatByAnsprechpartner(user).getReferat()));
 			vornameTextField.setModel(Model.of(user.getVorname()));
 			nachnameTextField.setModel(Model.of(user.getNachname()));
 			benutzernameTextField.setModel(Model.of(user.getUsername()));
@@ -167,7 +165,6 @@ public class BenutzerVerwaltungParent extends BenutzerVerwaltungsBasePage {
 				nachnameTextField, benutzernameTextField, emailEmailTextField, einstellungsjahrNumberTextField,
 				ausbildungsartDropDownChoice, speichernUndZurückButton);
 		
-		add(userForm, erfolgreicherAlertLabelParent);
+		add(titelLabel, userForm, erfolgreicherAlertLabelParent);
 	}
-	
 }
