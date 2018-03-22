@@ -219,7 +219,6 @@ public class User implements Serializable {
 		this.rolle = rolle;
 		this.vorname = vorname;
 		this.nachname = nachname;
-		this.email = vorname + "." + nachname + "@dpma.de";
 		this.ausbildungsart = Arrays.asList(ausbildung);
 		this.einstiegsjahr = einstiegsjahr;
 		this.geschlecht = geschlecht;
@@ -246,7 +245,16 @@ public class User implements Serializable {
 		this.rolle = rolle;
 		this.vorname = vorname;
 		this.nachname = nachname;
-		this.email = vorname + "." + nachname + "@dpma.de";
+		this.geschlecht = geschlecht;
+	}
+	
+	public User(String password, Rolle rolle, String vorname, String nachname, Geschlecht geschlecht) {
+		
+		super();
+		this.password = password;
+		this.rolle = rolle;
+		this.vorname = vorname;
+		this.nachname = nachname;
 		this.geschlecht = geschlecht;
 	}
 	
