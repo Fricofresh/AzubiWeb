@@ -52,7 +52,6 @@ public class BenutzerVerwaltungParent extends BenutzerVerwaltungsBasePage {
 	
 	protected void initial(User user) {
 		
-		boolean isNew = user == null || user.isEmpty();
 		DropDownChoice<Geschlecht> geschlechtDropDownChoice = new DropDownChoice<>("geschlechtDropDownChoice",
 				Model.ofList(Arrays.asList(Geschlecht.values())));
 		geschlechtDropDownChoice.setDefaultModel(Model.of());
@@ -65,6 +64,7 @@ public class BenutzerVerwaltungParent extends BenutzerVerwaltungsBasePage {
 		for (Referat referat : referatService.getAllReferat())
 			referatData.add(referat.getReferat());
 		DropDownChoice<String> referatDropDownChoice = new DropDownChoice<>("referatDropDownChoice", referatData);
+		referatDropDownChoice.setDefaultModel(Model.of());
 		TextField<String> vornameTextField = new TextField<>("vornameTextField", Model.of());
 		TextField<String> nachnameTextField = new TextField<>("nachnameTextField", Model.of());
 		TextField<String> benutzernameTextField = new TextField<>("benutzernameTextField", Model.of());
@@ -83,6 +83,7 @@ public class BenutzerVerwaltungParent extends BenutzerVerwaltungsBasePage {
 				Model.ofList(ausbildungsart));
 		ausbildungsartDropDownChoice.setDefaultModel(Model.of());
 		
+		boolean isNew = user == null || user.isEmpty();
 		Button speichernUndZurückButton = new Button("speichernUndZurückButton", Model.of()) {
 			
 			/**
@@ -119,7 +120,6 @@ public class BenutzerVerwaltungParent extends BenutzerVerwaltungsBasePage {
 		Label erfolgreicherAlertLabel = new Label("erfolgreicherAlertLabel");
 		erfolgreicherAlertLabelParent.setVisible(false);
 		erfolgreicherAlertLabelParent.add(erfolgreicherAlertLabel);
-		final Referat finalReferat = referat;
 		Form<?> userForm = new Form<Void>("userForm") {
 			
 			/**
@@ -133,8 +133,9 @@ public class BenutzerVerwaltungParent extends BenutzerVerwaltungsBasePage {
 				user.setGeschlecht(geschlechtDropDownChoice.getModelObject());
 				user.setRolle(rolleService.getRolle(Beschreibung.valueOfString(rolleDropDownChoice.getModelObject())));
 				if (user.getRolle().getId() == Beschreibung.A.getRolleId()) {
-					finalReferat.addAnsprechpartner(user);
-					referatService.updateReferat(finalReferat);
+					Referat referat = referatService.getReferatByReferat(referatDropDownChoice.getModelObject());
+					referat.addAnsprechpartner(user);
+					referatService.saveReferat(referat);
 				}
 				if (!vornameTextField.getModelObject().trim().isEmpty())
 					user.setVorname(vornameTextField.getModelObject().trim());

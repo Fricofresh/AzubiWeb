@@ -47,29 +47,30 @@
 				</div>
 				<script>
 // 				BUG funktioniert nicht
-						$(document).ready(function handleRolle() {
+						function handleRolle() {
 							var rolleValue = $("#rolle").val();
 							if (rolleValue == 0 && rolleValue != null && rolleValue != "") {
 								$("#ausbildungsart").attr("required", "");
 							} else if (rolleValue == 2 && rolleValue != null && rolleValue != "") {
 								$("#referat").attr("required", "");
 								$("#referat").parent().removeClass("hidden");
-							}							
+							}
 							else {
 								$("#ausbildungsart").removeAttr("required");
 								$("#referat").removeAttr("required");
 								$("#referat").parent().addClass("hidden");
 							}
-						});
+						}
+						$(document).ready(handleRolle());
 				</script>
 				<button class="btn btn-success" type="submit">Speichern</button>
 				<button class="btn btn-success" type="submit" wicket:id="speichernUndZurückButton">Speichern und zurück</button>
 			</form>
-			<div class="alert alert-success alert-dismissible fade in" wicket:id="erfolgreicherAlertLabelParent">
+			<div class="alert alert-success alert-dismissible fade in mt-15" wicket:id="erfolgreicherAlertLabelParent">
 				<span wicket:id="erfolgreicherAlertLabel"/>
 				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 			</div>
-			
+
 			<wicket:child/>
 		</wicket:extend>
 	</body>
