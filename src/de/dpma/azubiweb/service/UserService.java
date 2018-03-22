@@ -60,14 +60,18 @@ public class UserService {
 	public boolean updateUser(User user) {
 		
 		try {
-			// userRepository.updateUser(user.getId(), user.getUsername(),
-			// user.getPassword(), user.getRights(),
-			// user.getVorname(), user.getNachname(), user.getEmail(),
-			// user.getEinstiegsjahr());
 			user = checkUser(user);
+			// userRepository.updateUser(user.getId(), user.getUsername(),
+			// user.getPassword(), user.getRolle(),
+			// user.getVorname(), user.getNachname(), user.getEmail(),
+			// user.getAusbildungsart(),
+			// user.getEinstiegsjahr(), user.getGeschlecht());
+//			System.out.println(user);
+//			userRepository.updateUser(user.getId(), user.getUsername(), user.getPassword(), user.getRolle(),
+//					user.getVorname(), user.getNachname(), user.getEmail(), user.getEinstiegsjahr(),
+//					user.getGeschlecht());
 			
 			userRepository.save(user);
-			
 			return true;
 		}
 		catch (Exception e) {
