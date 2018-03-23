@@ -27,6 +27,7 @@ public class StartPage extends RootPage {
 	
 	public void initial() {
 		
+		titelLabel.setDefaultModelObject("Startseite");
 		add(new Label("headerLabel", Model.of("Hallo " + user.getVorname())));
 		
 	}

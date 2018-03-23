@@ -30,6 +30,7 @@ public class LoginPage extends RootPage {
 	
 	private void initial() {
 		
+		titelLabel.setDefaultModelObject("Anmelden");
 		FeedbackPanel fp = new FeedbackPanel("feedback");
 		
 		CheckBox rememberMeCheckBox = new CheckBox("rememberMe", new Model<>());

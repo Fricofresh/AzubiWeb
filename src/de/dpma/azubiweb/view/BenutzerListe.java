@@ -40,6 +40,7 @@ public class BenutzerListe extends BenutzerVerwaltungsBasePage {
 	
 	public void initial(PageParameters pageParameters) {
 		
+		titelLabel.setDefaultModelObject("Benutzer Liste");
 		setAzubiListe();
 		setAusbilderListe();
 		setAusbildungsleiterListe();
