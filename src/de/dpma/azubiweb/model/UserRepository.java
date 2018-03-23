@@ -26,13 +26,13 @@ public interface UserRepository extends CrudRepository<User, Integer> {
 	
 	@Transactional
 	@Modifying
-	@Query("UPDATE User u SET password = ?2 WHERE u.id = ?1")
-	public void updateUserPassword(int id, String password);
+	@Query("UPDATE User u SET username = ?2 WHERE u.id = ?1")
+	public void updateUserUsername(int id, String username);
 	
 	@Transactional
 	@Modifying
-	@Query("UPDATE User u SET username = ?2 WHERE u.id = ?1")
-	public void updateUserUsername(int id, String username);
+	@Query("UPDATE User u SET password = ?2 WHERE u.id = ?1")
+	public void updateUserPassword(int id, String password);
 	
 	@Transactional
 	@Modifying
@@ -51,13 +51,13 @@ public interface UserRepository extends CrudRepository<User, Integer> {
 	
 	@Transactional
 	@Modifying
-	@Query("UPDATE User u SET einstiegsjahr = ?2 WHERE u.id = ?1")
-	public void updateUserEinstiegsjahr(int id, Integer einstiegsjahr);
+	@Query("UPDATE User u SET u.ausbildungsart = ?2 WHERE u.id = ?1")
+	public void updateUserAusbildungsart(int id, List<Ausbildungsart> ausbildungsart);
 	
 	@Transactional
 	@Modifying
-	@Query("UPDATE User u SET password = ?2 WHERE u.id = ?1")
-	public void updateUserAusbildungsart(int id, List<Ausbildungsart> ausbildungsart);
+	@Query("UPDATE User u SET einstiegsjahr = ?2 WHERE u.id = ?1")
+	public void updateUserEinstiegsjahr(int id, Integer einstiegsjahr);
 	
 	@Transactional
 	@Modifying
