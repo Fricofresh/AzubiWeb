@@ -56,6 +56,7 @@ public class UserService {
 	}
 	
 	// TODO Richtiges Update statement ausführen
+	// TODO Überprüfen ob die einfache save() Methode doch möglich ist
 	@SuppressWarnings("Nicht Benutzbar")
 	public boolean updateUser(User user) {
 		
@@ -66,10 +67,14 @@ public class UserService {
 			// user.getVorname(), user.getNachname(), user.getEmail(),
 			// user.getAusbildungsart(),
 			// user.getEinstiegsjahr(), user.getGeschlecht());
-//			System.out.println(user);
-//			userRepository.updateUser(user.getId(), user.getUsername(), user.getPassword(), user.getRolle(),
-//					user.getVorname(), user.getNachname(), user.getEmail(), user.getEinstiegsjahr(),
-//					user.getGeschlecht());
+			// System.out.println(user);
+			// userRepository.updateUser(user.getId(), user.getUsername(),
+			// user.getPassword(), user.getRolle(),
+			// user.getVorname(), user.getNachname(), user.getEmail(),
+			// user.getEinstiegsjahr(),
+			// user.getGeschlecht());
+			// userRepository.updateUserAusbildungsart(user.getId(),
+			// user.getAusbildungsart());
 			
 			userRepository.save(user);
 			return true;
