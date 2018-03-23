@@ -70,7 +70,6 @@ public class Einstellungen extends BenutzerVerwaltungsBasePage {
 			@Override
 			public void onSubmit() {
 				
-				System.out.println("Ich breche ab");
 				// TODO Richtiges zurückgehen
 				setResponsePage(new PageReference(getPageId() - 1).getPage().getClass());
 			}

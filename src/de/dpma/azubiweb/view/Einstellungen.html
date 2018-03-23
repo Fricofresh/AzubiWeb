@@ -37,7 +37,7 @@
 					<label for="rolle">Rolle</label>
 					<label class="form-control" wicket:id="rolleLabel" id="rolle"/>
 				</div>
-				<div class="col-md-2 mb-3 hidden">
+				<div class="col-md-2 mb-3">
 					<label for="referat">Referat</label>
 					<label class="form-control" wicket:id="referatLabel" id="referat"/>
 				</div>
@@ -70,6 +70,22 @@
 					<label class="form-control" wicket:id="ausbildungsartLabel" id="ausbildungsart"/>
 				</div>
 			</div>
+			<script>
+				function handleRolle() {
+					var rolleValue = $("#rolle").text();
+					console.log(rolleValue);
+					if (rolleValue === "Ausbilder") {
+						$("#ausbildungsart").parent().addClass("hidden");
+						$("#einstellungsjahr").parent().addClass("hidden");
+					}else if(rolleValue === "Ausbildungsleiter"){
+						$("#referat").parent().addClass("hidden");
+						$("#einstellungsjahr").parent().addClass("hidden");
+					} else if (rolleValue === "Auszubildende") {
+						$("#referat").parent().addClass("hidden");
+					}
+				}
+				$(document).ready(handleRolle());
+			</script>
 		</wicket:extend>
 	</body>
 </html>
