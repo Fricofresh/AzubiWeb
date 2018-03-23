@@ -50,26 +50,40 @@
 			</div>
 		</ul>
 		<ul class="list-group">
-			<li class="list-group-item d-flex flex-column list-group-item-action">Ausbilder</li>
-			<li class="list-group-item d-flex flex-column list-group-item-action"
-				wicket:id="ausbilderListView"><a wicket:id="ausbilderLabel" />
+			<li class="list-group-item d-flex flex-column list-group-item-action"><a
+				class="btn btn-link" data-toggle="collapse" href="#ausbilder"
+				role="button" aria-expanded="false" aria-controls="collapseExample">Ausbilder</a></li>
+			<div class="collapse" id="ausbilder">
+				<div class="card card-body">
+					<li
+						class="list-group-item d-flex flex-column list-group-item-action"
+						wicket:id="ausbilderListView"><a wicket:id="ausbilderLabel" />
 
-				<a class="pull-right" wicket:id="löschenLink"> <span
-					class="p-1 glyphicon glyphicon-trash" />
-			</a> <a class="pull-right mr-5" wicket:id="bearbeitenLink"> <span
-					class="p-2 glyphicon glyphicon-pencil" />
-			</a></li>
+						<a class="pull-right" wicket:id="löschenLink"> <span
+							class="p-1 glyphicon glyphicon-trash" />
+					</a> <a class="pull-right mr-5" wicket:id="bearbeitenLink"> <span
+							class="p-2 glyphicon glyphicon-pencil" />
+					</a></li>
+				</div>
+			</div>
 		</ul>
 		<ul class="list-group">
-			<li class="list-group-item d-flex flex-column list-group-item-action">Ausbildungsleiter</li>
-			<li class="list-group-item d-flex flex-column list-group-item-action"
-				wicket:id="ausbildungsleiterListView"><a
-				wicket:id="ausbildungsleiterLabel" /> <a class="pull-right"
-				wicket:id="löschenLink"> <span
-					class="p-1 glyphicon glyphicon-trash" />
-			</a> <a class="pull-right mr-5" wicket:id="bearbeitenLink"> <span
-					class="p-2 glyphicon glyphicon-pencil" />
-			</a></li>
+			<li class="list-group-item d-flex flex-column list-group-item-action"><a
+				class="btn btn-link" data-toggle="collapse" href="#ausbildungsleiter"
+				role="button" aria-expanded="false" aria-controls="collapseExample">Ausbildungsleiter</a></li>
+			<div class="collapse" id="ausbildungsleiter">
+				<div class="card card-body">
+					<li
+						class="list-group-item d-flex flex-column list-group-item-action"
+						wicket:id="ausbildungsleiterListView"><a
+						wicket:id="ausbildungsleiterLabel" /> <a class="pull-right"
+						wicket:id="löschenLink"> <span
+							class="p-1 glyphicon glyphicon-trash" />
+					</a> <a class="pull-right mr-5" wicket:id="bearbeitenLink"> <span
+							class="p-2 glyphicon glyphicon-pencil" />
+					</a></li>
+				</div>
+			</div>
 		</ul>
 		<div
 			class="alert alert-success alert-dismissible fade in position-sticky-bottom"
