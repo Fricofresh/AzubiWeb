@@ -133,7 +133,7 @@ public class BenutzerVerwaltungParent extends BenutzerVerwaltungsBasePage {
 				if (user.getRolle().getId() == Beschreibung.A.getRolleId()) {
 					Referat referat = referatService.getReferatByReferat(referatDropDownChoice.getModelObject());
 					referat.addAnsprechpartner(user);
-					referatService.saveReferat(referat);
+					referatService.updateAnsprechpartner(referat);
 				}
 				if (!vornameTextField.getModelObject().trim().isEmpty())
 					user.setVorname(vornameTextField.getModelObject().trim());

@@ -21,5 +21,5 @@ public interface ReferatRepository extends CrudRepository<Referat, Integer> {
 	@Transactional
 	@Modifying
 	@Query("UPDATE Referat SET ansprechpartner = ?2 WHERE id = ?1")
-	public void updateAnsprechpartner(int id, User user);
+	public void updateAnsprechpartner(int id, List<User> user);
 }

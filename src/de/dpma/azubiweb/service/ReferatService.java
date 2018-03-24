@@ -25,6 +25,11 @@ public class ReferatService {
 		referatRepository.save(referate);
 	}
 	
+	public void updateAnsprechpartner(Referat referat) {
+		
+		referatRepository.updateAnsprechpartner(referat.getId(), referat.getAnsprechpartner());
+	}
+	
 	public Referat getReferatById(int id) {
 		
 		return referatRepository.findById(id).get();
@@ -43,11 +48,11 @@ public class ReferatService {
 	public boolean updateReferat(Referat referat) {
 		
 		try {
-			for (User user : referat.getAnsprechpartner()) {
-				referatRepository.updateAnsprechpartner(referat.getId(), user);
-			}
+			// for (User user : referat.getAnsprechpartner()) {
+			// referatRepository.updateAnsprechpartner(referat.getId(), user);
+			// }
 			// referatRepository.delete(referat);
-			// referatRepository.save(referat);
+			referatRepository.save(referat);
 			return true;
 		}
 		catch (Exception e) {
