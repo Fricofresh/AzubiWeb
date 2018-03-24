@@ -166,7 +166,7 @@ public class InitialInsert {
 		userService.saveUser(new User(password, rolleService.getRolle(Rolle.Beschreibung.A), "Patrick", "Stangl",
 				Geschlecht.männlich));
 		userService.saveUser(
-				new User(password, rolleService.getRolle(Rolle.Beschreibung.A), "Hans", "Bayer", Geschlecht.männlich));
+				new User(password, rolleService.getRolle(Rolle.Beschreibung.A), "Hans", "Beyer", Geschlecht.männlich));
 		userService.saveUser(new User(password, rolleService.getRolle(Rolle.Beschreibung.A), "Harald", "Stemler",
 				Geschlecht.männlich));
 		// userService
