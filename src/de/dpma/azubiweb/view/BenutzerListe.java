@@ -14,6 +14,7 @@ import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
 import de.dpma.azubiweb.model.Ausbildungsart;
+import de.dpma.azubiweb.model.Referat;
 import de.dpma.azubiweb.model.Rolle;
 import de.dpma.azubiweb.model.Rolle.Beschreibung;
 import de.dpma.azubiweb.model.User;
@@ -44,6 +45,7 @@ public class BenutzerListe extends BenutzerVerwaltungsBasePage {
 		setAzubiListe();
 		setAusbilderListe();
 		setAusbildungsleiterListe();
+		
 		Boolean isNew = false;
 		WebMarkupContainer erfolgreicherAlertLabelParent = new WebMarkupContainer("erfolgreicherAlertLabelParent");
 		Label erfolgreicherAlertLabel = new Label("erfolgreicherAlertLabel");
@@ -78,7 +80,33 @@ public class BenutzerListe extends BenutzerVerwaltungsBasePage {
 	
 	private void setAusbilderListe() {
 		
-		add(addAllUserToListView(userService.getUserByRolle(rolleService.getRolle(Beschreibung.A)), "ausbilder"));
+		List<String> referatData = new ArrayList<>();
+		for (Referat referat : referatService.getAllReferat())
+			referatData.add(referat.getReferat());
+		
+		ListView<String> referatListView = new ListView<String>("referatListView", referatData) {
+			
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+			
+			@Override
+			protected void populateItem(ListItem<String> item) {
+				
+				String referat = item.getModelObject();
+				Label referatLabel = new Label("referatLabel", Model.of(referat));
+				item.add(referatLabel);
+				List<User> userData = new ArrayList<>();
+				for (User user : userService.getUserByRolle(rolleService.getRolle(Beschreibung.A))) {
+					System.out.println(referatService.getReferatByAnsprechpartner(user));
+					if (referatService.getReferatByAnsprechpartner(user).getReferat().equals(referat))
+						userData.add(user);
+				}
+				item.add(addAllUserToListView(userData, "ausbilder"));
+			}
+		};
+		add(referatListView);
 	}
 	
 	private void setAzubiListe() {

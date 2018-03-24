@@ -24,7 +24,7 @@
 							<span class="p-1 glyphicon glyphicon-triangle-bottom"/>
 						</a>
 					</li>
-	            	<ul class="nopadding" wicket:id="ausbildungsartListView">
+	            	<ul class="list-group" wicket:id="ausbildungsartListView">
 						<li class="list-group-item d-flex flex-column list-group-item-action">
 							<span wicket:id="ausbildungsartLabel"/> 
 							<a class="pull-right mr-5">
@@ -52,18 +52,27 @@
 						<span class="p-1 glyphicon glyphicon-triangle-bottom"/>
 					</a>
 				</li>
-				<ul class="nopadding">
-					<li class="list-group-item d-flex flex-column list-group-item-action" wicket:id="ausbilderListView"> 
-						<a wicket:id="ausbilderLabel"/>
-						
-						<a class="pull-right" wicket:id="löschenLink">
-							<span class="p-1 glyphicon glyphicon-trash"/>
-						</a>
-						
-						<a class="pull-right mr-5" wicket:id="bearbeitenLink">
-							<span class="p-2 glyphicon glyphicon-pencil"/>
+				<ul class="list-group" wicket:id="referatListView")>
+					
+					<li class="list-group-item d-flex flex-column list-group-item-action">
+						<span wicket:id="referatLabel"/> 
+						<a class="pull-right mr-5">
+							<span class="p-1 glyphicon glyphicon-triangle-bottom"/>
 						</a>
 					</li>
+					<ul class="nopadding">
+						<ul class="list-group-item d-flex flex-column list-group-item-action" wicket:id="ausbilderListView"> 
+							<a wicket:id="ausbilderLabel"/>
+							
+							<a class="pull-right" wicket:id="löschenLink">
+								<span class="p-1 glyphicon glyphicon-trash"/>
+							</a>
+							
+							<a class="pull-right mr-5" wicket:id="bearbeitenLink">
+								<span class="p-2 glyphicon glyphicon-pencil"/>
+							</a>
+						</ul>
+					</ul>
 				</ul>
             </ul>
             <ul class="list-group">
@@ -112,11 +121,8 @@
 					el.parent().parent().parent().children("ul").slideToggle();
 					el.removeClass("glyphicon-triangle-bottom").addClass("glyphicon-triangle-left");
 				}
-				// $(":regex(class, .glyphicon-triangle-*)").click(expand("false"));
 				$("document").ready(expandNone());
 				$(":regex(class, .glyphicon-triangle-*)").attr("onclick", "expand($(this))");
-				// $("document").ready((".glyphicon-triangle-bottom").click(expand("true")));
-				// $(":regex(class, .glyphicon-triangle-*)").on('click', expand("false"));
 			</script>
         </wicket:extend>
     </body>
