@@ -19,20 +19,16 @@ import de.dpma.azubiweb.util.PasswordAuthentication;
 public class UserService {
 	
 	@Autowired
-	// @SpringBean
-	// @Inject
 	private UserRepository userRepository;
 	
 	private PasswordAuthentication pa = new PasswordAuthentication();
 	
-	// @Transactional
 	public void saveUser(User user) {
 		
 		user = checkUser(user);
 		userRepository.save(user);
 	}
 	
-	// @Transactional
 	public boolean validateUser(String username, String password) {
 		
 		if (getUserByName(username) == null || getUserByName(username).getUsername().isEmpty()) {
@@ -44,7 +40,6 @@ public class UserService {
 		return false;
 	}
 	
-	// @Transactional
 	public User getUserByName(String username) {
 		
 		return userRepository.findByUsernameIgnoreCase(username);
