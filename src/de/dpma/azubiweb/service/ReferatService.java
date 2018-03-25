@@ -20,14 +20,16 @@ public class ReferatService {
 		return referatRepository.findAll();
 	}
 	
-	public void saveReferat(Referat referate) {
+	public void saveReferat(Referat referat) {
 		
-		referatRepository.save(referate);
+		referatRepository.save(referat);
 	}
 	
 	public void updateAnsprechpartner(Referat referat) {
 		
-		referatRepository.updateAnsprechpartner(referat.getId(), referat.getAnsprechpartner());
+		referatRepository.save(referat);
+		// referatRepository.updateAnsprechpartner(referat.getId(),
+		// referat.getAnsprechpartner());
 	}
 	
 	public Referat getReferatById(int id) {

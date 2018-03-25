@@ -130,11 +130,6 @@ public class BenutzerVerwaltungParent extends BenutzerVerwaltungsBasePage {
 				
 				user.setGeschlecht(geschlechtDropDownChoice.getModelObject());
 				user.setRolle(rolleService.getRolle(Beschreibung.valueOfString(rolleDropDownChoice.getModelObject())));
-				if (user.getRolle().getId() == Beschreibung.A.getRolleId()) {
-					Referat referat = referatService.getReferatByReferat(referatDropDownChoice.getModelObject());
-					referat.addAnsprechpartner(user);
-					referatService.updateAnsprechpartner(referat);
-				}
 				if (!vornameTextField.getModelObject().trim().isEmpty())
 					user.setVorname(vornameTextField.getModelObject().trim());
 				if (!nachnameTextField.getModelObject().trim().isEmpty())
@@ -152,6 +147,11 @@ public class BenutzerVerwaltungParent extends BenutzerVerwaltungsBasePage {
 				else {
 					user.setPassword("Anfang12");
 					userService.saveUser(user);
+				}
+				if (user.getRolle().getId() == Beschreibung.A.getRolleId()) {
+					Referat referat = referatService.getReferatByReferat(referatDropDownChoice.getModelObject());
+					referat.addAnsprechpartner(user);
+					referatService.updateAnsprechpartner(referat);
 				}
 				erfolgreicherAlertLabel.setEscapeModelStrings(false);
 				erfolgreicherAlertLabel
