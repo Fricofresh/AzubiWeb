@@ -42,6 +42,10 @@ nav {
 	margin-top: 15px;
 }
 
+.required {
+	color: red;
+}
+
 .linkcursor {
 	cursor: pointer;
 }

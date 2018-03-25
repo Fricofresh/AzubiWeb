@@ -2,28 +2,28 @@
 <html lang="de">
 	<body>
 		<wicket:extend>
-			<form wicket:id="userForm">
+			<form wicket:id="userForm" id="userForm">
 				<div class="form-group row">
 					<div class="col-md-2 mb-3">
-						<label for="geschlecht">Geschlecht</label>
+						<label for="geschlecht">Geschlecht <span class="required">*</span></label>
 						<select class="form-control" wicket:id="geschlechtDropDownChoice" id="geschlecht" required/>
 					</div>
 					<div class="col-md-2 mb-3">
-						<label for="rolle">Rolle</label>
+						<label for="rolle">Rolle <span class="required">*</span></label>
 						<select class="form-control" wicket:id="rolleDropDownChoice" id="rolle" onchange="handleRolle()" required/>
 					</div>
 					<div class="col-md-2 mb-3 hidden">
-						<label for="referat">Referat</label>
+						<label for="referat">Referat <span class="required">*</span></label>
 						<select class="form-control" wicket:id="referatDropDownChoice" id="referat"/>
 					</div>
 				</div>
 				<div class="form-group row">
 					<div class="col-md-3 mb-3">
-						<label for="vorname">Vorname</label>
+						<label for="vorname">Vorname <span class="required">*</span></label>
 						<input class="form-control" type="text" placeholder="Vorname" wicket:id="vornameTextField" id="vorname" required>
 					</div>
 					<div class="col-md-3 mb-3">
-						<label for="nachname">Nachname</label>
+						<label for="nachname">Nachname <span class="required">*</span></label>
 						<input class="form-control" type="text" placeholder="Nachname" wicket:id="nachnameTextField" id="nachname" required>
 					</div>
 					<div class="col-md-3 mb-3">
@@ -37,40 +37,14 @@
 						<input class="form-control" type="email" placeholder="E-Mail" wicket:id="emailEmailTextField" id="email">
 					</div>
 					<div class="col-md-3 mb-3">
-						<label for="einstellungsjahr">Einstellungsjahr</label>
+						<label for="einstellungsjahr">Einstellungsjahr <span class="required">*</span></label>
 						<input class="form-control" type="number" placeholder="Einstellungsjahr" wicket:id="einstellungsjahrNumberTextField" id="einstellungsjahr">
 					</div>
 					<div class="col-md-3 mb-3">
-						<label for="ausbildungsart">Ausbildungsart</label>
+						<label for="ausbildungsart">Ausbildungsart <span class="required">*</span></label>
 						<select class="form-control" wicket:id="ausbildungsartDropDownChoice" id="ausbildungsart"/>
 					</div>
 				</div>
-				<script>
-						function handleRolle() {
-							var rolleValue = $("#rolle").val();
-							if (rolleValue == 0) {
-								$("#ausbildungsart").attr("required", "");
-								$("#ausbildungsart").parent().removeClass("hidden");
-								$("#einstellungsjahr").parent().removeClass("hidden");
-								$("#referat").parent().addClass("hidden");
-								$("#referat").removeAttr("required");
-							} else if (rolleValue == 2) {
-								$("#referat").attr("required", "");
-								$("#referat").parent().removeClass("hidden");
-								$("#ausbildungsart").parent().addClass("hidden");
-								$("#ausbildungsart").removeAttr("required");
-								$("#einstellungsjahr").parent().addClass("hidden");
-							}
-							else if (rolleValue == 1) {
-								$("#ausbildungsart").removeAttr("required");
-								$("#ausbildungsart").parent().removeClass("hidden");
-								$("#referat").removeAttr("required");
-								$("#referat").parent().addClass("hidden");
-								$("#einstellungsjahr").parent().addClass("hidden");
-							}
-						}
-						$(document).ready(handleRolle());
-				</script>
 				<button class="btn btn-success" type="submit">Speichern</button>
 				<button class="btn btn-success" type="submit" wicket:id="speichernUndZurückButton">Speichern und zurück</button>
 			</form>
@@ -78,7 +52,36 @@
 				<span wicket:id="erfolgreicherAlertLabel"/>
 				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 			</div>
-
+			<span class="required">Die mit * markierten müssen ausgefüllt werden</span>
+			<script>
+				function handleRolle() {
+					var rolleValue = $("#rolle").val();
+					if (rolleValue == 0) {
+						$("#ausbildungsart").attr("required", "");
+						$("#ausbildungsart").parent().removeClass("hidden");
+						$("#einstellungsjahr").parent().removeClass("hidden");
+						$("#referat").parent().addClass("hidden");
+						$("#referat").removeAttr("required");
+					} else if (rolleValue == 2) {
+						$("#referat").attr("required", "");
+						$("#referat").parent().removeClass("hidden");
+						$("#ausbildungsart").parent().addClass("hidden");
+						$("#ausbildungsart").removeAttr("required");
+						$("#einstellungsjahr").parent().addClass("hidden");
+					}
+					else if (rolleValue == 1) {
+						$("#ausbildungsart").removeAttr("required");
+						$("#ausbildungsart").parent().removeClass("hidden");
+						$("#referat").removeAttr("required");
+						$("#referat").parent().addClass("hidden");
+						$("#einstellungsjahr").parent().addClass("hidden");
+					}
+				}
+				$("#userForm").each(function(){
+					this.reset();
+				});
+				$(document).ready(handleRolle());
+			</script>
 			<wicket:child/>
 		</wicket:extend>
 	</body>
