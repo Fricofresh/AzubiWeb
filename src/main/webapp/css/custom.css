@@ -17,6 +17,10 @@
 /* 	margin: 0px; */
 /* } */
 
+nav {
+	border-bottom: 2px solid #e3f9ff;
+}
+
 #servicenav {
 	display: flex;
 }
