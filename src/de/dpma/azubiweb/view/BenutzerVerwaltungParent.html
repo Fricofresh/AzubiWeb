@@ -48,19 +48,25 @@
 				<script>
 						function handleRolle() {
 							var rolleValue = $("#rolle").val();
-							if (rolleValue == 0 && rolleValue != null && rolleValue != "") {
+							if (rolleValue == 0) {
 								$("#ausbildungsart").attr("required", "");
 								$("#ausbildungsart").parent().removeClass("hidden");
-							} else if (rolleValue == 2 && rolleValue != null && rolleValue != "") {
+								$("#einstellungsjahr").parent().removeClass("hidden");
+								$("#referat").parent().addClass("hidden");
+								$("#referat").removeAttr("required");
+							} else if (rolleValue == 2) {
 								$("#referat").attr("required", "");
 								$("#referat").parent().removeClass("hidden");
 								$("#ausbildungsart").parent().addClass("hidden");
-							}
-							else {
 								$("#ausbildungsart").removeAttr("required");
+								$("#einstellungsjahr").parent().addClass("hidden");
+							}
+							else if (rolleValue == 1) {
+								$("#ausbildungsart").removeAttr("required");
+								$("#ausbildungsart").parent().removeClass("hidden");
 								$("#referat").removeAttr("required");
 								$("#referat").parent().addClass("hidden");
-								$("#ausbildungsart").parent().removeClass("hidden");
+								$("#einstellungsjahr").parent().addClass("hidden");
 							}
 						}
 						$(document).ready(handleRolle());
