@@ -10,6 +10,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 
 /**
@@ -32,6 +34,7 @@ public class Referat implements Serializable {
 	
 	@OneToMany(fetch = FetchType.EAGER)
 	// @Column(unique = true)
+	@JoinTable(name = "REFERAT_ANSPRECHPARTNER", joinColumns = @JoinColumn(name = "REFERAT_ID", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "ANSPRECHPARTNER_ID", referencedColumnName = "id"))
 	private List<User> ansprechpartner = new ArrayList<>();
 	
 	private static final long serialVersionUID = 1L;
@@ -97,5 +100,12 @@ public class Referat implements Serializable {
 	public void addAnsprechpartner(User ansprechpartner) {
 		
 		this.ansprechpartner.add(ansprechpartner);
+	}
+	
+	@Override
+	public String toString() {
+		
+		return String.format("id=%d, referat=%s, referatsname=%s, ansprechpartner=%s", id, referat, referatsname,
+				ansprechpartner);
 	}
 }
