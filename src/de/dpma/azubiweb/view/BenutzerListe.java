@@ -98,11 +98,9 @@ public class BenutzerListe extends BenutzerVerwaltungsBasePage {
 				Label referatLabel = new Label("referatLabel", Model.of(referat));
 				item.add(referatLabel);
 				List<User> userData = new ArrayList<>();
-				for (User user : userService.getUserByRolle(rolleService.getRolle(Beschreibung.A))) {
-					System.out.println(referatService.getReferatByAnsprechpartner(user));
+				for (User user : userService.getUserByRolle(rolleService.getRolle(Beschreibung.A)))
 					if (referatService.getReferatByAnsprechpartner(user).getReferat().equals(referat))
 						userData.add(user);
-				}
 				item.add(addAllUserToListView(userData, "ausbilder"));
 			}
 		};
