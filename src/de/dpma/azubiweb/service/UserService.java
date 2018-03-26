@@ -81,14 +81,26 @@ public class UserService {
 	
 	private User checkUser(User user) {
 		
+		String vorname = user.getVorname();
+		String nachname = user.getNachname();
+		vorname = correctName(vorname);
+		nachname = correctName(nachname);
+		
 		if (user.getUsername() == null || user.getUsername().trim().isEmpty())
-			user.setUsername(user.getVorname().substring(0, 2)
-					+ (user.getNachname().length() <= 6 ? user.getNachname() : user.getNachname().substring(0, 6)));
+			user.setUsername(vorname.substring(0, 2) + (nachname.length() <= 6 ? nachname : nachname.substring(0, 6)));
 		if (user.getEmail() == null || user.getEmail().isEmpty())
-			user.setEmail(user.getVorname() + "." + user.getNachname() + "@dpma.de");
+			user.setEmail(vorname + "." + nachname + "@dpma.de");
 		if (!pa.isHashed(user.getPassword()))
 			user.setPassword(pa.hash(user.getPassword().toCharArray()));
 		return user;
+	}
+	
+	private String correctName(String name) {
+		
+		name = name.replaceAll("ä", "ae");
+		name = name.replaceAll("ö", "oe");
+		name = name.replaceAll("ü", "ue");
+		return name;
 	}
 	
 	public boolean deleteUser(User user) {
