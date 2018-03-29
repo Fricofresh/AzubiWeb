@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.wicket.Component;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Button;
@@ -23,19 +24,31 @@ import de.dpma.azubiweb.model.Rolle.Beschreibung;
 import de.dpma.azubiweb.model.User;
 import de.dpma.azubiweb.model.User.Geschlecht;
 
+/**
+ * Enthält alle Funktionen für {@link BenutzerAnlage} und
+ * {@link BenutzerBearbeiten}.
+ * 
+ * @author Kenneth Böhmer
+ *
+ */
 public class BenutzerVerwaltungParent extends BenutzerVerwaltungsBasePage {
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 9031648713788591454L;
 	
+	/**
+	 * @see #initial(User)
+	 */
 	public BenutzerVerwaltungParent() {
 		
 		super();
 		initial(null);
 	}
 	
+	/**
+	 * NICHT VERWENDEN, zur vollständigkeitshalber hinzugefügt.
+	 * 
+	 * @param pageParameters
+	 */
 	@SuppressWarnings("Nicht verwendbar")
 	public BenutzerVerwaltungParent(PageParameters pageParameters) {
 		
@@ -44,12 +57,31 @@ public class BenutzerVerwaltungParent extends BenutzerVerwaltungsBasePage {
 			initial(pageParameters.get("User").to(User.class));
 	}
 	
+	/**
+	 * 
+	 * @see #initial(User)
+	 * 
+	 * @param user
+	 */
 	public BenutzerVerwaltungParent(User user) {
 		
 		super();
 		initial(user);
 	}
 	
+	/**
+	 * Wird aufgerufen, wenn ein Objekt von einer der Klassen, die von
+	 * {@link BenutzerVerwaltungParent} erben, erstellt wurde bzw. die View, von
+	 * einer der Klassen {@link BenutzerVerwaltungParent} erben, aufgerufen
+	 * wurde. <br>
+	 * Belegt die {@link Component} mit Funktionen und entscheidet ob ein neuer
+	 * Benutzer angelegt werden soll oder ein Benutzer bearbeitet wird.
+	 * 
+	 * @param user
+	 *            der zu bearbeitende Benutzer | bei <strong>null</strong> oder
+	 *            leeren <strong>{@link User}</strong>, wird ein neuer Benutzer
+	 *            erstellt.
+	 */
 	protected void initial(User user) {
 		
 		DropDownChoice<Geschlecht> geschlechtDropDownChoice = new DropDownChoice<>("geschlechtDropDownChoice",
@@ -86,9 +118,6 @@ public class BenutzerVerwaltungParent extends BenutzerVerwaltungsBasePage {
 		boolean isNew = user == null || user.isEmpty();
 		Button speichernUndZurückButton = new Button("speichernUndZurückButton", Model.of()) {
 			
-			/**
-			 * 
-			 */
 			private static final long serialVersionUID = 1L;
 			
 			@Override
@@ -120,9 +149,6 @@ public class BenutzerVerwaltungParent extends BenutzerVerwaltungsBasePage {
 		erfolgreicherAlertLabelParent.add(erfolgreicherAlertLabel);
 		Form<?> userForm = new Form<Void>("userForm") {
 			
-			/**
-			 * 
-			 */
 			private static final long serialVersionUID = 1L;
 			
 			@Override

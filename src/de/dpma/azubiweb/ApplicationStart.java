@@ -16,6 +16,13 @@ import de.dpma.azubiweb.view.Einstellungen;
 import de.dpma.azubiweb.view.LoginPage;
 import de.dpma.azubiweb.view.StartPage;
 
+/**
+ * Startet die Application und setzt die Session, Anmeldeseite, Startseite und
+ * die einzelnen URL für die Seiten.
+ * 
+ * @author Kenneth Böhmer
+ *
+ */
 @SpringBootApplication
 public class ApplicationStart extends WicketBootSecuredWebApplication {
 	
@@ -24,6 +31,9 @@ public class ApplicationStart extends WicketBootSecuredWebApplication {
 		SpringApplication.run(ApplicationStart.class, args);
 	}
 	
+	/**
+	 * Setzt die Startseite
+	 */
 	@Override
 	public Class<? extends Page> getHomePage() {
 		
@@ -35,25 +45,35 @@ public class ApplicationStart extends WicketBootSecuredWebApplication {
 	//
 	// return new UserSession(request);
 	// }
-	
+	/**
+	 * Setzt die Session
+	 */
 	@Override
 	protected Class<? extends AbstractAuthenticatedWebSession> getWebSessionClass() {
 		
 		return UserSession.class;
 	}
 	
+	/**
+	 * Setzt die Anmeldeseite
+	 */
 	@Override
 	protected Class<? extends WebPage> getSignInPageClass() {
 		
 		return LoginPage.class;
 	}
 	
+	/**
+	 * Setzt die Einstellungen für Wicket/Spring. Stellt die Seiten URL
+	 */
 	@Override
 	public void init() {
 		
 		super.init();
+		// Schaltet die AjaxDebug Panel aus.
 		getDebugSettings().setAjaxDebugModeEnabled(false);
 		
+		// Setzt die URL für die einzelnen Seiten
 		mountPage("/LoginPage", LoginPage.class);
 		mountPage("/Einstellungen", Einstellungen.class);
 		mountPage("/BenutzerAnlage", BenutzerAnlage.class);

@@ -1,5 +1,6 @@
 package de.dpma.azubiweb.view;
 
+import org.apache.wicket.Component;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.CheckBox;
 import org.apache.wicket.markup.html.form.Form;
@@ -12,22 +13,41 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 
 import de.dpma.azubiweb.model.User;
 
+/**
+ * Controller für die Anmelde Seite. <br>
+ * Die Klasse ruft {@link StartPage} auf, bei erfolgreicher Anmeldung.
+ * 
+ * @author Kenneth Böhmer
+ *
+ */
 public class LoginPage extends RootPage {
 	
 	private static final long serialVersionUID = 3863219283612212097L;
 	
+	/**
+	 * @see #initial()
+	 */
 	public LoginPage() {
 		
 		super();
 		initial();
 	}
 	
-	public LoginPage(PageParameters parameters) {
+	/**
+	 * @see #initial()
+	 * @param pageParameters
+	 */
+	public LoginPage(PageParameters pageParameters) {
 		
-		super(parameters);
+		super(pageParameters);
 		initial();
 	}
 	
+	/**
+	 * Wird aufgerufen, wenn ein Objekt von {@link LoginPage} erstellt wurde
+	 * bzw. die View von {@link LoginPage} aufgerufen wurde. <br>
+	 * Setzt die Überschrift und belegt die {@link Component} mit Funktionen.
+	 */
 	private void initial() {
 		
 		titelLabel.setDefaultModelObject("Anmelden");
@@ -60,11 +80,8 @@ public class LoginPage extends RootPage {
 				}
 				else
 					LoginPage.this.error("Es wurde kein Benutzer mit den Benutzernamen gefunden");
-				// setResponsePage(getPage());
 			}
 		};
-		// passwortVergessenButton.setDefaultFormProcessing(false);
-		// add(passwortVergessenButton);
 		passwortVergessen.add(userLabel);
 		add(passwortVergessen);
 		anmeldung.add(usernameTextField, passwordTextfield, fp, rememberMeCheckBox);

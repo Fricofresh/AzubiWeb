@@ -77,10 +77,12 @@
 						$("#einstellungsjahr").parent().addClass("hidden");
 					}
 				}
-				$("#userForm").each(function(){
-					this.reset();
-				});
+				
 				$(document).ready(handleRolle());
+				$(document).ready(function(){
+					$("input").val('');
+					$("select").val('');
+				});
 			</script>
 			<wicket:child/>
 		</wicket:extend>

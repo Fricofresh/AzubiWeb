@@ -9,22 +9,47 @@ import de.dpma.azubiweb.model.Rolle;
 import de.dpma.azubiweb.model.Rolle.Beschreibung;
 import de.dpma.azubiweb.model.RolleRepository;
 
+/**
+ * Kommuniziert mit {@link RolleRepository} und muss verwendet werden, wenn man
+ * mit der Datenbank kommunizieren möchte. <br>
+ * Es ist der Controller für JPA.
+ * 
+ * @author Kenneth Böhmer
+ *
+ */
 @Service
 public class RolleService {
 	
 	@Autowired
 	private RolleRepository rolleRepository;
 	
+	/**
+	 * Speichert eine Rolle.
+	 * 
+	 * @param rolle
+	 *            Rolle
+	 */
 	public void saveRolle(Rolle rolle) {
 		
 		rolleRepository.save(rolle);
 	}
 	
+	/**
+	 * Holt sich alle Rollen.
+	 * 
+	 * @return Alle Rollen
+	 */
 	public List<Rolle> getAllRolles() {
 		
 		return rolleRepository.findAll();
 	}
 	
+	/**
+	 * Löscht eine Rolle.
+	 * 
+	 * @param rolle
+	 * @return true == Falls keine Exception geworfen wurde.
+	 */
 	public boolean deleteRolle(Rolle rolle) {
 		
 		try {
@@ -36,6 +61,11 @@ public class RolleService {
 		}
 	}
 	
+	/**
+	 * Löscht alle Rollen.
+	 * 
+	 * @return true == Falls keine Exception geworfen wurde.
+	 */
 	public boolean deleteAllRolle() {
 		
 		try {
@@ -47,8 +77,16 @@ public class RolleService {
 		}
 	}
 	
+	/**
+	 * Holt eine Rolle über dem ENUM {@link Beschreibung}
+	 * 
+	 * @param beschreibung
+	 *            ENUM-Wert
+	 * @return Rolle
+	 */
 	public Rolle getRolle(Beschreibung beschreibung) {
 		
+		System.out.println(beschreibung);
 		return rolleRepository.findById(beschreibung.getRolleId()).get();
 	}
 	

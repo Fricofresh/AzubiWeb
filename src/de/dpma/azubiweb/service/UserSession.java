@@ -1,5 +1,6 @@
 package de.dpma.azubiweb.service;
 
+import org.apache.wicket.Session;
 import org.apache.wicket.authroles.authentication.AuthenticatedWebSession;
 import org.apache.wicket.authroles.authorization.strategies.role.Roles;
 import org.apache.wicket.injection.Injector;
@@ -8,12 +9,18 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import de.dpma.azubiweb.model.User;
 
-public class UserSession extends /* SecureWebSession */ AuthenticatedWebSession {
+/**
+ * Die Session ist für die Anmeldung eines Benutzers da.<br>
+ * Authentifiziert den Benutzer.
+ * 
+ * @author Kenneth Böhmer
+ *
+ */
+public class UserSession extends AuthenticatedWebSession {
 	
 	private static final long serialVersionUID = -8171442512896032131L;
 	
 	@SpringBean
-	// @Autowired
 	private UserService userService;
 	
 	private String username;
@@ -26,10 +33,22 @@ public class UserSession extends /* SecureWebSession */ AuthenticatedWebSession 
 		Injector.get().inject(this);
 	}
 	
+	/**
+	 * Authentifiziert den Benutzer. <br>
+	 * Setzt den Benutzer und Benutzernamen um später wieder darauf zuzugreifen.
+	 * <br>
+	 * Wird mit der statischen Methode {@link Session#signIn(String, String)
+	 * signIn} aufgerufen.
+	 * 
+	 * @param username
+	 *            der Benutzername
+	 * @param password
+	 *            das Passwort
+	 * @return <strong>boolean</strong> Anmeldedaten == richtig
+	 */
 	@Override
 	public boolean authenticate(final String username, final String password) {
 		
-		// new InitialInsert();
 		boolean signedIn = userService.validateUser(username, password);
 		if (signedIn) {
 			this.username = username;
@@ -38,26 +57,36 @@ public class UserSession extends /* SecureWebSession */ AuthenticatedWebSession 
 		return signedIn;
 	}
 	
+	/**
+	 * Meldet den Benutzer ab und setzt die Benutzerdaten für diese Session auf
+	 * null.
+	 */
 	@Override
 	public void signOut() {
 		
 		super.signOut();
 		this.user = null;
+		this.username = null;
 	}
 	
+	/**
+	 * Setzt die Rolle des angemeldeten Benutzers.
+	 * 
+	 * @return
+	 */
 	@Override
 	public Roles getRoles() {
 		
 		Roles rollen = new Roles();
 		if (isSignedIn())
 			rollen.add(getUser().getRolle().getBeschreibung());
-		// for (Rolle rolle : rs.getAllRolles()) {
-		// rollen.add(rolle.getBeschreibung());
-		// }
 		
 		return rollen;
 	}
 	
+	/**
+	 * @return den aktuell angemeldeten Benutzer
+	 */
 	public User getUser() {
 		
 		// Falls der Benutzer angemeldet ist aber eine neue Session startet.
@@ -70,6 +99,9 @@ public class UserSession extends /* SecureWebSession */ AuthenticatedWebSession 
 		return user;
 	}
 	
+	/**
+	 * @return gibt die {@link UserSession} Klasse zurück.
+	 */
 	public UserService getUserService() {
 		
 		return userService;

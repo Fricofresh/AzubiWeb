@@ -1,5 +1,6 @@
 package de.dpma.azubiweb.view;
 
+import org.apache.wicket.Component;
 import org.apache.wicket.Session;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.WebPage;
@@ -13,37 +14,62 @@ import de.dpma.azubiweb.model.Rolle.Beschreibung;
 import de.dpma.azubiweb.model.User;
 import de.dpma.azubiweb.service.UserSession;
 
+/**
+ * Stellt das Grundgerüst für alle Seiten da. <br>
+ * 
+ * @author Kenneth Böhmer
+ */
 public class RootPage extends WebPage {
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 8864787036851596335L;
 	
 	private WebMarkupContainer navLeisteWebMarkupContainer;
 	
 	private WebMarkupContainer benutzerVerwaltungWebMarkupContainer;
 	
+	/**
+	 * Die aktuelle Session
+	 */
 	protected UserSession session = (UserSession) Session.get();
 	
+	/**
+	 * Der aktueller Benutzer, der angemeldet ist.
+	 */
 	protected User user = session.getUser();
 	
+	/**
+	 * Die Überschrift, dass Standartmäßig den Klassennamen nimmt.
+	 */
 	protected Label titelLabel = new Label("titelLabel", Model.of(this.getClass().getSimpleName()));
 	
+	/**
+	 * @see #initial
+	 */
 	public RootPage() {
 		
 		super();
 		initial();
 	}
 	
+	/**
+	 * @see #initial
+	 * @param params
+	 */
 	public RootPage(final PageParameters params) {
 		
 		super(params);
 		initial();
 	}
 	
+	/**
+	 * Setzt die Funktionen die einzelnen Punkte in der Navigationsleiste. <br>
+	 * Initialisiert alle {@link Component}
+	 */
 	private void initial() {
 		
+		// Falls man eine leere Datenbank hat, wird sie wieder gefüllt. Hilft,
+		// wenn man bei aplication.properties die DDL von hibernate auf
+		// create-drop stellt um immer frische Daten zu haben.
 		if (session.getUserService().getAllUser().isEmpty())
 			new InitialInsert();
 		
@@ -53,9 +79,6 @@ public class RootPage extends WebPage {
 		
 		benutzerVerwaltungWebMarkupContainer.add(new Link<String>("benutzerAnlageLink") {
 			
-			/**
-			 * 
-			 */
 			private static final long serialVersionUID = 1L;
 			
 			@Override
@@ -66,9 +89,6 @@ public class RootPage extends WebPage {
 		});
 		benutzerVerwaltungWebMarkupContainer.add(new Link<String>("benutzerBearbeitenLink") {
 			
-			/**
-			 * 
-			 */
 			private static final long serialVersionUID = 1L;
 			
 			@Override
@@ -78,8 +98,6 @@ public class RootPage extends WebPage {
 			}
 		});
 		
-		// TODO
-		// https://ci.apache.org/projects/wicket/guide/8.x/single.html#_implement_visibilities_of_components_correctly
 		navLeisteWebMarkupContainer.add(benutzerVerwaltungWebMarkupContainer);
 		if (user != null && user.getRolle().getId() != Beschreibung.AL.getRolleId())
 			benutzerVerwaltungWebMarkupContainer.setVisible(false);
@@ -112,9 +130,6 @@ public class RootPage extends WebPage {
 		});
 		navLeisteWebMarkupContainer.add(new Link<String>("berichtsheftLink") {
 			
-			/**
-			 * 
-			 */
 			private static final long serialVersionUID = 1L;
 			
 			@Override
@@ -126,9 +141,6 @@ public class RootPage extends WebPage {
 		add(navLeisteWebMarkupContainer);
 		navLeisteWebMarkupContainer.add(new Link<String>("steckbriefLink") {
 			
-			/**
-			 * 
-			 */
 			private static final long serialVersionUID = 1L;
 			
 			@Override
@@ -141,9 +153,6 @@ public class RootPage extends WebPage {
 		
 		navLeisteWebMarkupContainer.add(new Link<String>("einsatzplanLink") {
 			
-			/**
-			 * 
-			 */
 			private static final long serialVersionUID = 1L;
 			
 			@Override
@@ -156,6 +165,12 @@ public class RootPage extends WebPage {
 		navLeisteWebMarkupContainer.setVisible(session.isSignedIn());
 	}
 	
+	/**
+	 * Setzt die Sichtbarkeit Navigationsleiste
+	 * 
+	 * @param hide
+	 *            true = unsichtbar, false = sichtbar
+	 */
 	protected void setVisibleNav(boolean hide) {
 		
 		navLeisteWebMarkupContainer.setVisible(!hide);

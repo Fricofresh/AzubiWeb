@@ -9,12 +9,16 @@ import de.dpma.azubiweb.service.ReferatService;
 import de.dpma.azubiweb.service.RolleService;
 import de.dpma.azubiweb.service.UserService;
 
+/**
+ * Diese Klasse enthält alle nötigen Service Klassen um die Benutzer zu
+ * Verwalten.
+ * 
+ * @author Kenneth Böhmer
+ *
+ */
 @AuthorizeInstantiation("Ausbildungsleiter")
 public class BenutzerVerwaltungsBasePage extends RootPage {
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 8938080241246551570L;
 	
 	@SpringBean
