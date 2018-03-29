@@ -45,6 +45,7 @@ public class ApplicationStart extends WicketBootSecuredWebApplication {
 	//
 	// return new UserSession(request);
 	// }
+	
 	/**
 	 * Setzt die Session
 	 */

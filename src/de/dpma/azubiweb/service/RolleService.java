@@ -10,6 +10,9 @@ import de.dpma.azubiweb.model.Rolle.Beschreibung;
 import de.dpma.azubiweb.model.RolleRepository;
 
 /**
+ * <p>
+ * Die Service Klasse für die Entity {@link Rolle}.
+ * </p>
  * Kommuniziert mit {@link RolleRepository} und muss verwendet werden, wenn man
  * mit der Datenbank kommunizieren möchte. <br>
  * Es ist der Controller für JPA.
