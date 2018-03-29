@@ -149,6 +149,7 @@ public class UserService {
 			user.setPassword(pa.hash(user.getPassword().toCharArray()));
 		return user;
 	}
+	
 	private String correctName(String name) {
 		
 		name = name.replaceAll("ä", "ae");
@@ -164,6 +165,7 @@ public class UserService {
 	 *            Benutzer
 	 * @return true == Falls keine Exception geworfen wurde.
 	 */
+	
 	public boolean deleteUser(User user) {
 		
 		try {
