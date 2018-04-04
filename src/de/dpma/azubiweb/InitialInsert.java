@@ -30,6 +30,12 @@ public class InitialInsert {
 	@SpringBean
 	private ReferatService referatService;
 	
+	/**
+	 * @see {@link #insertAllRolle()}<br>
+	 *      {@link #insertAllAusbildungsart()}<br>
+	 *      {@link #insertAllUser()}<br>
+	 *      {@link #insertAllReferat()}
+	 */
 	public InitialInsert() {
 		
 		Injector.get().inject(this);
@@ -37,11 +43,15 @@ public class InitialInsert {
 		// Benutzer angelegt werden.
 		insertAllRolle();
 		insertAllAusbildungsart();
-		
+		// INFO Benutzer müssen zuerst angelegt werden, bevor die
+		// Ausbildungsreferate angelegt werden.
 		insertAllUser();
-		insertAllAusbildungsreferat();
+		insertAllReferat();
 	}
 	
+	/**
+	 * Fügt alle Rollen in der Datenbank hinzu.
+	 */
 	private void insertAllRolle() {
 		
 		System.out.println(rolleService);
@@ -50,6 +60,9 @@ public class InitialInsert {
 		rolleService.saveRolle(new Rolle(Beschreibung.A.getRolleId(), "Ausbilder"));
 	}
 	
+	/**
+	 * Fügt ale Ausbildungsarten in der Datenbank hinzu.
+	 */
 	private void insertAllAusbildungsart() {
 		
 		ausbildungsartService.saveAusbildungsart(new Ausbildungsart("Fachinformatiker Fachrichtung Systemintegration",
@@ -71,6 +84,9 @@ public class InitialInsert {
 				new Ausbildungsart("Verwaltungsfachangestellter", "Verwaltungsfachangestellte", "VFA", true));
 	}
 	
+	/**
+	 * Fügt alle Benutzer in der Datenbank hinzu.
+	 */
 	private void insertAllUser() {
 		
 		String password = "Anfang12";
@@ -195,7 +211,10 @@ public class InitialInsert {
 		// End Alle Ausbilder
 	}
 	
-	private void insertAllAusbildungsreferat() {
+	/**
+	 * Fügt alle Referate in der Datenbank hinzu.
+	 */
+	private void insertAllReferat() {
 		
 		referatService
 				.saveReferat(new Referat("2.3.3", userService.getUserByName("PaStangl"), "Strategische IT-Aufgaben"));

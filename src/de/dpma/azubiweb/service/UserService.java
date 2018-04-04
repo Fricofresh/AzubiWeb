@@ -12,6 +12,9 @@ import de.dpma.azubiweb.model.UserRepository;
 import de.dpma.azubiweb.util.PasswordAuthentication;
 
 /**
+ * <p>
+ * Die Service Klasse für die Entity {@link User}.
+ * </p>
  * Kommuniziert mit {@link UserRepository} und muss verwendet werden, wenn man
  * mit der Datenbank kommunizieren möchte. <br>
  * Es ist der Controller für JPA.
@@ -132,7 +135,7 @@ public class UserService {
 	 * Verschlüsselt das {@link PasswordAuthentication Passwort}.
 	 * 
 	 * @param user
-	 * @return
+	 * @return bearbeiteter {@link User}
 	 */
 	private User checkUser(User user) {
 		
@@ -150,6 +153,12 @@ public class UserService {
 		return user;
 	}
 	
+	/**
+	 * Wandelt die Umlaute wie äöü in ae, oe und ue um.
+	 * 
+	 * @param name
+	 * @return umgewandelter String
+	 */
 	private String correctName(String name) {
 		
 		name = name.replaceAll("ä", "ae");

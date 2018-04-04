@@ -9,6 +9,16 @@ import de.dpma.azubiweb.model.Referat;
 import de.dpma.azubiweb.model.ReferatRepository;
 import de.dpma.azubiweb.model.User;
 
+/**
+ * <p>
+ * Die Service Klasse für die Entity {@link Referat}.
+ * </p>
+ * Kommuniziert mit {@link ReferatRepository} und muss verwendet werden, wenn
+ * man mit der Datenbank kommunizieren möchte. <br>
+ * Es ist der Controller für JPA.
+ * 
+ * @author Kenneth Böhmer
+ */
 @Service
 public class ReferatService {
 	
