@@ -41,7 +41,7 @@ public class BenutzerVerwaltungParent extends BenutzerVerwaltungsBasePage {
 	public BenutzerVerwaltungParent() {
 		
 		super();
-		initial(null);
+		initial(new User());
 	}
 	
 	/**
@@ -78,20 +78,27 @@ public class BenutzerVerwaltungParent extends BenutzerVerwaltungsBasePage {
 	 * Benutzer angelegt werden soll oder ein Benutzer bearbeitet wird.
 	 * 
 	 * @param user
-	 *            der zu bearbeitende Benutzer | bei <strong>null</strong> oder
-	 *            leeren <strong>{@link User}</strong>, wird ein neuer Benutzer
-	 *            erstellt.
+	 *            der zu bearbeitende <strong>{@link User Benutzer}</strong> |
+	 *            bei einem leeren <strong>{@link User Benutzer}</strong> wird
+	 *            ein neuer erstellt.<br>
+	 *            Bei <strong>null</strong> wird ein NullPointerException
+	 *            geworfen.
 	 */
 	protected void initial(User user) {
 		
+		if (user == null)
+			throw new NullPointerException("Benutzer darf nicht null sein");
+		// Components deklarieren und Model setzen
 		DropDownChoice<Geschlecht> geschlechtDropDownChoice = new DropDownChoice<>("geschlechtDropDownChoice",
 				Model.ofList(Arrays.asList(Geschlecht.values())));
 		geschlechtDropDownChoice.setDefaultModel(Model.of());
+		// Alle Rollen als Auswahlmöglichkeiten anbieten
 		List<String> rollenData = new ArrayList<>();
 		for (Rolle rolle : rolleService.getAllRolles())
 			rollenData.add(rolle.getBeschreibung());
 		DropDownChoice<String> rolleDropDownChoice = new DropDownChoice<>("rolleDropDownChoice", rollenData);
 		rolleDropDownChoice.setDefaultModel(Model.of());
+		// Alle Referate als Auswahlmöglichkeiten anbieten
 		List<String> referatData = new ArrayList<>();
 		for (Referat referat : referatService.getAllReferat())
 			referatData.add(referat.getReferat());
@@ -103,6 +110,7 @@ public class BenutzerVerwaltungParent extends BenutzerVerwaltungsBasePage {
 		EmailTextField emailEmailTextField = new EmailTextField("emailEmailTextField", Model.of());
 		NumberTextField<Integer> einstellungsjahrNumberTextField = new NumberTextField<>(
 				"einstellungsjahrNumberTextField", Model.of(LocalDate.now().getYear()));
+		// Alle Ausbildungsarten als Auswahlmöglichkeiten anbieten
 		List<String> ausbildungsart = new ArrayList<>();
 		for (Ausbildungsart ausbildungsarten : ausbildungsartService.getAllAusbildungsart()) {
 			if (ausbildungsarten.getBerufsbildAbkürzung() == null
@@ -115,18 +123,21 @@ public class BenutzerVerwaltungParent extends BenutzerVerwaltungsBasePage {
 				Model.ofList(ausbildungsart));
 		ausbildungsartDropDownChoice.setDefaultModel(Model.of());
 		
-		boolean isNew = user == null || user.isEmpty();
+		// Überprüfung ob ein Benutzer übergeben wurde
+		boolean isNew = user.isEmpty();
+		
 		Button speichernUndZurückButton = new Button("speichernUndZurückButton", Model.of()) {
 			
 			private static final long serialVersionUID = 1L;
 			
 			@Override
-			public void onSubmit() {
+			public void onAfterSubmit() {
 				
 				setResponsePage(BenutzerListe.class, new PageParameters().add("isNew", isNew).add("user",
 						user.getVorname() + " " + user.getNachname()));
 			}
 		};
+		// Setzen der Input-Felder, wenn ein Benutzer übergeben wurde
 		if (!isNew) {
 			geschlechtDropDownChoice.setModel(Model.of(user.getGeschlecht()));
 			rolleDropDownChoice.setModel(Model.of(user.getRolle().getBeschreibung()));
@@ -147,6 +158,22 @@ public class BenutzerVerwaltungParent extends BenutzerVerwaltungsBasePage {
 		Label erfolgreicherAlertLabel = new Label("erfolgreicherAlertLabel");
 		erfolgreicherAlertLabelParent.setVisible(false);
 		erfolgreicherAlertLabelParent.add(erfolgreicherAlertLabel);
+		Button speichernButton = new Button("speichernButton", Model.of()) {
+			
+			private static final long serialVersionUID = 1L;
+			
+			@Override
+			public void onAfterSubmit() {
+				
+				// ermöglicht HTML Tags
+				erfolgreicherAlertLabel.setEscapeModelStrings(false);
+				// Setzen der Alertbox von Bootstrap
+				erfolgreicherAlertLabel
+						.setDefaultModel(Model.of("Der Benutzer <strong>" + user.getVorname() + " " + user.getNachname()
+								+ "</strong> wurde erfolgreich " + (isNew ? "angelegt" : "bearbeitet") + "."));
+				erfolgreicherAlertLabelParent.setVisible(true);
+			}
+		};
 		Form<?> userForm = new Form<Void>("userForm") {
 			
 			private static final long serialVersionUID = 1L;
@@ -154,6 +181,7 @@ public class BenutzerVerwaltungParent extends BenutzerVerwaltungsBasePage {
 			@Override
 			protected void onSubmit() {
 				
+				// Der Wert der Input-Felder werden in User gesetzt
 				user.setGeschlecht(geschlechtDropDownChoice.getModelObject());
 				user.setRolle(rolleService.getRolle(Beschreibung.valueOfString(rolleDropDownChoice.getModelObject())));
 				if (!vornameTextField.getModelObject().trim().isEmpty())
@@ -162,15 +190,16 @@ public class BenutzerVerwaltungParent extends BenutzerVerwaltungsBasePage {
 					user.setNachname(nachnameTextField.getModelObject().trim());
 				user.setUsername(benutzernameTextField.getModelObject());
 				user.setEmail(emailEmailTextField.getModelObject());
-				user.setEinstiegsjahr(einstellungsjahrNumberTextField.getModelObject());
 				if (user.getRolle().getId() == Beschreibung.AZUBI.getRolleId())
-					user.setAusbildungsart(Arrays.asList(ausbildungsartService
-							.getAusbildungsartByAbkürzung(ausbildungsartDropDownChoice.getModelObject())));
+					user.setEinstiegsjahr(einstellungsjahrNumberTextField.getModelObject());
+				user.setAusbildungsart(Arrays.asList(ausbildungsartService
+						.getAusbildungsartByAbkürzung(ausbildungsartDropDownChoice.getModelObject())));
 				
 				// TODO Passwort generieren und per E-Mail senden
 				if (!isNew)
 					userService.updateUser(user);
 				else {
+					// Standart Passwort setzen
 					user.setPassword("Anfang12");
 					userService.saveUser(user);
 				}
@@ -179,17 +208,12 @@ public class BenutzerVerwaltungParent extends BenutzerVerwaltungsBasePage {
 					referat.addAnsprechpartner(user);
 					referatService.updateAnsprechpartner(referat);
 				}
-				erfolgreicherAlertLabel.setEscapeModelStrings(false);
-				erfolgreicherAlertLabel
-						.setDefaultModel(Model.of("Der Benutzer <strong>" + user.getVorname() + " " + user.getNachname()
-								+ "</strong> wurde erfolgreich " + (isNew ? "angelegt" : "bearbeitet") + "."));
-				erfolgreicherAlertLabelParent.setVisible(true);
 			}
 		};
 		
 		userForm.add(geschlechtDropDownChoice, rolleDropDownChoice, referatDropDownChoice, vornameTextField,
 				nachnameTextField, benutzernameTextField, emailEmailTextField, einstellungsjahrNumberTextField,
-				ausbildungsartDropDownChoice, speichernUndZurückButton);
+				ausbildungsartDropDownChoice, speichernUndZurückButton, speichernButton);
 		
 		add(titelLabel, userForm, erfolgreicherAlertLabelParent);
 	}
