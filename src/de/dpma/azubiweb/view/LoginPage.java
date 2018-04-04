@@ -52,7 +52,6 @@ public class LoginPage extends RootPage {
 		
 		titelLabel.setDefaultModelObject("Anmelden");
 		FeedbackPanel fp = new FeedbackPanel("feedback");
-		
 		CheckBox rememberMeCheckBox = new CheckBox("rememberMe", new Model<>());
 		Form<User> anmeldung = new Form<>("form");
 		TextField<String> usernameTextField = new TextField<>("username", new PropertyModel<>(new User(), "username"));
@@ -62,15 +61,11 @@ public class LoginPage extends RootPage {
 		TextField<String> userLabel = new TextField<>("userLabel", Model.of());
 		Form<String> passwortVergessen = new Form<String>("passwortVergessen") {
 			
-			/**
-			 * 
-			 */
 			private static final long serialVersionUID = 1L;
 			
 			@Override
 			public void onSubmit() {
 				
-				System.out.println(userLabel.getModelObject());
 				User user = session.getUserService().getUserByName(userLabel.getModelObject());
 				
 				if (user != null) {
@@ -84,7 +79,7 @@ public class LoginPage extends RootPage {
 		};
 		passwortVergessen.add(userLabel);
 		add(passwortVergessen);
-		anmeldung.add(usernameTextField, passwordTextfield, fp, rememberMeCheckBox);
+		anmeldung.add(usernameTextField, passwordTextfield, rememberMeCheckBox);
 		anmeldung.add(new Button("loginButton") {
 			
 			private static final long serialVersionUID = 1196988521149423209L;
@@ -98,6 +93,6 @@ public class LoginPage extends RootPage {
 					setResponsePage(StartPage.class);
 			}
 		});
-		add(anmeldung);
+		add(anmeldung, fp);
 	}
 }

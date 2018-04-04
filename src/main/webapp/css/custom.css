@@ -7,15 +7,15 @@
 /* } */
 
 
-/* .nobullet li { */
-/* 	display: block; */
-/* 	list-style: none;	 */
+/* .nobullet li { 
+	display: block;
+	list-style: none;	*/
 /* } */
-/* .nobullet { */
-/* 	width: fit-content; */
-/* 	padding: 0px; */
-/* 	margin: 0px; */
-/* } */
+.nobullet {
+	list-style: none;
+	padding: 0px;
+	margin: 0px;
+}
 
 nav {
 	border-bottom: 2px solid #e3f9ff;
