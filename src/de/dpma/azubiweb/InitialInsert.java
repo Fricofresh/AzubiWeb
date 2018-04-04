@@ -16,6 +16,12 @@ import de.dpma.azubiweb.service.ReferatService;
 import de.dpma.azubiweb.service.RolleService;
 import de.dpma.azubiweb.service.UserService;
 
+/**
+ * Speichert ein Grundgerüst an Daten in die Datenbank, um die Anwendung testen
+ * zu können.
+ * 
+ * @author Kenneth Böhmer
+ */
 public class InitialInsert {
 	
 	@SpringBean

@@ -1,6 +1,5 @@
 package de.dpma.azubiweb.view;
 
-import org.apache.wicket.Component;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
 import de.dpma.azubiweb.model.User;
@@ -40,7 +39,7 @@ public class BenutzerBearbeiten extends BenutzerVerwaltungParent {
 	/**
 	 * Wird aufgerufen, wenn ein Objekt von {@link BenutzerBearbeiten} erstellt
 	 * wurde bzw. die View von {@link BenutzerBearbeiten} aufgerufen wurde. <br>
-	 * Setzt die Überschrift und belegt die {@link Component} mit Funktionen.
+	 * Setzt die Überschrift.
 	 */
 	private void initial() {
 		
