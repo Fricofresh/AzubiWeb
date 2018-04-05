@@ -80,8 +80,11 @@
 				
 				$(document).ready(handleRolle());
 				$(document).ready(function(){
-					$("input").val('');
-					$("select").val('');
+					if($("h1").text().indexOf("Anlegen") >= 0 ){
+						$("input").val('');
+						$("select").val('');
+						$("#einstellungsjahr").val((new Date()).getFullYear());
+					}
 				});
 			</script>
 			<wicket:child/>
