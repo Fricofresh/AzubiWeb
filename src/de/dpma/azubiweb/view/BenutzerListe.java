@@ -68,7 +68,6 @@ public class BenutzerListe extends BenutzerVerwaltungsBasePage {
 		setAusbilderListe();
 		setAusbildungsleiterListe();
 		
-		Boolean isNew = false;
 		WebMarkupContainer erfolgreicherAlertLabelParent = new WebMarkupContainer("erfolgreicherAlertLabelParent");
 		Label erfolgreicherAlertLabel = new Label("erfolgreicherAlertLabel");
 		erfolgreicherAlertLabelParent.setVisible(false);
@@ -77,7 +76,7 @@ public class BenutzerListe extends BenutzerVerwaltungsBasePage {
 		
 		if (pageParameters != null && !pageParameters.isEmpty() && !pageParameters.get("user").isNull()
 				&& !pageParameters.get("user").isEmpty()) {
-			isNew = (pageParameters.get("isNew").isNull() || pageParameters.get("isNew").isEmpty() ? null
+			Boolean isNew = (pageParameters.get("isNew").isNull() || pageParameters.get("isNew").isEmpty() ? null
 					: pageParameters.get("isNew").toBoolean());
 			String name = pageParameters.get("user").toString();
 			
@@ -218,6 +217,7 @@ public class BenutzerListe extends BenutzerVerwaltungsBasePage {
 					@Override
 					public void onClick() {
 						
+						System.out.println(user);
 						setResponsePage(new BenutzerBearbeiten(user));
 					}
 				});
