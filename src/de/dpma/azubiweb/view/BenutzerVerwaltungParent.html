@@ -80,9 +80,8 @@
 				
 				$(document).ready(handleRolle());
 				$(document).ready(function(){
-					if($("h1").text().indexOf("Anlegen") >= 0 ){
+					if($("h1").text().indexOf("Anlegen") >= 0){
 						$("input").val('');
-						$("select").val('');
 						$("#einstellungsjahr").val((new Date()).getFullYear());
 					}
 				});
