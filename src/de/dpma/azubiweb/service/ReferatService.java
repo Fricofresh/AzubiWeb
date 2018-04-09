@@ -25,16 +25,33 @@ public class ReferatService {
 	@Autowired
 	private ReferatRepository referatRepository;
 	
+	/**
+	 * Gibt alle Referate zurück.
+	 * 
+	 * @return alle Referate
+	 */
 	public List<Referat> getAllReferat() {
 		
 		return referatRepository.findAll();
 	}
 	
+	/**
+	 * Speichert einen Referat
+	 * 
+	 * @param referat
+	 *            Referat
+	 */
 	public void saveReferat(Referat referat) {
 		
 		referatRepository.save(referat);
 	}
 	
+	/**
+	 * Aktuallisiert einen oder mehrere Ansprechpartnern
+	 * 
+	 * @param referat
+	 *            das Referat mit dem zuständigen Ansprechpartnern
+	 */
 	public void updateAnsprechpartner(Referat referat) {
 		
 		referatRepository.save(referat);
@@ -42,21 +59,49 @@ public class ReferatService {
 		// referat.getAnsprechpartner());
 	}
 	
+	/**
+	 * Gibt ein Referat zurück über die ID.
+	 * 
+	 * @param id
+	 *            Referats ID
+	 * @return das gefundene Referat
+	 */
 	public Referat getReferatById(int id) {
 		
 		return referatRepository.findById(id).get();
 	}
 	
+	/**
+	 * Holt sich ein Referat über den Referatsnamen.
+	 * 
+	 * @param referat
+	 *            der Referatsname in Zahlen z. B. (4.1.3)
+	 * @return das gefundene Referat
+	 */
 	public Referat getReferatByReferat(String referat) {
 		
 		return referatRepository.findByReferat(referat);
 	}
 	
+	/**
+	 * Holt sich das zuständige Referat, abhängig vom Ansprechpartner.
+	 * 
+	 * @param ansprechpartner
+	 *            Ansprechpartner
+	 * @return das gefundene Referat
+	 */
 	public Referat getReferatByAnsprechpartner(User ansprechpartner) {
 		
 		return referatRepository.findByAnsprechpartner(ansprechpartner);
 	}
 	
+	/**
+	 * Aktuallisiert ein ganzes Referat.
+	 * 
+	 * @param referat
+	 *            Referat
+	 * @return true == Falls keine Exception geworfen wurde.
+	 */
 	public boolean updateReferat(Referat referat) {
 		
 		try {
@@ -70,6 +115,24 @@ public class ReferatService {
 		catch (Exception e) {
 			return false;
 		}
-		
 	}
+	
+	/**
+	 * Löscht ein Referat über das {@link Referat}.
+	 * 
+	 * @param referat
+	 *            Referat
+	 * @return true == Falls keine Exception geworfen wurde.
+	 */
+	public boolean deleteReferat(Referat referat) {
+		
+		try {
+			referatRepository.delete(referat);
+			return true;
+		}
+		catch (Exception e) {
+			return false;
+		}
+	}
+	
 }

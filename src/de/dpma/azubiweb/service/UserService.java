@@ -84,6 +84,7 @@ public class UserService {
 	 * Holt sich den Benutzer über die ID.
 	 * 
 	 * @param id
+	 *            User ID
 	 * @return den Benutzer
 	 */
 	public User getUserByID(int id) {
@@ -174,7 +175,6 @@ public class UserService {
 	 *            Benutzer
 	 * @return true == Falls keine Exception geworfen wurde.
 	 */
-	
 	public boolean deleteUser(User user) {
 		
 		try {
@@ -205,7 +205,7 @@ public class UserService {
 	}
 	
 	/**
-	 * Löscht einen Benutzer aus der Datenbank.
+	 * Löscht einen Benutzer aus der Datenbank abhängig vom Benutzernamen.
 	 * 
 	 * @param username
 	 *            Benutzername

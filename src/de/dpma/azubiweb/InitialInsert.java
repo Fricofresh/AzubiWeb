@@ -60,7 +60,6 @@ public class InitialInsert {
 	 */
 	private void insertAllRolle() {
 		
-		System.out.println(rolleService);
 		rolleService.saveRolle(new Rolle(Beschreibung.AZUBI.getRolleId(), "Auszubildende"));
 		rolleService.saveRolle(new Rolle(Beschreibung.AL.getRolleId(), "Ausbildungsleiter"));
 		rolleService.saveRolle(new Rolle(Beschreibung.A.getRolleId(), "Ausbilder"));
@@ -76,8 +75,6 @@ public class InitialInsert {
 		ausbildungsartService
 				.saveAusbildungsart(new Ausbildungsart("Fachinformatiker Fachrichtung Anwendungsentwicklung",
 						"Fachinformatikerin Fachrichtung Anwendungsentwicklung", "FIAE", false));
-		// TODO Informieren, ob die anderen Beruffsbilder Täglich das
-		// Berichtsheft schreiben müssen
 		ausbildungsartService.saveAusbildungsart(
 				new Ausbildungsart("Kaufmann für Büromanagement", "Kauffrau für Büromanagement", "KFB", false));
 		ausbildungsartService

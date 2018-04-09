@@ -39,7 +39,8 @@ public class AusbildungsartService {
 	 * Löscht eine Ausbildungsart.
 	 * 
 	 * @param ausbildungsart
-	 * @return
+	 *            Ausbildungsart
+	 * @return true == Falls keine Exception geworfen wurde.
 	 */
 	public boolean deleteAusbildugnsart(Ausbildungsart ausbildungsart) {
 		
@@ -52,6 +53,13 @@ public class AusbildungsartService {
 		}
 	}
 	
+	/**
+	 * Löscht eine Ausbildungsart nach dem weiblichen Berufssbild
+	 * 
+	 * @param berufsbildW
+	 *            weibliches Berufsbild
+	 * @return true == Falls keine Exception geworfen wurde.
+	 */
 	public boolean deleteAusbildungsartByBerufsbildW(String berufsbildW) {
 		
 		try {
@@ -63,6 +71,13 @@ public class AusbildungsartService {
 		}
 	}
 	
+	/**
+	 * Löscht eine Ausbildungsart nach dem männlichen Berufssbild
+	 * 
+	 * @param berufsbildM
+	 *            männliches Berufsbild
+	 * @return true == Falls keine Exception geworfen wurde.
+	 */
 	public boolean deleteAusbildungsartByBerufsbildM(String berufsbildM) {
 		
 		try {
@@ -74,6 +89,13 @@ public class AusbildungsartService {
 		}
 	}
 	
+	/**
+	 * Löscht eine Ausbildungsart nach der Abkürzung des Berufssbildes
+	 * 
+	 * @param berufsbild
+	 *            abgekürztes Berufsbild
+	 * @return true == Falls keine Exception geworfen wurde.
+	 */
 	public boolean deleteAusbildungsartByBerufsbildAbkürzung(String berufsbild) {
 		
 		try {
@@ -85,21 +107,47 @@ public class AusbildungsartService {
 		}
 	}
 	
+	/**
+	 * Holt sich eine Ausbildungsart nach der Abkürzung des Berufssbildes
+	 * 
+	 * @param abkürzung
+	 *            abgekürztes Berufsbild
+	 * @return das gefundene Ausbildungsart
+	 */
 	public Ausbildungsart getAusbildungsartByAbkürzung(String abkürzung) {
 		
 		return ausbildungsartRepository.findByBerufsbildAbkürzung(abkürzung);
 	}
 	
+	/**
+	 * Holt sich eine Ausbildungsart nach dem weiblichen Berufssbild
+	 * 
+	 * @param berufsbildW
+	 *            weibliches Berufsbild
+	 * @return das gefundene Ausbildungsart
+	 */
 	public Ausbildungsart getAusbildungsartByBerufsbildW(String berufsbildW) {
 		
 		return ausbildungsartRepository.findByBerufsbildW(berufsbildW);
 	}
 	
+	/**
+	 * Holt sich eine Ausbildungsart nach dem männlichen Berufssbild
+	 * 
+	 * @param berufsbildM
+	 *            männliches Berufsbild
+	 * @return das gefundene Ausbildungsart
+	 */
 	public Ausbildungsart getAusbildungsartByBerufsbildM(String berufsbildM) {
 		
 		return ausbildungsartRepository.findByBerufsbildAbkürzung(berufsbildM);
 	}
 	
+	/**
+	 * Holt sich alle Ausbildungsarten
+	 * 
+	 * @return alle Ausbildungsarten
+	 */
 	public List<Ausbildungsart> getAllAusbildungsart() {
 		
 		return ausbildungsartRepository.findAll();
