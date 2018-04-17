@@ -6,6 +6,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.apache.wicket.Component;
+import org.apache.wicket.extensions.markup.html.form.DateTextField;
+import org.apache.wicket.extensions.yui.calendar.DatePicker;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Button;
@@ -32,18 +34,18 @@ import de.dpma.azubiweb.model.User.Geschlecht;
  *
  */
 public class BenutzerVerwaltungParent extends BenutzerVerwaltungsBasePage {
-	
+
 	private static final long serialVersionUID = 9031648713788591454L;
-	
+
 	/**
 	 * @see #initial(User)
 	 */
 	public BenutzerVerwaltungParent() {
-		
+
 		super();
 		initial(new User());
 	}
-	
+
 	/**
 	 * NICHT VERWENDEN, zur vollständigkeitshalber hinzugefügt.
 	 * 
@@ -51,12 +53,12 @@ public class BenutzerVerwaltungParent extends BenutzerVerwaltungsBasePage {
 	 */
 	@SuppressWarnings("Nicht verwendbar")
 	public BenutzerVerwaltungParent(PageParameters pageParameters) {
-		
+
 		super(pageParameters);
 		if (!pageParameters.get("User").isNull() || !pageParameters.get("User").isEmpty())
 			initial(pageParameters.get("User").to(User.class));
 	}
-	
+
 	/**
 	 * 
 	 * @see #initial(User)
@@ -64,28 +66,27 @@ public class BenutzerVerwaltungParent extends BenutzerVerwaltungsBasePage {
 	 * @param user
 	 */
 	public BenutzerVerwaltungParent(User user) {
-		
+
 		super();
 		initial(user);
 	}
-	
+
 	/**
 	 * Wird aufgerufen, wenn ein Objekt von einer der Klassen, die von
 	 * {@link BenutzerVerwaltungParent} erben, erstellt wurde bzw. die View, von
-	 * einer der Klassen {@link BenutzerVerwaltungParent} erben, aufgerufen
-	 * wurde. <br>
+	 * einer der Klassen {@link BenutzerVerwaltungParent} erben, aufgerufen wurde.
+	 * <br>
 	 * Belegt die {@link Component} mit Funktionen und entscheidet ob ein neuer
 	 * Benutzer angelegt werden soll oder ein Benutzer bearbeitet wird.
 	 * 
 	 * @param user
-	 *            der zu bearbeitende <strong>{@link User Benutzer}</strong> |
-	 *            bei einem leeren <strong>{@link User Benutzer}</strong> wird
-	 *            ein neuer erstellt.<br>
-	 *            Bei <strong>null</strong> wird ein NullPointerException
-	 *            geworfen.
+	 *            der zu bearbeitende <strong>{@link User Benutzer}</strong> | bei
+	 *            einem leeren <strong>{@link User Benutzer}</strong> wird ein neuer
+	 *            erstellt.<br>
+	 *            Bei <strong>null</strong> wird ein NullPointerException geworfen.
 	 */
 	protected void initial(User user) {
-		
+
 		if (user == null)
 			throw new NullPointerException("Benutzer darf nicht null sein");
 		// Components deklarieren und Model setzen
@@ -104,6 +105,23 @@ public class BenutzerVerwaltungParent extends BenutzerVerwaltungsBasePage {
 			referatData.add(referat.getReferat());
 		DropDownChoice<String> referatDropDownChoice = new DropDownChoice<>("referatDropDownChoice", referatData);
 		referatDropDownChoice.setDefaultModel(Model.of());
+
+		DateTextField geburtstagDateTextField = new DateTextField("birthdayDateTextField", Model.of());
+
+		DatePicker datePicker = new DatePicker() {
+			private static final long serialVersionUID = 6400867917526511761L;
+
+			@Override
+			protected CharSequence getIconUrl() {
+				// Icon verschwinden lassen
+				return null;
+			}
+
+		};
+		datePicker.setShowOnFieldClick(true);
+		datePicker.setAutoHide(true);
+		geburtstagDateTextField.add(datePicker);
+
 		TextField<String> vornameTextField = new TextField<>("vornameTextField", Model.of());
 		TextField<String> nachnameTextField = new TextField<>("nachnameTextField", Model.of());
 		TextField<String> benutzernameTextField = new TextField<>("benutzernameTextField", Model.of());
@@ -122,17 +140,17 @@ public class BenutzerVerwaltungParent extends BenutzerVerwaltungsBasePage {
 		DropDownChoice<String> ausbildungsartDropDownChoice = new DropDownChoice<>("ausbildungsartDropDownChoice",
 				Model.ofList(ausbildungsart));
 		ausbildungsartDropDownChoice.setDefaultModel(Model.of());
-		
+
 		// Überprüfung ob ein Benutzer übergeben wurde
 		boolean isNew = user.isEmpty();
-		
+
 		Button speichernUndZurückButton = new Button("speichernUndZurückButton", Model.of()) {
-			
+
 			private static final long serialVersionUID = 1L;
-			
+
 			@Override
 			public void onAfterSubmit() {
-				
+
 				setResponsePage(BenutzerListe.class, new PageParameters().add("isNew", isNew).add("user",
 						user.getVorname() + " " + user.getNachname()));
 			}
@@ -148,6 +166,7 @@ public class BenutzerVerwaltungParent extends BenutzerVerwaltungsBasePage {
 			nachnameTextField.setModel(Model.of(user.getNachname()));
 			benutzernameTextField.setModel(Model.of(user.getUsername()));
 			emailEmailTextField.setModel(Model.of(user.getEmail()));
+			geburtstagDateTextField.setModel(Model.of(user.getGeburtsDatum()));
 			if (user.getEinstiegsjahr() != null)
 				einstellungsjahrNumberTextField.setModel(Model.of(user.getEinstiegsjahr()));
 			if (!user.getAusbildungsart().isEmpty() && user.getAusbildungsart() != null)
@@ -159,12 +178,12 @@ public class BenutzerVerwaltungParent extends BenutzerVerwaltungsBasePage {
 		erfolgreicherAlertLabelParent.setVisible(false);
 		erfolgreicherAlertLabelParent.add(erfolgreicherAlertLabel);
 		Button speichernButton = new Button("speichernButton", Model.of()) {
-			
+
 			private static final long serialVersionUID = 1L;
-			
+
 			@Override
 			public void onAfterSubmit() {
-				
+
 				// ermöglicht HTML Tags
 				erfolgreicherAlertLabel.setEscapeModelStrings(false);
 				// Setzen der Alertbox von Bootstrap
@@ -175,12 +194,12 @@ public class BenutzerVerwaltungParent extends BenutzerVerwaltungsBasePage {
 			}
 		};
 		Form<?> userForm = new Form<Void>("userForm") {
-			
+
 			private static final long serialVersionUID = 1L;
-			
+
 			@Override
 			protected void onSubmit() {
-				
+
 				// Der Wert der Input-Felder werden in User gesetzt
 				user.setGeschlecht(geschlechtDropDownChoice.getModelObject());
 				user.setRolle(rolleService.getRolle(Beschreibung.valueOfString(rolleDropDownChoice.getModelObject())));
@@ -194,7 +213,8 @@ public class BenutzerVerwaltungParent extends BenutzerVerwaltungsBasePage {
 					user.setEinstiegsjahr(einstellungsjahrNumberTextField.getModelObject());
 				user.setAusbildungsart(Arrays.asList(ausbildungsartService
 						.getAusbildungsartByAbkürzung(ausbildungsartDropDownChoice.getModelObject())));
-				
+				user.setGeburtsDatum(geburtstagDateTextField.getModelObject());
+
 				// TODO Passwort generieren und per E-Mail senden
 				if (!isNew)
 					userService.updateUser(user);
@@ -210,11 +230,11 @@ public class BenutzerVerwaltungParent extends BenutzerVerwaltungsBasePage {
 				}
 			}
 		};
-		
+
 		userForm.add(geschlechtDropDownChoice, rolleDropDownChoice, referatDropDownChoice, vornameTextField,
 				nachnameTextField, benutzernameTextField, emailEmailTextField, einstellungsjahrNumberTextField,
-				ausbildungsartDropDownChoice, speichernUndZurückButton, speichernButton);
-		
+				ausbildungsartDropDownChoice, speichernUndZurückButton, speichernButton, geburtstagDateTextField);
+
 		add(titelLabel, userForm, erfolgreicherAlertLabelParent);
 	}
 }

@@ -1,5 +1,7 @@
 package de.dpma.azubiweb.view;
 
+import java.text.ParseException;
+
 import org.apache.wicket.Component;
 import org.apache.wicket.Session;
 import org.apache.wicket.markup.html.WebMarkupContainer;
@@ -48,24 +50,34 @@ public class RootPage extends WebPage {
 	public RootPage() {
 		
 		super();
-		initial();
+		try {
+			initial();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/**
 	 * @see #initial
 	 * @param params
+	 * @throws ParseException 
 	 */
-	public RootPage(final PageParameters params) {
+	public RootPage(final PageParameters params)  {
 		
 		super(params);
-		initial();
+		try {
+			initial();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/**
 	 * Setzt die Funktionen die einzelnen Punkte in der Navigationsleiste. <br>
 	 * Initialisiert alle {@link Component}
+	 * @throws ParseException 
 	 */
-	private void initial() {
+	private void initial() throws ParseException {
 		
 		// Falls man eine leere Datenbank hat, wird sie wieder gefüllt. Hilft,
 		// wenn man bei aplication.properties die DDL von hibernate auf
