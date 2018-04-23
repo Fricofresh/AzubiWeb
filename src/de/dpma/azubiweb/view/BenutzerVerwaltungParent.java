@@ -7,7 +7,6 @@ import java.util.List;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.extensions.markup.html.form.DateTextField;
-import org.apache.wicket.extensions.yui.calendar.DatePicker;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Button;
@@ -108,7 +107,7 @@ public class BenutzerVerwaltungParent extends BenutzerVerwaltungsBasePage {
 
 		DateTextField geburtstagDateTextField = new DateTextField("birthdayDateTextField", Model.of());
 
-		DatePicker datePicker = new DatePicker() {
+		/*DatePicker datePicker = new DatePicker() {
 			private static final long serialVersionUID = 6400867917526511761L;
 
 			@Override
@@ -120,7 +119,7 @@ public class BenutzerVerwaltungParent extends BenutzerVerwaltungsBasePage {
 		};
 		datePicker.setShowOnFieldClick(true);
 		datePicker.setAutoHide(true);
-		geburtstagDateTextField.add(datePicker);
+		geburtstagDateTextField.add(datePicker);*/
 
 		TextField<String> vornameTextField = new TextField<>("vornameTextField", Model.of());
 		TextField<String> nachnameTextField = new TextField<>("nachnameTextField", Model.of());
