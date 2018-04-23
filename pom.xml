@@ -137,11 +137,6 @@
 <!-- </dependencies> -->
 
 		<dependency>
-			<groupId>org.apache.wicket</groupId>
-			<artifactId>wicket-datetime</artifactId>
-			<version>8.0.0-M7</version>
-		</dependency>
-		<dependency>
 			<groupId>com.googlecode.wicket-jquery-ui</groupId>
 			<artifactId>wicket-jquery-ui-calendar</artifactId>
 			<version>8.0.0-M9.2</version>
