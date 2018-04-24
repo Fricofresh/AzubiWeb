@@ -15,6 +15,7 @@ import de.dpma.azubiweb.InitialInsert;
 import de.dpma.azubiweb.model.Rolle.Beschreibung;
 import de.dpma.azubiweb.model.User;
 import de.dpma.azubiweb.service.UserSession;
+import de.dpma.azubiweb.view.berichtsheft.Berichtsheft;
 
 /**
  * Stellt das Grundgerüst für alle Seiten da. <br>
@@ -147,7 +148,7 @@ public class RootPage extends WebPage {
 			@Override
 			public void onClick() {
 				
-				// TODO Do Something
+				setResponsePage(Berichtsheft.class);
 			}
 		});
 		add(navLeisteWebMarkupContainer);

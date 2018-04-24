@@ -15,6 +15,7 @@ import de.dpma.azubiweb.view.BenutzerListe;
 import de.dpma.azubiweb.view.Einstellungen;
 import de.dpma.azubiweb.view.LoginPage;
 import de.dpma.azubiweb.view.StartPage;
+import de.dpma.azubiweb.view.berichtsheft.Berichtsheft;
 
 /**
  * Startet die Application und setzt die Session, Anmeldeseite, Startseite und
@@ -80,6 +81,7 @@ public class ApplicationStart extends WicketBootSecuredWebApplication {
 		mountPage("/BenutzerAnlage", BenutzerAnlage.class);
 		mountPage("/BenutzerBearbeiten", BenutzerBearbeiten.class);
 		mountPage("/BenutzerListe", BenutzerListe.class);
+		mountPage("/Berichtsheft",Berichtsheft.class);
 		
 		// IUnauthorizedComponentInstantiationListener iucil = new
 		// IUnauthorizedComponentInstantiationListener() {

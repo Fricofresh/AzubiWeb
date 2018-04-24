@@ -16,7 +16,8 @@ import javax.persistence.Id;
 @Entity
 
 public class Ausbildungsart implements Serializable {
-	
+	public static final String[] VALUES= new String[] { "Auszubildender", "Ausbilder", "Ausbildungsleiter" };
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;

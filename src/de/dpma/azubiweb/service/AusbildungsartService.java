@@ -23,7 +23,7 @@ public class AusbildungsartService {
 	
 	@Autowired
 	private AusbildungsartRepository ausbildungsartRepository;
-	
+
 	/**
 	 * Speichert eine Ausbildungsart.
 	 * 
@@ -31,10 +31,10 @@ public class AusbildungsartService {
 	 *            Ausbildungsart
 	 */
 	public void saveAusbildungsart(Ausbildungsart ausbildungsart) {
-		
+
 		ausbildungsartRepository.save(ausbildungsart);
 	}
-	
+
 	/**
 	 * Löscht eine Ausbildungsart.
 	 * 
@@ -43,16 +43,15 @@ public class AusbildungsartService {
 	 * @return true == Falls keine Exception geworfen wurde.
 	 */
 	public boolean deleteAusbildugnsart(Ausbildungsart ausbildungsart) {
-		
+
 		try {
 			ausbildungsartRepository.delete(ausbildungsart);
 			return true;
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			return false;
 		}
 	}
-	
+
 	/**
 	 * Löscht eine Ausbildungsart nach dem weiblichen Berufssbild
 	 * 
@@ -61,16 +60,15 @@ public class AusbildungsartService {
 	 * @return true == Falls keine Exception geworfen wurde.
 	 */
 	public boolean deleteAusbildungsartByBerufsbildW(String berufsbildW) {
-		
+
 		try {
 			ausbildungsartRepository.deleteAusbildungsartByBerufsbildW(berufsbildW);
 			return true;
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			return false;
 		}
 	}
-	
+
 	/**
 	 * Löscht eine Ausbildungsart nach dem männlichen Berufssbild
 	 * 
@@ -79,16 +77,15 @@ public class AusbildungsartService {
 	 * @return true == Falls keine Exception geworfen wurde.
 	 */
 	public boolean deleteAusbildungsartByBerufsbildM(String berufsbildM) {
-		
+
 		try {
 			ausbildungsartRepository.deleteAusbildungsartByBerufsbildM(berufsbildM);
 			return true;
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			return false;
 		}
 	}
-	
+
 	/**
 	 * Löscht eine Ausbildungsart nach der Abkürzung des Berufssbildes
 	 * 
@@ -97,16 +94,15 @@ public class AusbildungsartService {
 	 * @return true == Falls keine Exception geworfen wurde.
 	 */
 	public boolean deleteAusbildungsartByBerufsbildAbkürzung(String berufsbild) {
-		
+
 		try {
 			ausbildungsartRepository.deleteAusbildungsartByBerufsbildAbkürzung(berufsbild);
 			return true;
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			return false;
 		}
 	}
-	
+
 	/**
 	 * Holt sich eine Ausbildungsart nach der Abkürzung des Berufssbildes
 	 * 
@@ -115,10 +111,10 @@ public class AusbildungsartService {
 	 * @return das gefundene Ausbildungsart
 	 */
 	public Ausbildungsart getAusbildungsartByAbkürzung(String abkürzung) {
-		
+
 		return ausbildungsartRepository.findByBerufsbildAbkürzung(abkürzung);
 	}
-	
+
 	/**
 	 * Holt sich eine Ausbildungsart nach dem weiblichen Berufssbild
 	 * 
@@ -127,10 +123,10 @@ public class AusbildungsartService {
 	 * @return das gefundene Ausbildungsart
 	 */
 	public Ausbildungsart getAusbildungsartByBerufsbildW(String berufsbildW) {
-		
+
 		return ausbildungsartRepository.findByBerufsbildW(berufsbildW);
 	}
-	
+
 	/**
 	 * Holt sich eine Ausbildungsart nach dem männlichen Berufssbild
 	 * 
@@ -139,18 +135,18 @@ public class AusbildungsartService {
 	 * @return das gefundene Ausbildungsart
 	 */
 	public Ausbildungsart getAusbildungsartByBerufsbildM(String berufsbildM) {
-		
+
 		return ausbildungsartRepository.findByBerufsbildAbkürzung(berufsbildM);
 	}
-	
+
 	/**
 	 * Holt sich alle Ausbildungsarten
 	 * 
 	 * @return alle Ausbildungsarten
 	 */
 	public List<Ausbildungsart> getAllAusbildungsart() {
-		
+
 		return ausbildungsartRepository.findAll();
 	}
-	
+
 }
