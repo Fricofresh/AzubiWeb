@@ -17,127 +17,152 @@ import javax.persistence.ManyToOne;
 @Entity
 
 public class Berichtsheft implements Serializable {
-	
+	public Berichtsheft() {
+		super();
+	}
+
+	public Berichtsheft(User user_Azubi, User user_AB, User user_AL, Referat referat, String weekAYear) {
+		super();
+		this.user_Azubi = user_Azubi;
+		this.user_AB = user_AB;
+		this.user_AL = user_AL;
+		this.referat = referat;
+		this.weekAYear = weekAYear;
+	}
+
+	public Berichtsheft(User user_Azubi, String kind_BHL, String weekAYear) {
+		super();
+		this.user_Azubi = user_Azubi;
+		this.kind_BHL = kind_BHL;
+		this.weekAYear = weekAYear;
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-	
-	@Column(nullable = false)
-	private User user;
-	
-	private String betrieblicheTätigkeiten;
-	
-	private String schulungen;
-	
-	private String berufsschule;
-	
-	@Column(nullable = false)
-	private Date woche;
-	
+
+	@Column(name = "userAZ", nullable = false)
+	private User user_Azubi;
+	@Column(name = "userAB", nullable = false)
+	private User user_AB;
+	@Column(name = "userAL", nullable = false)
+	private User user_AL;
+
 	@ManyToOne
 	private Referat referat;
-	
-	private boolean abgegeben;
-	
-	private boolean abgezeichnetAusbilder;
-	
-	private boolean abgezeichnetAusbildungsleiter;
-	
+
+	private boolean status_submit;
+
+	private boolean st_sign_AB;
+
+	private boolean st_sign_AL;
+
+	public static final String[] kindOfBH = { "Betrieb", "Berufsschule", "Schulungen" };
+
+	/**
+	 * @see {@link Berichtsheft#kindOfBH}
+	 */
+	@Column(nullable = false)
+	private String kind_BHL;
+
+	/**
+	 * Design: [WW;JJJJ]
+	 */
+	@Column(nullable = false)
+	private String weekAYear;
+
+	@Column(nullable = false)
+	private String data;
+
 	private static final long serialVersionUID = 1L;
-	
-	public Berichtsheft() {
-		
-		super();
-	}
-	
+
+	// Hier alle Getter und Setter Methoden//
 	public int getId() {
-		
-		return this.id;
+		return id;
 	}
-	
+
 	public void setId(int id) {
-		
 		this.id = id;
 	}
-	
-	public String getBetrieblicheTätigkeiten() {
-		
-		return this.betrieblicheTätigkeiten;
+
+	public User getUser_Azubi() {
+		return user_Azubi;
 	}
-	
-	public void setBetrieblicheTätigkeiten(String betrieblicheTätigkeiten) {
-		
-		this.betrieblicheTätigkeiten = betrieblicheTätigkeiten;
+
+	public void setUser_Azubi(User user_Azubi) {
+		this.user_Azubi = user_Azubi;
 	}
-	
-	public String getSchulungen() {
-		
-		return this.schulungen;
+
+	public User getUser_AB() {
+		return user_AB;
 	}
-	
-	public void setSchulungen(String schulungen) {
-		
-		this.schulungen = schulungen;
+
+	public void setUser_AB(User user_AB) {
+		this.user_AB = user_AB;
 	}
-	
-	public String getBerufsschule() {
-		
-		return this.berufsschule;
+
+	public User getUser_AL() {
+		return user_AL;
 	}
-	
-	public void setBerufsschule(String berufsschule) {
-		
-		this.berufsschule = berufsschule;
+
+	public void setUser_AL(User user_AL) {
+		this.user_AL = user_AL;
 	}
-	
-	public boolean getAbgegeben() {
-		
-		return this.abgegeben;
+
+	public Referat getReferat() {
+		return referat;
 	}
-	
-	public void setAbgegeben(boolean abgegeben) {
-		
-		this.abgegeben = abgegeben;
+
+	public void setReferat(Referat referat) {
+		this.referat = referat;
 	}
-	
-	public boolean getAbgezeichnetAusbilder() {
-		
-		return this.abgezeichnetAusbilder;
+
+	public boolean isStatus_submit() {
+		return status_submit;
 	}
-	
-	public void setAbgezeichnetAusbilder(boolean abgezeichnetAusbilder) {
-		
-		this.abgezeichnetAusbilder = abgezeichnetAusbilder;
+
+	public void setStatus_submit(boolean status_submit) {
+		this.status_submit = status_submit;
 	}
-	
-	public boolean getAbgezeichnetAusbildungsleiter() {
-		
-		return this.abgezeichnetAusbildungsleiter;
+
+	public boolean isSt_sign_AB() {
+		return st_sign_AB;
 	}
-	
-	public void setAbgezeichnetAusbildungsleiter(boolean abgezeichnetAusbildungsleiter) {
-		
-		this.abgezeichnetAusbildungsleiter = abgezeichnetAusbildungsleiter;
+
+	public void setSt_sign_AB(boolean st_sign_AB) {
+		this.st_sign_AB = st_sign_AB;
 	}
-	
-	public Date getWoche() {
-		
-		return woche;
+
+	public boolean isSt_sign_AL() {
+		return st_sign_AL;
 	}
-	
-	public void setWoche(Date woche) {
-		
-		this.woche = woche;
+
+	public void setSt_sign_AL(boolean st_sign_AL) {
+		this.st_sign_AL = st_sign_AL;
 	}
-	
-	public User getUser() {
-		
-		return user;
+
+	public String getKind_BHL() {
+		return kind_BHL;
 	}
-	
-	public void setUser(User user) {
-		
-		this.user = user;
+
+	public void setKind_BHL(String kind_BHL) {
+		this.kind_BHL = kind_BHL;
 	}
-	
+
+	public String getWeekAYear() {
+		return weekAYear;
+	}
+
+	public void setWeekAYear(String weekAYear) {
+		this.weekAYear = weekAYear;
+	}
+
+	public String getData() {
+		return data;
+	}
+
+	public void setData(String data) {
+		this.data = data;
+	}
+
 }
