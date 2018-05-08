@@ -14,7 +14,7 @@ public class AzubiWeekPanel extends BerichtsheftPanel {
 
 	}
 
-	private void init() {
+	public void init() {
 		add(Berichtsheft.getLabelsWeek(5));
 	}
 

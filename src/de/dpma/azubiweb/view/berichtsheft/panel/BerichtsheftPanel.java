@@ -5,8 +5,10 @@ import org.apache.wicket.markup.html.panel.Panel;
 import de.dpma.azubiweb.model.User;
 import de.dpma.azubiweb.service.BerichtsheftService;
 import de.dpma.azubiweb.view.berichtsheft.PanelChange;
+
 /**
  * Muttel aller Panels im Berichtsheft
+ * 
  * @author VIT Student
  *
  */
@@ -16,13 +18,19 @@ public abstract class BerichtsheftPanel extends Panel {
 	protected User currentUser;
 	protected BerichtsheftService service;
 	protected PanelChange change;
-	public BerichtsheftPanel(String id,User currentUser, BerichtsheftService berichtsheftService, PanelChange change,String name) {
+
+	public BerichtsheftPanel(String id, User currentUser, BerichtsheftService berichtsheftService, PanelChange change,
+			String name) {
 
 		super(id);
 		this.name = name;
-		// TODO Auto-generated constructor stub
+		this.currentUser = currentUser;
+		this.service = berichtsheftService;
+		this.change = change;
 	}
-	
+
+	public abstract void init();
+
 	public String getName() {
 		return name;
 	}

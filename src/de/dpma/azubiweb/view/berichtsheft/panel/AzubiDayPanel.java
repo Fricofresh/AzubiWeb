@@ -18,7 +18,7 @@ public class AzubiDayPanel extends BerichtsheftPanel {
 
 	}
 
-	private void init() {
+	public void init() {
 		de.dpma.azubiweb.model.Berichtsheft curBH = service.getCurrentBerichtsheftByUserAzubi(currentUser);
 		add(Berichtsheft.getLabelsWeek(5));
 	}

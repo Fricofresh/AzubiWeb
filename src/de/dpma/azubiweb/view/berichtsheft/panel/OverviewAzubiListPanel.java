@@ -15,10 +15,9 @@ public class OverviewAzubiListPanel extends BerichtsheftPanel {
 			PanelChange change) {
 		super(id, currentUser, berichtsheftService, change, NAME);
 		this.init();
-
 	}
 
-	private void init() {
+	public void init() {
 		de.dpma.azubiweb.model.Berichtsheft curBH = service.getCurrentBerichtsheftByUserAzubi(currentUser);
 		add(Berichtsheft.getLabelsWeek(5));
 	}
