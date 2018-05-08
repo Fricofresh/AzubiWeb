@@ -57,7 +57,7 @@ public class Berichtsheft implements Serializable {
 
 	private boolean st_sign_AL;
 
-	public static final String[] kindOfBH = { "Betrieb", "Berufsschule", "Schulungen" };
+	public static final String[] kindOfBH = { "Betrieb", "Berufsschule", "Schulungen","Verbund"};
 
 	/**
 	 * @see {@link Berichtsheft#kindOfBH}
