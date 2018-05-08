@@ -74,12 +74,26 @@ public class BerichtsheftData {
 			root.setAttribute("week", "" + week);
 			root.setAttribute("art", "" + art);
 			if (art == 0) {
-
-			} else if (art == -1) {
-
+				// 5 Tage
+				for (int i = 0; i < weekValues.length; i++) {
+					Element tDays = doc.createElement("item");
+					tDays.setAttribute("id", ""+i);
+					tDays.setTextContent(weekValues[i]);
+					root.appendChild(tDays);
+				}
+			} else if (art == 1) {
+				// Woche
+				Element tWeek = doc.createElement("item");
+				tWeek.setAttribute("id", ""+5);
+				tWeek.setTextContent(weekValues[0]);
+				root.appendChild(tWeek);
 			} else {
 				return null;
 			}
+			
+			String inhalt = "<?xml version = '1.0' encoding = 'iso-8859-1' ?>\n";
+            inhalt = inhalt + doc.getDocumentElement().toString();
+            return inhalt;
 		} catch (ParserConfigurationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
