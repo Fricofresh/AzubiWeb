@@ -1,5 +1,7 @@
 package de.dpma.azubiweb.view.berichtsheft;
 
+import java.util.ArrayList;
+
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
@@ -14,6 +16,9 @@ import de.dpma.azubiweb.model.User;
 import de.dpma.azubiweb.service.BerichtsheftService;
 import de.dpma.azubiweb.service.UserService;
 import de.dpma.azubiweb.view.RootPage;
+import de.dpma.azubiweb.view.berichtsheft.panel.BerichtsheftPanel;
+import de.dpma.azubiweb.view.berichtsheft.panel.OverviewAzubiListPanel;
+import de.dpma.azubiweb.view.berichtsheft.panel.OverviewReportsListPanel;
 
 /**
  * Controller der Berichtsheft Seite
@@ -22,15 +27,17 @@ import de.dpma.azubiweb.view.RootPage;
  *
  */
 @AuthorizeInstantiation({ "Auszubildende", "Ausbildungsleiter", "Ausbilder" })
-public class Berichtsheft extends RootPage {
+public class Berichtsheft extends RootPage implements PanelChange {
 
 	private static final long serialVersionUID = 1392603770886213724L;
 
 	@SpringBean
 	private BerichtsheftService berichtsheftService;
-	
+
 	protected UserService userService = session.getUserService();
-	
+	private String currentId;
+	private BerichtsheftPanel currentPanel;
+
 	public Berichtsheft() {
 		super();
 		initial();
@@ -53,21 +60,25 @@ public class Berichtsheft extends RootPage {
 	private void initial() {
 		this.currentUser = session.getUser();
 
-		add(new Label("title", currentUser.getNachname() + ", " + currentUser.getVorname()));
+		this.add(new Label("title", currentUser.getNachname() + ", " + currentUser.getVorname()));
 		add(new Label("message", "Titel: " + currentUser.getRolle().getBeschreibung()));
 		Form<User> formBerichtsheft = new Form<>("form");
-
-		if (user.getRolle().getBeschreibung().equals(Rolle.Beschreibung.AZUBI)) {
-			add(new BerichtsheftAzubi5DayPanel("panel",currentUser,berichtsheftService));
-		} else if (user.getRolle().getBeschreibung().equals(Rolle.Beschreibung.A)) {
-			add(new BerichtsheftABLOverviewPanel("panel",currentUser,berichtsheftService));
-		} else {
-			add(new BerichtsheftABLOverviewPanel("panel",currentUser,berichtsheftService));
+		
+		String currentRolle = this.currentUser.getRolle().getBeschreibung();
+		if (currentRolle.equals("Ausbilder")||currentRolle.equals("Ausbildungsleiter")) {
+			this.currentPanel = new OverviewAzubiListPanel("panel", currentUser, berichtsheftService,this);
+		}else if (currentRolle.equals("Azubi")) {
+			this.currentPanel = new OverviewReportsListPanel("panel", currentUser, berichtsheftService,this);
 		}
+		
+		add(currentPanel);
 
 	}
 
+	@Override
+	public void changeView(String id) {
 
+	}
 
 	public static Label[] getLabelsWeek(int days) {
 		String[] week = new String[] { "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag",
@@ -77,7 +88,8 @@ public class Berichtsheft extends RootPage {
 			labels[i] = new Label("w" + i, week[i]);
 		}
 		return labels;
-
+		
+		
 	}
 
 }

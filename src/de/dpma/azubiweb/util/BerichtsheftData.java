@@ -7,6 +7,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.dom4j.io.DOMReader;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -15,14 +16,13 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 public class BerichtsheftData {
-	/**
-	 * 0: 5-Tage BH 1: Wochen BH
-	 */
-	private int art = -1;
-	private int week = -1;
-	private String[] weekValues;
 
-	public void setXMLdata(String value) {
+	public static String[] getDataFromXML(String value) {
+		/**
+		 * 0: 5-Tage BH 1: Wochen BH
+		 */
+		int art = -1;
+		String[] weekValues = null;
 		if (value != null) {
 			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 			DocumentBuilder db = null;
@@ -35,21 +35,20 @@ public class BerichtsheftData {
 				Document doc = db.parse(is);
 
 				Element root = doc.getDocumentElement();
-				this.art = Integer.valueOf(root.getAttribute("art"));
-				this.week = Integer.valueOf(root.getAttribute("week"));
+				art = Integer.valueOf(root.getAttribute("art"));
 				NodeList childs = root.getChildNodes();
 
 				if (art == 0) {
-					this.weekValues = new String[5];
+					weekValues = new String[5];
 				} else {
-					this.weekValues = new String[1];
+					weekValues = new String[1];
 				}
 				for (int i = 0; i < childs.getLength(); i++) {
 					Node temp = childs.item(i);
 					if (temp.getNodeType() == Node.ELEMENT_NODE) {
 						Element elementItem = (Element) temp;
 						int id = Integer.valueOf(elementItem.getAttribute("id"));
-						this.weekValues[id] = elementItem.getTextContent();
+						weekValues[id] = elementItem.getTextContent();
 					}
 				}
 			} catch (ParserConfigurationException e) {
@@ -59,11 +58,24 @@ public class BerichtsheftData {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+			return weekValues;
 		}
-
+		return null;
 	}
 
-	public String getXMLdata() {
+	public static String getXMLFromData(String[] weekValues, int week) {
+		int art = -1;
+		switch (weekValues.length) {
+		case 1:
+			art = 1;
+			break;
+		case 5:
+			art = 0;
+			break;
+		default:
+			art = -1;
+			break;
+		}
 		try {
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder builder = null;
@@ -71,29 +83,32 @@ public class BerichtsheftData {
 			builder = factory.newDocumentBuilder();
 			Document doc = builder.newDocument();
 			Element root = doc.createElement("report");
+
 			root.setAttribute("week", "" + week);
 			root.setAttribute("art", "" + art);
+			doc.appendChild(root);
+			System.out.println(art);
 			if (art == 0) {
 				// 5 Tage
 				for (int i = 0; i < weekValues.length; i++) {
 					Element tDays = doc.createElement("item");
-					tDays.setAttribute("id", ""+i);
+					tDays.setAttribute("id", "" + i);
 					tDays.setTextContent(weekValues[i]);
 					root.appendChild(tDays);
 				}
 			} else if (art == 1) {
 				// Woche
 				Element tWeek = doc.createElement("item");
-				tWeek.setAttribute("id", ""+5);
+				tWeek.setAttribute("id", "" + 5);
 				tWeek.setTextContent(weekValues[0]);
 				root.appendChild(tWeek);
 			} else {
 				return null;
 			}
-			
-			String inhalt = "<?xml version = '1.0' encoding = 'iso-8859-1' ?>\n";
-            inhalt = inhalt + doc.getDocumentElement().toString();
-            return inhalt;
+
+			DOMReader reader = new DOMReader();
+			org.dom4j.Document doc2 = reader.read(doc);
+			return doc2.asXML().toString();
 		} catch (ParserConfigurationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -102,22 +117,4 @@ public class BerichtsheftData {
 		return null;
 	}
 
-	public String[] getWeekValues() {
-		return weekValues;
-	}
-
-	public void setWeekValues(String[] weekValues) {
-		this.weekValues = weekValues;
-		switch (weekValues.length) {
-		case 1:
-			this.art = 1;
-			break;
-		case 5:
-			this.art = 0;
-			break;
-		default:
-			this.art = -1;
-			break;
-		}
-	}
 }
