@@ -7,7 +7,7 @@ import de.dpma.azubiweb.view.berichtsheft.PanelChange;
 
 public class SignPanel extends BerichtsheftPanel {
 	public static final String NAME = "Sign";
-	public SignPanel(String id,User currentUser, BerichtsheftService berichtsheftService, PanelChange change) {
+	public SignPanel(String id,User currentUser, BerichtsheftService berichtsheftService, PanelChange change, de.dpma.azubiweb.model.Berichtsheft report) {
 
 		super(id, currentUser, berichtsheftService, change, NAME);
 		this.init();

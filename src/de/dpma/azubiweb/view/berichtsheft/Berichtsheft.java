@@ -1,3 +1,4 @@
+
 package de.dpma.azubiweb.view.berichtsheft;
 
 import java.util.ArrayList;
@@ -16,9 +17,11 @@ import de.dpma.azubiweb.model.User;
 import de.dpma.azubiweb.service.BerichtsheftService;
 import de.dpma.azubiweb.service.UserService;
 import de.dpma.azubiweb.view.RootPage;
+import de.dpma.azubiweb.view.berichtsheft.panel.AzubiWeekPanel;
 import de.dpma.azubiweb.view.berichtsheft.panel.BerichtsheftPanel;
 import de.dpma.azubiweb.view.berichtsheft.panel.OverviewAzubiListPanel;
 import de.dpma.azubiweb.view.berichtsheft.panel.OverviewReportsListPanel;
+import de.dpma.azubiweb.view.berichtsheft.panel.SignPanel;
 
 /**
  * Controller der Berichtsheft Seite
@@ -61,24 +64,21 @@ public class Berichtsheft extends RootPage implements PanelChange {
 		this.currentUser = session.getUser();
 
 		this.add(new Label("title", currentUser.getNachname() + ", " + currentUser.getVorname()));
-		add(new Label("message", "Titel: " + currentUser.getRolle().getBeschreibung()));
+		this.add(new Label("message", "Titel: " + currentUser.getRolle().getBeschreibung()));
 		Form<User> formBerichtsheft = new Form<>("form");
 
 		int rolleID = this.currentUser.getRolle().getId();
 		if (rolleID == Rolle.Beschreibung.A.getRolleId() || rolleID == Rolle.Beschreibung.AL.getRolleId()) {
 			this.currentPanel = new OverviewAzubiListPanel("panel", currentUser, berichtsheftService, this);
 		} else if (rolleID == Rolle.Beschreibung.AZUBI.getRolleId()) {
-			this.currentPanel = new OverviewReportsListPanel("panel", currentUser, berichtsheftService, this);
+			this.currentPanel = new OverviewReportsListPanel("panel", currentUser, berichtsheftService, this, null);
 		}
 
-		add(currentPanel);
+		this.add(currentPanel);
 
 	}
 
-	@Override
-	public void changeView(String id) {
 
-	}
 
 	public static Label[] getLabelsWeek(int days) {
 		String[] week = new String[] { "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag",
@@ -89,6 +89,34 @@ public class Berichtsheft extends RootPage implements PanelChange {
 		}
 		return labels;
 
+	}
+
+	@Override
+	public void changeToOverviewAzubiList() {
+		this.remove(currentPanel);
+		this.currentPanel = new OverviewAzubiListPanel("panel", currentUser, berichtsheftService, this);
+		this.add(currentPanel);
+	}
+
+	@Override
+	public void changeToOverviewReportsList(AzubiReports aReports) {
+		this.remove(currentPanel);
+		this.currentPanel = new OverviewReportsListPanel("panel", currentUser, berichtsheftService, this, aReports);
+		this.add(currentPanel);
+	}
+
+	@Override
+	public void changeToAzubiWeekDayPanel(de.dpma.azubiweb.model.Berichtsheft reportToView) {
+		this.remove(currentPanel);
+		this.currentPanel = new AzubiWeekPanel("panel", currentUser, berichtsheftService, this, reportToView);
+		this.add(currentPanel);
+	}
+
+	@Override
+	public void changeToSign(de.dpma.azubiweb.model.Berichtsheft reportToView) {
+		this.remove(currentPanel);
+		this.currentPanel = new SignPanel("panel", currentUser, berichtsheftService, this, reportToView);
+		this.add(currentPanel);
 	}
 
 }
