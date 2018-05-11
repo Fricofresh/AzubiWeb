@@ -1,9 +1,11 @@
 <wicket:panel xmlns:wicket="http://wicket.apache.org">
-		<span wicket:id="azubiListView">
-			<span wicket:id="nameLabel"></span> 
-			<span class="pull-right" wicket:id="countReports" ></span>
-			<span class="pull-right mr-5" wicket:id="editLink"></span>
-		</span>
-
+	<div>
+		<ul class="nopadding">
+			<li class="list-group-item d-flex flex-column list-group-item-action"
+				wicket:id="azubiListView"><a wicket:id="nameLabel"></a><a
+				class="pull-right mr-5 required" wicket:id="editLink"></a> <a
+				class="pull-right mr-5" wicket:id="countReports"></a> </li>
+		</ul>
+	</div>
 
 </wicket:panel>

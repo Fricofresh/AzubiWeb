@@ -7,14 +7,12 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
+import org.apache.wicket.model.Model;
 
 import de.dpma.azubiweb.model.Rolle;
 import de.dpma.azubiweb.model.User;
 import de.dpma.azubiweb.service.BerichtsheftService;
-import de.dpma.azubiweb.view.BenutzerBearbeiten;
-import de.dpma.azubiweb.view.berichtsheft.Berichtsheft;
 import de.dpma.azubiweb.view.berichtsheft.PanelChange;
-import de.dpma.azubiweb.view.berichtsheft.panel.OverviewAzubiListPanel.AzubiReports;
 
 /**
  * Überichtsliste für AL oder AB der Azubis zum Unterzeichnen
@@ -23,6 +21,8 @@ import de.dpma.azubiweb.view.berichtsheft.panel.OverviewAzubiListPanel.AzubiRepo
  *
  */
 public class OverviewAzubiListPanel extends BerichtsheftPanel {
+
+	private static final long serialVersionUID = 1513754883052295939L;
 	public static final String NAME = "OverviewAzubiList";
 	private Rolle rolle;
 
@@ -49,12 +49,17 @@ public class OverviewAzubiListPanel extends BerichtsheftPanel {
 				}
 			}
 		}
+
+		ArrayList<AzubiReports> azubiReports = null;
 		if (reportsByUser.size() > 0) {
-			ArrayList<AzubiReports> azubiReports = this.getAzubiReports(reportsByUser);
-
+			azubiReports = this.getAzubiReports(reportsByUser);
+			
 		}
-
-		ListView<AzubiReports> list = new ListView<OverviewAzubiListPanel.AzubiReports>("azubiListView") {
+		if (azubiReports == null) {
+			azubiReports = new ArrayList<>();
+			azubiReports = createTestReports();
+		}
+		ListView<AzubiReports> list = new ListView<OverviewAzubiListPanel.AzubiReports>("azubiListView", azubiReports) {
 
 			@Override
 			protected void populateItem(ListItem<AzubiReports> item) {
@@ -62,22 +67,37 @@ public class OverviewAzubiListPanel extends BerichtsheftPanel {
 
 				item.add(new Label("nameLabel", ar.getuAzubi().getNachname() + " " + ar.getuAzubi().getVorname()));
 				item.add(new Label("countReports", "Anzahl: " + ar.getListReports().size()));
-				item.add(new Link<String>("bearbeitenLink") {
+				Link lk = new Link<String>("editLink") {
 
 					private static final long serialVersionUID = 1L;
 
 					@Override
 					public void onClick() {
 
-//						System.out.println(user);
-//						setResponsePage(new BenutzerBearbeiten(user));
+						// System.out.println(user);
+						// setResponsePage(new BenutzerBearbeiten(user));
 					}
-				});
+				};
+				lk.setBody(Model.of("Ansehen"));
+				item.add(lk);
 
 			}
 		};
 
-		add(Berichtsheft.getLabelsWeek(5));
+		this.add(list);
+	}
+
+	private ArrayList<AzubiReports> createTestReports() {
+		ArrayList<AzubiReports> reports = new ArrayList<>();
+		for (int i = 0; i < 10; i++) {
+			AzubiReports temp = new AzubiReports(new User(0, "usName" + i, "Anfang12",
+					new Rolle(Rolle.Beschreibung.AZUBI.name()), "VN" + i, "NM" + i, "", null, 0, null, null));
+			for (int j = 0; j < Math.random()*10; j++) {
+				temp.addReport(new de.dpma.azubiweb.model.Berichtsheft());
+			}
+			reports.add(temp);
+		}
+		return reports;
 	}
 
 	private ArrayList<AzubiReports> getAzubiReports(ArrayList<de.dpma.azubiweb.model.Berichtsheft> reportsByUser) {
@@ -118,7 +138,7 @@ public class OverviewAzubiListPanel extends BerichtsheftPanel {
 
 		public void addReport(de.dpma.azubiweb.model.Berichtsheft report) {
 			this.listReports.add(report);
-//			this.listReports.sort(c);
+			// this.listReports.sort(c);
 		}
 
 		public int getUserId() {
