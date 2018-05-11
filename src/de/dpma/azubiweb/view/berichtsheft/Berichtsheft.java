@@ -63,14 +63,14 @@ public class Berichtsheft extends RootPage implements PanelChange {
 		this.add(new Label("title", currentUser.getNachname() + ", " + currentUser.getVorname()));
 		add(new Label("message", "Titel: " + currentUser.getRolle().getBeschreibung()));
 		Form<User> formBerichtsheft = new Form<>("form");
-		
-		String currentRolle = this.currentUser.getRolle().getBeschreibung();
-		if (currentRolle.equals("Ausbilder")||currentRolle.equals("Ausbildungsleiter")) {
-			this.currentPanel = new OverviewAzubiListPanel("panel", currentUser, berichtsheftService,this);
-		}else if (currentRolle.equals("Azubi")) {
-			this.currentPanel = new OverviewReportsListPanel("panel", currentUser, berichtsheftService,this);
+
+		int rolleID = this.currentUser.getRolle().getId();
+		if (rolleID == Rolle.Beschreibung.A.getRolleId() || rolleID == Rolle.Beschreibung.AL.getRolleId()) {
+			this.currentPanel = new OverviewAzubiListPanel("panel", currentUser, berichtsheftService, this);
+		} else if (rolleID == Rolle.Beschreibung.AZUBI.getRolleId()) {
+			this.currentPanel = new OverviewReportsListPanel("panel", currentUser, berichtsheftService, this);
 		}
-		
+
 		add(currentPanel);
 
 	}
@@ -88,8 +88,7 @@ public class Berichtsheft extends RootPage implements PanelChange {
 			labels[i] = new Label("w" + i, week[i]);
 		}
 		return labels;
-		
-		
+
 	}
 
 }

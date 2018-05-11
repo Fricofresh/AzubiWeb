@@ -7,7 +7,7 @@ import de.dpma.azubiweb.service.BerichtsheftService;
 import de.dpma.azubiweb.view.berichtsheft.PanelChange;
 
 /**
- * Muttel aller Panels im Berichtsheft
+ * Mutter aller Panels im Berichtsheft
  * 
  * @author VIT Student
  *
