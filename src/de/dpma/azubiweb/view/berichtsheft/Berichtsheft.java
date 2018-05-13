@@ -6,7 +6,9 @@ import java.util.ArrayList;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
@@ -41,6 +43,8 @@ public class Berichtsheft extends RootPage implements PanelChange {
 	private String currentId;
 	private BerichtsheftPanel currentPanel;
 
+	private ArrayList<BerichtsheftPanel> panelHistory;
+
 	public Berichtsheft() {
 		super();
 		initial();
@@ -66,7 +70,7 @@ public class Berichtsheft extends RootPage implements PanelChange {
 		this.add(new Label("title", currentUser.getNachname() + ", " + currentUser.getVorname()));
 		this.add(new Label("message", "Titel: " + currentUser.getRolle().getBeschreibung()));
 		Form<User> formBerichtsheft = new Form<>("form");
-
+		panelHistory = new ArrayList<>();
 		int rolleID = this.currentUser.getRolle().getId();
 		if (rolleID == Rolle.Beschreibung.A.getRolleId() || rolleID == Rolle.Beschreibung.AL.getRolleId()) {
 			this.currentPanel = new OverviewAzubiListPanel("panel", currentUser, berichtsheftService, this);
@@ -75,10 +79,28 @@ public class Berichtsheft extends RootPage implements PanelChange {
 		}
 
 		this.add(currentPanel);
+		Link<String> lk = new Link<String>("backLink") {
 
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void onClick() {
+				backPressed();
+			}
+		};
+
+		lk.setBody(Model.of("Zurück"));
+		this.add(lk);
 	}
-
-
+	
+	public void backPressed() {
+		if (panelHistory.size()>0) {
+			this.remove(currentPanel);
+			currentPanel = panelHistory.get(panelHistory.size() - 1);
+			panelHistory.remove(panelHistory.size() - 1);
+			this.add(currentPanel);
+		}
+	}
 
 	public static Label[] getLabelsWeek(int days) {
 		String[] week = new String[] { "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag",
@@ -93,6 +115,7 @@ public class Berichtsheft extends RootPage implements PanelChange {
 
 	@Override
 	public void changeToOverviewAzubiList() {
+		this.panelHistory.add(currentPanel);
 		this.remove(currentPanel);
 		this.currentPanel = new OverviewAzubiListPanel("panel", currentUser, berichtsheftService, this);
 		this.add(currentPanel);
@@ -100,6 +123,7 @@ public class Berichtsheft extends RootPage implements PanelChange {
 
 	@Override
 	public void changeToOverviewReportsList(AzubiReports aReports) {
+		this.panelHistory.add(currentPanel);
 		this.remove(currentPanel);
 		this.currentPanel = new OverviewReportsListPanel("panel", currentUser, berichtsheftService, this, aReports);
 		this.add(currentPanel);
@@ -107,6 +131,7 @@ public class Berichtsheft extends RootPage implements PanelChange {
 
 	@Override
 	public void changeToAzubiWeekDayPanel(de.dpma.azubiweb.model.Berichtsheft reportToView) {
+		this.panelHistory.add(currentPanel);
 		this.remove(currentPanel);
 		this.currentPanel = new AzubiWeekPanel("panel", currentUser, berichtsheftService, this, reportToView);
 		this.add(currentPanel);
@@ -114,6 +139,7 @@ public class Berichtsheft extends RootPage implements PanelChange {
 
 	@Override
 	public void changeToSign(de.dpma.azubiweb.model.Berichtsheft reportToView) {
+		this.panelHistory.add(currentPanel);
 		this.remove(currentPanel);
 		this.currentPanel = new SignPanel("panel", currentUser, berichtsheftService, this, reportToView);
 		this.add(currentPanel);
