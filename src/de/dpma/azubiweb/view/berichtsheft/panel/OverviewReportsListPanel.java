@@ -14,6 +14,12 @@ import de.dpma.azubiweb.service.BerichtsheftService;
 import de.dpma.azubiweb.view.berichtsheft.AzubiReports;
 import de.dpma.azubiweb.view.berichtsheft.PanelChange;
 
+/**
+ * Liste aller Berichtshefte eines Azubis
+ * 
+ * @author Benedikt Maier
+ *
+ */
 public class OverviewReportsListPanel extends BerichtsheftPanel {
 	public static final String NAME = "OverviewReportsList";
 	private AzubiReports reports;
@@ -27,6 +33,12 @@ public class OverviewReportsListPanel extends BerichtsheftPanel {
 
 	}
 
+	/**
+	 * Bei Azubi: Für den Azubi wird ein {@link AzubiReports} erstellt und in einer
+	 * {@link ListView} angezeigt <br>
+	 * Bei AB & AL: Die mitgeliederten {@link AzubiReports} werden ausgelesen und
+	 * Berichtshefte in einer {@link ListView} angezeigt
+	 */
 	public void init() {
 		if (currentUser.getRolle().getId() == Rolle.Beschreibung.AZUBI.getRolleId()) {
 			reports = createAzubiReportsByAzubi();
@@ -61,10 +73,15 @@ public class OverviewReportsListPanel extends BerichtsheftPanel {
 
 			}
 		};
-		
+
 		this.add(list);
 	}
 
+	/**
+	 * Erstellt {@link AzubiReports} für den angemeldeten Azubi
+	 * 
+	 * @return
+	 */
 	public AzubiReports createAzubiReportsByAzubi() {
 		AzubiReports reports = new AzubiReports(currentUser);
 		List<de.dpma.azubiweb.model.Berichtsheft> rList = super.service.getAllBerichtsheft();

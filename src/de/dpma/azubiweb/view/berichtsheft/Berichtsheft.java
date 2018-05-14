@@ -7,13 +7,10 @@ import org.apache.wicket.authroles.authorization.strategies.role.annotations.Aut
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.link.Link;
-import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
-import de.dpma.azubiweb.model.Ausbildungsart;
-import de.dpma.azubiweb.model.BerichtsheftRepository;
 import de.dpma.azubiweb.model.Rolle;
 import de.dpma.azubiweb.model.User;
 import de.dpma.azubiweb.service.BerichtsheftService;
@@ -26,7 +23,7 @@ import de.dpma.azubiweb.view.berichtsheft.panel.OverviewReportsListPanel;
 import de.dpma.azubiweb.view.berichtsheft.panel.SignPanel;
 
 /**
- * Controller der Berichtsheft Seite
+ * Controller der Berichtsheft Seite Aufruf der veschdienenen Panels
  * 
  * @author Benedikt Maier
  *
@@ -40,7 +37,6 @@ public class Berichtsheft extends RootPage implements PanelChange {
 	private BerichtsheftService berichtsheftService;
 
 	protected UserService userService = session.getUserService();
-	private String currentId;
 	private BerichtsheftPanel currentPanel;
 
 	private ArrayList<BerichtsheftPanel> panelHistory;
@@ -63,14 +59,15 @@ public class Berichtsheft extends RootPage implements PanelChange {
 
 	private User currentUser;
 
-	@SuppressWarnings("unlikely-arg-type")
+	/**
+	 * Initialisierung der Seite, je nach Rollentyp
+	 */
 	private void initial() {
 		this.currentUser = session.getUser();
 
 		this.add(new Label("title", currentUser.getNachname() + ", " + currentUser.getVorname()));
 		this.add(new Label("message", "Titel: " + currentUser.getRolle().getBeschreibung()));
-		Form<User> formBerichtsheft = new Form<>("form");
-		panelHistory = new ArrayList<>();
+		this.panelHistory = new ArrayList<>();
 		int rolleID = this.currentUser.getRolle().getId();
 		if (rolleID == Rolle.Beschreibung.A.getRolleId() || rolleID == Rolle.Beschreibung.AL.getRolleId()) {
 			this.currentPanel = new OverviewAzubiListPanel("panel", currentUser, berichtsheftService, this);
@@ -92,9 +89,12 @@ public class Berichtsheft extends RootPage implements PanelChange {
 		lk.setBody(Model.of("Zurück"));
 		this.add(lk);
 	}
-	
+
+	/**
+	 * Zurück Button gedrückt
+	 */
 	public void backPressed() {
-		if (panelHistory.size()>0) {
+		if (panelHistory.size() > 0) {
 			this.remove(currentPanel);
 			currentPanel = panelHistory.get(panelHistory.size() - 1);
 			panelHistory.remove(panelHistory.size() - 1);

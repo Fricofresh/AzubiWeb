@@ -19,7 +19,7 @@ import de.dpma.azubiweb.view.berichtsheft.PanelChange;
 /**
  * Überichtsliste für AL oder AB der Azubis zum Unterzeichnen
  * 
- * @author VIT Student
+ * @author Benedikt Maier
  *
  */
 public class OverviewAzubiListPanel extends BerichtsheftPanel {
@@ -33,6 +33,15 @@ public class OverviewAzubiListPanel extends BerichtsheftPanel {
 		super(id, currentUser, berichtsheftService, change, NAME);
 		this.init();
 	}
+
+	/**
+	 * Initialisierung des Panels Azubiübericht Ließt alle BH aus die der User zu
+	 * unterzeichnen hat und sortiert sie dann nach den Azubis ->
+	 * {@link AzubiReports} <br>
+	 * Erstellt davon eine {@link ListView} und zeigt diese im Panel an. Über diese
+	 * gelangt man zu {@link OverviewReportsListPanel}, die alle BH für den Azubi
+	 * anzeigt.
+	 */
 
 	public void init() {
 		rolle = currentUser.getRolle();
@@ -55,12 +64,13 @@ public class OverviewAzubiListPanel extends BerichtsheftPanel {
 		ArrayList<AzubiReports> azubiReports = null;
 		if (reportsByUser.size() > 0) {
 			azubiReports = this.getAzubiReports(reportsByUser);
-			
+
 		}
 		if (azubiReports == null) {
 			azubiReports = new ArrayList<>();
 			azubiReports = createTestReports();
 		}
+
 		ListView<AzubiReports> list = new ListView<AzubiReports>("azubiListView", azubiReports) {
 
 			@Override
@@ -93,14 +103,22 @@ public class OverviewAzubiListPanel extends BerichtsheftPanel {
 		for (int i = 0; i < 10; i++) {
 			AzubiReports temp = new AzubiReports(new User(i, "usName" + i, "Anfang12",
 					new Rolle(Rolle.Beschreibung.AZUBI.name()), "VN" + i, "NM" + i, "", null, 0, null, null));
-			for (int j = 0; j < Math.random()*10; j++) {
-				temp.addReport(new de.dpma.azubiweb.model.Berichtsheft(temp.getuAzubi(), Berichtsheft.kindOfBH[0], "01;2018"));
+			for (int j = 0; j < Math.random() * 10; j++) {
+				temp.addReport(
+						new de.dpma.azubiweb.model.Berichtsheft(temp.getuAzubi(), Berichtsheft.kindOfBH[0], "01;2018"));
 			}
 			reports.add(temp);
 		}
 		return reports;
 	}
 
+	/**
+	 * Erstellt die Azubiliste mit den Berichtsheften
+	 * 
+	 * @param reportsByUser:
+	 *            Alle vom User zu unterzeichnenden Berichtshefte
+	 * @return
+	 */
 	private ArrayList<AzubiReports> getAzubiReports(ArrayList<de.dpma.azubiweb.model.Berichtsheft> reportsByUser) {
 		ArrayList<AzubiReports> retReport = new ArrayList<>();
 		for (int i = 0; i < reportsByUser.size(); i++) {
@@ -121,7 +139,5 @@ public class OverviewAzubiListPanel extends BerichtsheftPanel {
 		}
 		return retReport;
 	}
-
-	
 
 }

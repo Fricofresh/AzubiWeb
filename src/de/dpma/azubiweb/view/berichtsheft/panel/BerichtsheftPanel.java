@@ -9,7 +9,7 @@ import de.dpma.azubiweb.view.berichtsheft.PanelChange;
 /**
  * Mutter aller Panels im Berichtsheft
  * 
- * @author VIT Student
+ * @author Benedikt Maier
  *
  */
 public abstract class BerichtsheftPanel extends Panel {

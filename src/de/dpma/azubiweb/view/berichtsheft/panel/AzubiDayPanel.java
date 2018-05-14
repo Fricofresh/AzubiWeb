@@ -1,13 +1,14 @@
 package de.dpma.azubiweb.view.berichtsheft.panel;
 
-import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.panel.Panel;
-
 import de.dpma.azubiweb.model.User;
 import de.dpma.azubiweb.service.BerichtsheftService;
 import de.dpma.azubiweb.view.berichtsheft.Berichtsheft;
 import de.dpma.azubiweb.view.berichtsheft.PanelChange;
-
+/**
+ * Panel zum Eingaben des Berichtsheftes für Montag bis Freitag
+ * @author Benedikt Maier
+ *
+ */
 public class AzubiDayPanel extends BerichtsheftPanel {
 	public static final String NAME = "AzubiDay";
 

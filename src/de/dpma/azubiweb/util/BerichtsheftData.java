@@ -15,6 +15,13 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
+/**
+ * Datenmodel für Berichtsheft (Seite und DB) Wandelt Daten in XML oder die XML
+ * zum Lesen um
+ * 
+ * @author VIT Student
+ *
+ */
 public class BerichtsheftData {
 
 	public static String[] getDataFromXML(String value) {
