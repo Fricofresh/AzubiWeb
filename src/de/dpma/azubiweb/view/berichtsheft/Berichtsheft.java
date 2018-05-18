@@ -93,6 +93,7 @@ public class Berichtsheft extends RootPage implements PanelChange {
 	/**
 	 * Zurück Button gedrückt
 	 */
+	@Override
 	public void backPressed() {
 		if (panelHistory.size() > 0) {
 			this.remove(currentPanel);
@@ -102,16 +103,7 @@ public class Berichtsheft extends RootPage implements PanelChange {
 		}
 	}
 
-	public static Label[] getLabelsWeek(int days) {
-		String[] week = new String[] { "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag",
-				"Sonntag" };
-		Label[] labels = new Label[days];
-		for (int i = 0; i < labels.length; i++) {
-			labels[i] = new Label("w" + i, week[i]);
-		}
-		return labels;
-
-	}
+	
 
 	@Override
 	public void changeToOverviewAzubiList() {
@@ -143,6 +135,24 @@ public class Berichtsheft extends RootPage implements PanelChange {
 		this.remove(currentPanel);
 		this.currentPanel = new SignPanel("panel", currentUser, berichtsheftService, this, reportToView);
 		this.add(currentPanel);
+	}
+	
+	public static Label[] getLabelsWeek(int days) {
+		String[] week = new String[] { "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag",
+				"Sonntag" };
+		Label[] labels = new Label[days];
+		for (int i = 0; i < labels.length; i++) {
+			labels[i] = new Label("w" + i, week[i]);
+		}
+		return labels;
+
+	}
+	
+	public static String getStringForDay(int day) {
+		String[] week = new String[] { "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag",
+				"Sonntag" };
+		return week[day];
+
 	}
 
 }

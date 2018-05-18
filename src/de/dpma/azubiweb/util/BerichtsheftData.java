@@ -1,7 +1,9 @@
 package de.dpma.azubiweb.util;
 
+import java.awt.FocusTraversalPolicy;
 import java.io.IOException;
 import java.io.StringReader;
+import java.util.ArrayList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -24,7 +26,7 @@ import org.xml.sax.SAXException;
  */
 public class BerichtsheftData {
 
-	public static String[] getDataFromXML(String value) {
+	public static ArrayList<String> getDataFromXML(String value) {
 		/**
 		 * 0: 5-Tage BH 1: Wochen BH
 		 */
@@ -65,7 +67,11 @@ public class BerichtsheftData {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			return weekValues;
+			ArrayList<String> retV = new ArrayList<>();
+			for (int i = 0; i < weekValues.length; i++) {
+				retV.add(weekValues[i]);
+			}
+			return retV;
 		}
 		return null;
 	}

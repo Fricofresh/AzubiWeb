@@ -1,12 +1,22 @@
 <wicket:panel xmlns:wicket="http://wicket.apache.org">
-	<div>
-		<p wicket:id="w0">1</p>
-		<textarea rows="2" cols="4"></textarea>
-		<p wicket:id="w1">1</p>
-		<p wicket:id="w2">1</p>
-		<p wicket:id="w3">1</p>
-		<p wicket:id="w4">1</p>
-	</div>
+	<h4>
+		Art Berichtsheft:   <select value="auswahl">
+			<option value"b">Betrieb</option>
+<option value"bs">Berufsschule</option>
+		</select>
+	</h4>
 
-
+	<br>
+	<li class="list-group-item d-flex flex-column" wicket:id="reportView"><br>
+		<label wicket:id="dayLabel" for0="Montag"><b>Montag: </b></label><br>
+			<textarea wicket:id="dayArea" name="Montag" cols="35" rows="4"></textarea><br>
+			<input wicket:id="uCb" type="checkbox" name="Urlaub1">Urlaub</input>
+			<input wicket:id="kCb" type="checkbox" name="Krank1">Krank </input> <input
+			wicket:id="fCb" type="checkbox" name="Feiertag1">Feiertag</input><br>
+	</li>
+	<label wicket:id="errorLabel" for="Montag"><b>Montag: </b></label><br>
+		<textarea wicket:id="errorArea" name="Montag" cols="35" rows="4"></textarea><br>
+<br>
+<button wicket:id="signB">Signieren</button>
+<button wicket:id="errorB">Fehler senden</button>
 </wicket:panel>

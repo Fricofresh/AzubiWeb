@@ -35,4 +35,6 @@ public interface PanelChange {
  * @param reportToView: Berichtsheft zum unterzeichnen
  */
 	public void changeToSign(Berichtsheft reportToView);
+	
+	public void backPressed();
 }

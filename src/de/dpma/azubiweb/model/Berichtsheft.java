@@ -73,7 +73,7 @@ public class Berichtsheft implements Serializable {
 
 	@Column(nullable = false)
 	private String data;
-
+	private String errorMessage;
 	private static final long serialVersionUID = 1L;
 
 	// Hier alle Getter und Setter Methoden//
@@ -95,6 +95,14 @@ public class Berichtsheft implements Serializable {
 
 	public User getUser_AB() {
 		return user_AB;
+	}
+	
+	public void setErrorMessage(String errorMessage) {
+		this.errorMessage = errorMessage;
+	}
+	
+	public String getErrorMessage() {
+		return errorMessage;
 	}
 
 	public void setUser_AB(User user_AB) {
