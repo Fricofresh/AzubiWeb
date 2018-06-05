@@ -52,7 +52,7 @@ public class OverviewReportsListPanel extends BerichtsheftPanel {
 
 				item.add(new Label("nameLabel",
 						ar.getUser_Azubi().getNachname() + ", " + ar.getUser_Azubi().getVorname()));
-				item.add(new Label("weekLabel", "Woche: " + ar.getWeekAYear().split(";")[0]));
+				item.add(new Label("weekLabel", "Woche: " + ar.getWeekAYear()%100));
 				Link<String> lk = new Link<String>("editLink") {
 
 					private static final long serialVersionUID = 1L;
@@ -85,11 +85,16 @@ public class OverviewReportsListPanel extends BerichtsheftPanel {
 	public AzubiReports createAzubiReportsByAzubi() {
 		AzubiReports reports = new AzubiReports(currentUser);
 		List<de.dpma.azubiweb.model.Berichtsheft> rList = super.service.getAllBerichtsheft();
+		boolean foundReport = false;
 		for (int i = 0; i < rList.size(); i++) {
 			de.dpma.azubiweb.model.Berichtsheft tempR = rList.get(i);
 			if (tempR.getUser_Azubi().getId() == currentUser.getId()) {
 				reports.addReport(tempR);
+				foundReport = true;
 			}
+		}
+		if (!foundReport) {
+			
 		}
 		return reports;
 	}

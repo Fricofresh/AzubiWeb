@@ -7,6 +7,7 @@ import org.apache.wicket.authroles.authorization.strategies.role.annotations.Aut
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.link.Link;
+import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -40,6 +41,7 @@ public class Berichtsheft extends RootPage implements PanelChange {
 	private BerichtsheftPanel currentPanel;
 
 	private ArrayList<BerichtsheftPanel> panelHistory;
+	private IModel<String> infoModel;
 
 	public Berichtsheft() {
 		super();
@@ -64,7 +66,7 @@ public class Berichtsheft extends RootPage implements PanelChange {
 	 */
 	private void initial() {
 		this.currentUser = session.getUser();
-
+		
 		this.add(new Label("title", currentUser.getNachname() + ", " + currentUser.getVorname()));
 		this.add(new Label("message", "Titel: " + currentUser.getRolle().getBeschreibung()));
 		this.panelHistory = new ArrayList<>();
@@ -88,6 +90,8 @@ public class Berichtsheft extends RootPage implements PanelChange {
 
 		lk.setBody(Model.of("Zurück"));
 		this.add(lk);
+		infoModel = Model.of("");
+		this.add(new Label("info",infoModel));
 	}
 
 	/**
@@ -136,7 +140,11 @@ public class Berichtsheft extends RootPage implements PanelChange {
 		this.currentPanel = new SignPanel("panel", currentUser, berichtsheftService, this, reportToView);
 		this.add(currentPanel);
 	}
-	
+	@Override
+	public void setInfo(String info) {
+		infoModel.setObject(info);
+		
+	}
 	public static Label[] getLabelsWeek(int days) {
 		String[] week = new String[] { "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag",
 				"Sonntag" };

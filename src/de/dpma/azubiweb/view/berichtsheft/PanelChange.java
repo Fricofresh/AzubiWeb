@@ -37,4 +37,6 @@ public interface PanelChange {
 	public void changeToSign(Berichtsheft reportToView);
 	
 	public void backPressed();
+	
+	public void setInfo(String info);
 }

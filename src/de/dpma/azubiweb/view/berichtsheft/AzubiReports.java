@@ -1,7 +1,10 @@
 package de.dpma.azubiweb.view.berichtsheft;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
+import de.dpma.azubiweb.model.Berichtsheft;
 import de.dpma.azubiweb.model.User;
 
 public class AzubiReports {
@@ -21,9 +24,16 @@ public class AzubiReports {
 
 	public void addReport(de.dpma.azubiweb.model.Berichtsheft report) {
 		this.listReports.add(report);
-		// this.listReports.sort(c);
-	}
+		Collections.sort(listReports,new Comparator<Berichtsheft>() {
 
+			@Override
+			public int compare(Berichtsheft b1, Berichtsheft b2) {
+				// TODO Auto-generated method stub
+				return b2.getWeekAYear() - b1.getWeekAYear();
+			}
+		});
+	
+	}
 	public int getUserId() {
 		return uAzubi.getId();
 	}

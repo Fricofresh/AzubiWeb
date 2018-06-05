@@ -105,7 +105,7 @@ public class OverviewAzubiListPanel extends BerichtsheftPanel {
 					new Rolle(Rolle.Beschreibung.AZUBI.name()), "VN" + i, "NM" + i, "", null, 0, null, null));
 			for (int j = 0; j < Math.random() * 10; j++) {
 				temp.addReport(
-						new de.dpma.azubiweb.model.Berichtsheft(temp.getuAzubi(), Berichtsheft.kindOfBH[0], "01;2018"));
+						new de.dpma.azubiweb.model.Berichtsheft(temp.getuAzubi(), Berichtsheft.kindOfBH[0], 201818));
 			}
 			reports.add(temp);
 		}

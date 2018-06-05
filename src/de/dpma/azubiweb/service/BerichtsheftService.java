@@ -24,10 +24,10 @@ public class BerichtsheftService {
 
 	public Berichtsheft getCurrentBerichtsheftByUserAzubi(User u) {
 		List<Berichtsheft> listBH = getAllBerichtsheft();
-		String curWY=getCurrentWeekAndYear();
+		int curWY=getCurrentWeekAndYear();
 		for (int i = 0; i < listBH.size(); i++) {
 			Berichtsheft temp = listBH.get(i);
-			if (u.getId() == temp.getUser_Azubi().getId() && curWY.equals(temp.getWeekAYear()) ) {
+			if (u.getId() == temp.getUser_Azubi().getId() && curWY == temp.getWeekAYear() ) {
 				return temp;
 			}
 		}
@@ -42,22 +42,20 @@ public class BerichtsheftService {
 		berichtsheftRepository.save(berichtsheft);
 	}
 
-	public static String getCurrentWeekAndYear() {
-		String retV = "";
-		String inputFormat = "ddMMyyyy";
-		SimpleDateFormat dateFormat = new SimpleDateFormat(inputFormat);
+	public static int getCurrentWeekAndYear() {
 		Date date = new Date();
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(date);
-		int wk = calendar.get(Calendar.WEEK_OF_YEAR);
-
-		if (wk < 10) {
-			retV += "0" + wk;
-		} else {
-			retV += wk;
-		}
-		retV += ";" + calendar.get(Calendar.YEAR);
-		return retV;
+		return calendar.get(Calendar.YEAR)*100+calendar.get(Calendar.WEEK_OF_YEAR);
 	}
+	
+	public static boolean isReportInFuture(int value) {
+		int curWeek = BerichtsheftService.getCurrentWeekAndYear();
+		if (value <= curWeek) {
+			return false;
+		}
+		return true;
+	}
+	
 
 }

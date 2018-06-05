@@ -17,6 +17,9 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
+import de.dpma.azubiweb.model.Berichtsheft;
+import de.dpma.azubiweb.service.BerichtsheftService;
+
 /**
  * Datenmodel für Berichtsheft (Seite und DB) Wandelt Daten in XML oder die XML
  * zum Lesen um
@@ -129,5 +132,7 @@ public class BerichtsheftData {
 
 		return null;
 	}
+
+
 
 }

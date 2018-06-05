@@ -21,7 +21,7 @@ public class Berichtsheft implements Serializable {
 		super();
 	}
 
-	public Berichtsheft(User user_Azubi, User user_AB, User user_AL, Referat referat, String weekAYear) {
+	public Berichtsheft(User user_Azubi, User user_AB, User user_AL, Referat referat, int weekAYear) {
 		super();
 		this.user_Azubi = user_Azubi;
 		this.user_AB = user_AB;
@@ -30,7 +30,7 @@ public class Berichtsheft implements Serializable {
 		this.weekAYear = weekAYear;
 	}
 
-	public Berichtsheft(User user_Azubi, String kind_BHL, String weekAYear) {
+	public Berichtsheft(User user_Azubi, String kind_BHL, int weekAYear) {
 		super();
 		this.user_Azubi = user_Azubi;
 		this.kind_BHL = kind_BHL;
@@ -66,10 +66,10 @@ public class Berichtsheft implements Serializable {
 	private String kind_BHL;
 
 	/**
-	 * Design: [WW;JJJJ]
+	 * Design: [YYYYww]
 	 */
 	@Column(nullable = false)
-	private String weekAYear;
+	private int weekAYear;
 
 	@Column(nullable = false)
 	private String data;
@@ -157,11 +157,11 @@ public class Berichtsheft implements Serializable {
 		this.kind_BHL = kind_BHL;
 	}
 
-	public String getWeekAYear() {
+	public int getWeekAYear() {
 		return weekAYear;
 	}
 
-	public void setWeekAYear(String weekAYear) {
+	public void setWeekAYear(int weekAYear) {
 		this.weekAYear = weekAYear;
 	}
 
