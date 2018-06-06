@@ -19,10 +19,10 @@ public abstract class BerichtsheftPanel extends Panel {
 	protected BerichtsheftService service;
 	protected PanelChange change;
 
-	public BerichtsheftPanel(String id, User currentUser, BerichtsheftService berichtsheftService, PanelChange change,
+	public BerichtsheftPanel(User currentUser, BerichtsheftService berichtsheftService, PanelChange change,
 			String name) {
 
-		super(id);
+		super("panel");
 		this.name = name;
 		this.currentUser = currentUser;
 		this.service = berichtsheftService;

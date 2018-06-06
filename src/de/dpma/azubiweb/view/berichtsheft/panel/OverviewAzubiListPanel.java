@@ -28,9 +28,9 @@ public class OverviewAzubiListPanel extends BerichtsheftPanel {
 	public static final String NAME = "OverviewAzubiList";
 	private Rolle rolle;
 
-	public OverviewAzubiListPanel(String id, User currentUser, BerichtsheftService berichtsheftService,
+	public OverviewAzubiListPanel(User currentUser, BerichtsheftService berichtsheftService,
 			PanelChange change) {
-		super(id, currentUser, berichtsheftService, change, NAME);
+		super(currentUser, berichtsheftService, change, NAME);
 		this.init();
 	}
 
@@ -66,9 +66,11 @@ public class OverviewAzubiListPanel extends BerichtsheftPanel {
 			azubiReports = this.getAzubiReports(reportsByUser);
 
 		}
-		if (azubiReports == null) {
+		if (azubiReports == null && de.dpma.azubiweb.view.berichtsheft.Berichtsheft.testID != 0) {
 			azubiReports = new ArrayList<>();
 			azubiReports = createTestReports();
+		}else {
+			change.setInfo("Keine Berichtshefte vorhanden!");
 		}
 
 		ListView<AzubiReports> list = new ListView<AzubiReports>("azubiListView", azubiReports) {

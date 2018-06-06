@@ -8,37 +8,14 @@
 	</form>
 	<br>
 	<br>
-	<label for="Montag"><b>Montag: </b><br> <textarea
-			id="Montag" name="Montag" cols="35" rows="4"></textarea><br> <input
-		type="checkbox" name="Urlaub1">Urlaub</input> <input type="checkbox"
-		name="Krank1">Krank </input> <input type="checkbox" name="Feiertag1">Feiertag</input><br>
-	</label>
-	<br>
+	<li class="list-group-item d-flex flex-column" wicket:id="reportView"><br>
+		<label wicket:id="dayLabel" for0="Montag"><b>Montag: </b></label><br>
+			<textarea wicket:id="dayArea" name="Montag" cols="35" rows="4"></textarea><br>
+			<input wicket:id="uCb" type="checkbox" name="Urlaub1">Urlaub</input>
+			<input wicket:id="kCb" type="checkbox" name="Krank1">Krank </input> <input
+			wicket:id="fCb" type="checkbox" name="Feiertag1">Feiertag</input><br>
+	</li>
+	<button wicket:id="saveB">Speichern</button>
+	<button wicket:id="signB">Signieren</button>
 
-	<label for="Dienstag"><b>Dienstag:</b><br> <textarea
-			id="Dienstag" name="Dienstag" cols="35" rows="4"></textarea><br>
-		<input type="checkbox" name="Urlaub2">Urlaub</input> <input
-		type="checkbox" name="Krank2">Krank</input> <input type="checkbox"
-		name="Feiertag2">Feiertag</input><br> </label>
-	<br>
-
-	<label for="Mittwoch"><b>Mittwoch: </b><br> <textarea
-			id="Mittwoch" name="Mittwoch" cols="35" rows="4"></textarea><br>
-		<input type="checkbox" name="Urlaub3">Urlaub</input> <input
-		type="checkbox" name="Krank3">Krank</input> <input type="checkbox"
-		name="Feiertag3">Feiertag</input><br> </label>
-	<br>
-
-	<label for="Donnerstag"><b>Donnerstag:</b><br> <textarea
-			id="Donnerstag" name="Donnerstag" cols="35" rows="4"></textarea><br>
-		<input type="checkbox" name="Urlaub4">Urlaub</input> <input
-		type="checkbox" name="Krank4">Krank</input> <input type="checkbox"
-		name="Feiertag4">Feiertag</input><br> </label>
-	<br>
-
-	<label for="Freitag"><b>Freitag:</b><br> <textarea
-			id="Freitag" name="Freitag" cols="35" rows="4"></textarea><br> <input
-		type="checkbox" name="Urlaub5">Urlaub</input> <input type="checkbox"
-		name="Krank5">Krank</input> <input type="checkbox" name="Feiertag5">Feiertag</input><br>
-	</label>
 </wicket:panel>

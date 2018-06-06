@@ -29,23 +29,22 @@ public class SignPanel extends BerichtsheftPanel {
 	private de.dpma.azubiweb.model.Berichtsheft report;
 	private IModel<String> erMod;
 
-	public SignPanel(String id, User currentUser, BerichtsheftService berichtsheftService, PanelChange change,
+	public SignPanel(User currentUser, BerichtsheftService berichtsheftService, PanelChange change,
 			de.dpma.azubiweb.model.Berichtsheft report) {
 
-		super(id, currentUser, berichtsheftService, change, NAME);
+		super(currentUser, berichtsheftService, change, NAME);
 		this.report = report;
 		this.init();
 
 	}
 
 	public void init() {
-		ArrayList<String> data = BerichtsheftData.getDataFromXML(report.getData());
-		if (data == null) {
-			data = new ArrayList<>();
-			for (int i = 0; i < 5; i++) {
-				data.add("TestTestTestTestTestTestTestTestTestTest");
-			}
+		if (report == null && Berichtsheft.testID == 1) {
+			report = createTest();
 		}
+		
+		
+		ArrayList<String> data = BerichtsheftData.getDataFromXML(report.getData());
 		ArrayList<IModel<String>> textModel = new ArrayList<>();
 		for (int i = 0; i < data.size(); i++) {
 			textModel.add(Model.of(data.get(i)));
@@ -140,6 +139,18 @@ public class SignPanel extends BerichtsheftPanel {
 			change.changeToOverviewAzubiList();
 		}
 
+	}
+	
+	/**
+	 * Erstellen des Testcases
+	 * @return
+	 */
+	private de.dpma.azubiweb.model.Berichtsheft createTest() {
+		de.dpma.azubiweb.model.Berichtsheft report = new de.dpma.azubiweb.model.Berichtsheft(currentUser,
+				de.dpma.azubiweb.model.Berichtsheft.kindOfBH[0], 201822);
+		report.setData(BerichtsheftData.getXMLFromData(
+				new String[] { "MontagDaten", "DienstagDaten", "MittwochDaten", "DonnerDaten", "Gleittag" }, 22));
+		return report;
 	}
 
 }

@@ -32,12 +32,12 @@ import de.dpma.azubiweb.view.berichtsheft.PanelChange;
 public class AzubiDayPanel extends BerichtsheftPanel {
 	public static final String NAME = "AzubiDay";
 	private de.dpma.azubiweb.model.Berichtsheft report;
-	private static final List<String> TYPES = Arrays
-			.asList(new String[] { "Keine", "Urlaub", "Gleittag","Krank" });
-	public AzubiDayPanel(String id, User currentUser, BerichtsheftService berichtsheftService, PanelChange change,
+	private static final List<String> TYPES = Arrays.asList(new String[] { "Keine", "Urlaub", "Gleittag", "Krank" });
+
+	public AzubiDayPanel(User currentUser, BerichtsheftService berichtsheftService, PanelChange change,
 			de.dpma.azubiweb.model.Berichtsheft report) {
 
-		super(id, currentUser, berichtsheftService, change, NAME);
+		super(currentUser, berichtsheftService, change, NAME);
 		this.report = report;
 		this.init();
 
@@ -46,6 +46,9 @@ public class AzubiDayPanel extends BerichtsheftPanel {
 	private ArrayList<IModel<String>> textModel;
 
 	public void init() {
+		if (report == null && Berichtsheft.testID == 1) {
+			report = createTest();
+		}
 		ArrayList<String> data = BerichtsheftData.getDataFromXML(report.getData());
 		textModel = new ArrayList<>();
 		for (int i = 0; i < data.size(); i++) {
@@ -53,8 +56,8 @@ public class AzubiDayPanel extends BerichtsheftPanel {
 		}
 		List<String> listArt = Arrays.asList(de.dpma.azubiweb.model.Berichtsheft.kindOfBH);
 		String selectedTyp = report.getKind_BHL();
-		DropDownChoice<String> listSites = new DropDownChoice<String>(
-				"sites", new PropertyModel<String>(this, "selectedTyp"), listArt);
+		DropDownChoice<String> listSites = new DropDownChoice<String>("sites",
+				new PropertyModel<String>(this, "selectedTyp"), listArt);
 		Form<?> form = new Form<Void>("form") {
 			@Override
 			protected void onSubmit() {
@@ -74,7 +77,7 @@ public class AzubiDayPanel extends BerichtsheftPanel {
 				CheckBox cbU;
 				CheckBox cbF;
 				CheckBox cbK;
-			switch (tempRep) {
+				switch (tempRep) {
 				case "Urlaub":
 					ta = new TextArea<>("dayArea", Model.of(""));
 					cbU = new CheckBox("uCb", Model.of(true));
@@ -127,6 +130,8 @@ public class AzubiDayPanel extends BerichtsheftPanel {
 
 	}
 
+
+
 	private void savePressed() {
 		String[] sText = new String[textModel.size()];
 		for (int i = 0; i < sText.length; i++) {
@@ -146,5 +151,17 @@ public class AzubiDayPanel extends BerichtsheftPanel {
 		report.setData(BerichtsheftData.getXMLFromData(sText, report.getWeekAYear() % 100));
 		report.setStatus_submit(true);
 		service.saveBerichtsheft(report);
+	}
+	
+	/**
+	 * Erstellen des Testcases
+	 * @return
+	 */
+	private de.dpma.azubiweb.model.Berichtsheft createTest() {
+		de.dpma.azubiweb.model.Berichtsheft report = new de.dpma.azubiweb.model.Berichtsheft(currentUser,
+				de.dpma.azubiweb.model.Berichtsheft.kindOfBH[0], 201822);
+		report.setData(BerichtsheftData.getXMLFromData(
+				new String[] { "MontagDaten", "DienstagDaten", "MittwochDaten", "DonnerDaten", "Gleittag" }, 22));
+		return report;
 	}
 }

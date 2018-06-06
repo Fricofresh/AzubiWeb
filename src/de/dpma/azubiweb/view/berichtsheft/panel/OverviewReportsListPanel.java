@@ -8,6 +8,7 @@ import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.Model;
 
+import de.dpma.azubiweb.model.Berichtsheft;
 import de.dpma.azubiweb.model.Rolle;
 import de.dpma.azubiweb.model.User;
 import de.dpma.azubiweb.service.BerichtsheftService;
@@ -24,10 +25,10 @@ public class OverviewReportsListPanel extends BerichtsheftPanel {
 	public static final String NAME = "OverviewReportsList";
 	private AzubiReports reports;
 
-	public OverviewReportsListPanel(String id, User currentUser, BerichtsheftService berichtsheftService,
+	public OverviewReportsListPanel(User currentUser, BerichtsheftService berichtsheftService,
 			PanelChange change, AzubiReports reports) {
 
-		super(id, currentUser, berichtsheftService, change, NAME);
+		super(currentUser, berichtsheftService, change, NAME);
 		this.reports = reports;
 		this.init();
 
@@ -40,8 +41,12 @@ public class OverviewReportsListPanel extends BerichtsheftPanel {
 	 * Berichtshefte in einer {@link ListView} angezeigt
 	 */
 	public void init() {
-		if (currentUser.getRolle().getId() == Rolle.Beschreibung.AZUBI.getRolleId()) {
+		
+		if (de.dpma.azubiweb.view.berichtsheft.Berichtsheft.testID != 0) {
 			reports = createAzubiReportsByAzubi();
+		}
+		if (currentUser.getRolle().getId() == Rolle.Beschreibung.AZUBI.getRolleId()) {
+			reports = createTestReports();
 		}
 		ListView<de.dpma.azubiweb.model.Berichtsheft> list = new ListView<de.dpma.azubiweb.model.Berichtsheft>(
 				"reportListView", reports.getListReports()) {
@@ -95,6 +100,15 @@ public class OverviewReportsListPanel extends BerichtsheftPanel {
 		}
 		if (!foundReport) {
 			
+		}
+		return reports;
+	}
+	
+	public AzubiReports createTestReports() {
+		AzubiReports reports = new AzubiReports(currentUser);
+		for (int j = 0; j < Math.random() * 10; j++) {
+			reports.addReport(
+					new de.dpma.azubiweb.model.Berichtsheft(reports.getuAzubi(), Berichtsheft.kindOfBH[0], 201818));
 		}
 		return reports;
 	}
