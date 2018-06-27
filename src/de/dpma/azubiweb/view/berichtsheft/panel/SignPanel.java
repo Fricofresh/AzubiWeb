@@ -39,9 +39,7 @@ public class SignPanel extends BerichtsheftPanel {
 	}
 
 	public void init() {
-		if (report == null && Berichtsheft.testID == 1) {
-			report = createTest();
-		}
+		report = createTest();
 		
 		
 		ArrayList<String> data = BerichtsheftData.getDataFromXML(report.getData());

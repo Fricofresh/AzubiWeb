@@ -66,7 +66,7 @@ public class OverviewAzubiListPanel extends BerichtsheftPanel {
 			azubiReports = this.getAzubiReports(reportsByUser);
 
 		}
-		if (azubiReports == null && de.dpma.azubiweb.view.berichtsheft.Berichtsheft.testID != 0) {
+		if (azubiReports == null) {
 			azubiReports = new ArrayList<>();
 			azubiReports = createTestReports();
 		}else {

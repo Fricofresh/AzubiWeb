@@ -43,7 +43,7 @@ public class Berichtsheft implements Serializable {
 
 	@Column(name = "userAZ", nullable = false)
 	private User user_Azubi;
-	@Column(name = "userAB", nullable = false)
+	@Column(name = "userAB")
 	private User user_AB;
 	@Column(name = "userAL", nullable = false)
 	private User user_AL;

@@ -36,7 +36,7 @@ public class Berichtsheft extends RootPage implements PanelChange {
 	 * 0: No test; 1-AzubiDayPanel; 2-AzubiWeekPanel; 3-OverviewAzubiListPanel;
 	 * 4-OverviewReportsListPanel; 5-SignPanel;
 	 */
-	public static int testID = 0;
+	public static int testID = 3;
 	private static final long serialVersionUID = 1392603770886213724L;
 
 	@SpringBean
@@ -126,18 +126,7 @@ public class Berichtsheft extends RootPage implements PanelChange {
 		this.add(new Label("info", infoModel));
 	}
 
-	/**
-	 * Zurück Button gedrückt
-	 */
-	@Override
-	public void backPressed() {
-		if (panelHistory.size() > 0) {
-			this.remove(currentPanel);
-			currentPanel = panelHistory.get(panelHistory.size() - 1);
-			panelHistory.remove(panelHistory.size() - 1);
-			this.add(currentPanel);
-		}
-	}
+
 
 	@Override
 	public void changeToOverviewAzubiList() {
@@ -151,6 +140,7 @@ public class Berichtsheft extends RootPage implements PanelChange {
 	public void changeToOverviewReportsList(AzubiReports aReports) {
 		this.panelHistory.add(currentPanel);
 		this.remove(currentPanel);
+		
 		this.currentPanel = new OverviewReportsListPanel(currentUser, berichtsheftService, this, aReports);
 		this.add(currentPanel);
 	}
@@ -170,7 +160,18 @@ public class Berichtsheft extends RootPage implements PanelChange {
 		this.currentPanel = new SignPanel(currentUser, berichtsheftService, this, reportToView);
 		this.add(currentPanel);
 	}
-
+	/**
+	 * Zurück Button gedrückt
+	 */
+	@Override
+	public void backPressed() {
+		if (panelHistory.size() > 0) {
+			this.remove(currentPanel);
+			currentPanel = panelHistory.get(panelHistory.size() - 1);
+			panelHistory.remove(panelHistory.size() - 1);
+			this.add(currentPanel);
+		}
+	}
 	@Override
 	public void setInfo(String info) {
 		infoModel.setObject(info);
