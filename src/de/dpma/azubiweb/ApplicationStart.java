@@ -80,7 +80,7 @@ public class ApplicationStart extends WicketBootSecuredWebApplication {
 		mountPage("/BenutzerAnlage", BenutzerAnlage.class);
 		mountPage("/BenutzerBearbeiten", BenutzerBearbeiten.class);
 		mountPage("/BenutzerListe", BenutzerListe.class);
-		
+			
 		// IUnauthorizedComponentInstantiationListener iucil = new
 		// IUnauthorizedComponentInstantiationListener() {
 		//
