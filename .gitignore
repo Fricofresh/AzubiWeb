@@ -8,3 +8,6 @@
 /test.properties
 /test.script
 /lib/
+.idea/
+AzubiWeb.iml
+test.tmp/
