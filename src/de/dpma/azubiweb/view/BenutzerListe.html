@@ -32,7 +32,9 @@
 							</a>
 						</li>
 		                <ul class="list-group-item d-flex flex-column list-group-item-action" wicket:id="azubiListView"> 
-		                    <a wicket:id="azubiLabel"></a>
+		                    <img alt="" wicket:id="azubiGeschlecht"/>
+		                    
+		                    <a wicket:id="azubiLabel"/>
 		                    
 		                    <a class="pull-right" wicket:id="löschenLink">
 		                        <span class="p-1 glyphicon glyphicon-trash"></span>
@@ -61,7 +63,9 @@
 						</a>
 					</li>
 					<ul class="nopadding">
-						<ul class="list-group-item d-flex flex-column list-group-item-action" wicket:id="ausbilderListView"> 
+						<ul class="list-group-item d-flex flex-column list-group-item-action" wicket:id="ausbilderListView">
+							<img alt="" wicket:id="ausbilderGeschlecht"/>
+							
 							<a wicket:id="ausbilderLabel"/>
 							
 							<a class="pull-right" wicket:id="löschenLink">
@@ -84,6 +88,8 @@
 				</li>
 				<ul class="nopadding">
 					<li class="list-group-item d-flex flex-column list-group-item-action" wicket:id="ausbildungsleiterListView"> 
+						<img alt="" wicket:id="ausbildungsleiterGeschlecht"/>
+						
 						<a wicket:id="ausbildungsleiterLabel"/>
 						
 						<a class="pull-right" wicket:id="löschenLink">
@@ -96,10 +102,6 @@
 					</li>
 				</ul>
             </ul>
-            <div class="alert alert-success alert-dismissible fade in position-sticky-bottom" wicket:id="erfolgreicherAlertLabelParent">
-            	<span wicket:id="erfolgreicherAlertLabel"/>
-				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-			</div>
 			<script>
 				function expand(b) {
 					var el = b;
