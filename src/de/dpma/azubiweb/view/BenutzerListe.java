@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
+import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.image.Image;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
@@ -19,6 +21,7 @@ import de.dpma.azubiweb.model.Referat;
 import de.dpma.azubiweb.model.Rolle;
 import de.dpma.azubiweb.model.Rolle.Beschreibung;
 import de.dpma.azubiweb.model.User;
+import de.dpma.azubiweb.model.User.Geschlecht;
 import de.dpma.azubiweb.util.BestätigenPannel;
 
 /**
@@ -208,6 +211,11 @@ public class BenutzerListe extends BenutzerVerwaltungsBasePage {
 				
 				User user = item.getModelObject();
 				// Setzen des Listenpunktes
+				// add(new Image("image2", new
+				// PackageResourceReference(Home.class, "Image2.gif")));
+				item.add(new Image(preName + "Geschlecht", "").add(new AttributeModifier("src",
+						user.getGeschlecht() == Geschlecht.männlich ? "pictures/Businessman_#000000_128px.png"
+								: "Woman_#000000_128px.png")));
 				item.add(new Label(preName + "Label", user.getVorname() + " " + user.getNachname()));
 				
 				item.add(new Link<String>("bearbeitenLink") {
@@ -217,7 +225,6 @@ public class BenutzerListe extends BenutzerVerwaltungsBasePage {
 					@Override
 					public void onClick() {
 						
-						System.out.println(user);
 						setResponsePage(new BenutzerBearbeiten(user));
 					}
 				});

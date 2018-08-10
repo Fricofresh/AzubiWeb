@@ -81,7 +81,11 @@
 						$("#einstellungsjahr").parent().addClass("hidden");
 					}
 				}
-				
+				$("#einstellungsjahr").datepicker({
+				    format: "yyyy",
+				    viewMode: "years", 
+				    minViewMode: "years"
+				});
 				$(document).ready(handleRolle());
 				$(document).ready(function(){
 					if($("h1").text().indexOf("Anlegen") >= 0){

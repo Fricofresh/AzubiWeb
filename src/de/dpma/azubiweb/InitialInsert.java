@@ -1,6 +1,5 @@
 package de.dpma.azubiweb;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -27,28 +26,28 @@ import de.dpma.azubiweb.service.UserService;
  * @author Kenneth Böhmer
  */
 public class InitialInsert {
-
+	
 	@SpringBean
 	private UserService userService;
-
+	
 	@SpringBean
 	private RolleService rolleService;
-
+	
 	@SpringBean
 	private AusbildungsartService ausbildungsartService;
-
+	
 	@SpringBean
 	private ReferatService referatService;
-
+	
 	/**
-	 * @throws ParseException 
+	 * @throws ParseException
 	 * @see {@link #insertAllRolle()}<br>
 	 *      {@link #insertAllAusbildungsart()}<br>
 	 *      {@link #insertAllUser()}<br>
 	 *      {@link #insertAllReferat()}
 	 */
 	public InitialInsert() throws ParseException {
-
+		
 		Injector.get().inject(this);
 		// INFO die beiden Methoden müssen zuerst ausgeführt werden, bevor die
 		// Benutzer angelegt werden.
@@ -59,22 +58,22 @@ public class InitialInsert {
 		insertAllUser();
 		insertAllReferat();
 	}
-
+	
 	/**
 	 * Fügt alle Rollen in der Datenbank hinzu.
 	 */
 	private void insertAllRolle() {
-
+		
 		rolleService.saveRolle(new Rolle(Beschreibung.AZUBI.getRolleId(), "Auszubildende"));
 		rolleService.saveRolle(new Rolle(Beschreibung.AL.getRolleId(), "Ausbildungsleiter"));
 		rolleService.saveRolle(new Rolle(Beschreibung.A.getRolleId(), "Ausbilder"));
 	}
-
+	
 	/**
 	 * Fügt ale Ausbildungsarten in der Datenbank hinzu.
 	 */
 	private void insertAllAusbildungsart() {
-
+		
 		ausbildungsartService.saveAusbildungsart(new Ausbildungsart("Fachinformatiker Fachrichtung Systemintegration",
 				"Fachinformatikerin Fachrichtung Systemintegration", "FISI", false));
 		ausbildungsartService
@@ -91,19 +90,20 @@ public class InitialInsert {
 		ausbildungsartService.saveAusbildungsart(
 				new Ausbildungsart("Verwaltungsfachangestellter", "Verwaltungsfachangestellte", "VFA", true));
 	}
-
+	
 	/**
 	 * Fügt alle Benutzer in der Datenbank hinzu.
-	 * @throws ParseException 
+	 * 
+	 * @throws ParseException
 	 */
 	private void insertAllUser() throws ParseException {
-
+		
 		String password = "Anfang12";
 		SimpleDateFormat format = new SimpleDateFormat("DD.MM.YYYY");
 		Date initialDate = format.parse("01.01.2018");
-
+		
 		// Alle Azubis
-
+		
 		// Fachinformatiker
 		// 2.Lehrjahr
 		userService.saveUser(new User("FlSeidl", password, rolleService.getRolle(Rolle.Beschreibung.AZUBI), "Florian",
@@ -121,7 +121,7 @@ public class InitialInsert {
 		userService.saveUser(new User("KeBoehme", password, rolleService.getRolle(Rolle.Beschreibung.AZUBI), "Kenneth",
 				"Böhmer", ausbildungsartService.getAusbildungsartByAbkürzung("FIAE"), 2016, Geschlecht.männlich,
 				initialDate));
-
+		
 		// 1.Lehrjahr
 		userService.saveUser(new User("LuRohde", password, rolleService.getRolle(Rolle.Beschreibung.AZUBI), "Luca",
 				"Rohde", ausbildungsartService.getAusbildungsartByAbkürzung("FIAE"), 2017, Geschlecht.männlich,
@@ -144,7 +144,7 @@ public class InitialInsert {
 		// ausbildungsartService.getAusbildungsartByAbkürzung(""), 2017,
 		// Geschlecht.männlich));
 		// End Fachinformatiker
-
+		
 		// TODO Add all Azubis
 		userService.saveUser(new User("ElDenk", password, rolleService.getRolle(Rolle.Beschreibung.AZUBI), "Elisabeth",
 				"Denk", ausbildungsartService.getAusbildungsartByAbkürzung("KFB"), 2016, Geschlecht.weiblich,
@@ -186,7 +186,7 @@ public class InitialInsert {
 								.getAusbildungsartByBerufsbildM("Elektroniker für Energie- und Gebäudetechnik"),
 						2016, Geschlecht.männlich, initialDate));
 		// End Alle Azubis
-
+		
 		// Alle AusbildungsLeiter
 		userService.saveUser(
 				new User("MiBaumga", password, rolleService.getRolle(Rolle.Beschreibung.AL), "Michael", "Baumgartner",
@@ -206,7 +206,7 @@ public class InitialInsert {
 				"Stremme", Arrays.asList(ausbildungsartService.getAusbildungsartByAbkürzung("VFA")),
 				Geschlecht.weiblich, initialDate));
 		// End Alle AusbildungsLeiter
-
+		
 		// Alle Ausbilder
 		userService.saveUser(new User(password, rolleService.getRolle(Rolle.Beschreibung.A), "Patrick", "Stangl",
 				Geschlecht.männlich, initialDate));
@@ -239,20 +239,20 @@ public class InitialInsert {
 		// "", "", Geschlecht.weiblich));
 		// End Alle Ausbilder
 	}
-
+	
 	/**
 	 * Fügt alle Referate in der Datenbank hinzu.
 	 */
 	private void insertAllReferat() {
-
+		
 		referatService
-				.saveReferat(new Referat("2.3.3", userService.getUserByName("PaStangl"), "Strategische IT-Aufgaben"));
+				.saveReferat(new Referat("2.4.3", userService.getUserByName("PaStangl"), "Strategische IT-Aufgaben"));
 		referatService.saveReferat(
-				new Referat("2.3.4", userService.getUserByName("HaBeyer"), "Management für Prozesse und SOA"));
+				new Referat("2.3.3", userService.getUserByName("HaBeyer"), "Management für Prozesse und SOA"));
 		referatService.saveReferat(
 				new Referat("2.4.1", userService.getUserByName("YaBakome"), "DPMApatente/-gebrauchsmuster und SAP"));
 		referatService
-				.saveReferat(new Referat("2.4.3", userService.getUserByName("BoAlexan"), "DEPATIS und DPMAmarken"));
+				.saveReferat(new Referat("2.4.2", userService.getUserByName("BoAlexan"), "DEPATIS und DPMAmarken"));
 		referatService.saveReferat(new Referat("3", userService.getUserByName("HaStemle"), "Marke und Design"));
 		referatService.saveReferat(new Referat("4.2.4",
 				Arrays.asList(userService.getUserByName("AnBuchbe"), userService.getUserByName("BiFroesc")),
@@ -264,5 +264,5 @@ public class InitialInsert {
 		// referatService.saveReferat(new Referat("",
 		// userService.getUserByName(""), ""));
 	}
-
+	
 }
