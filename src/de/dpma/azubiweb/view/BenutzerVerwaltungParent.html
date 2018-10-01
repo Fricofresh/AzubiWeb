@@ -67,7 +67,7 @@
 						$("#referat").parent().addClass("hidden");
 						$("#referat").removeAttr("required");
 					} else if (rolleValue == 2) {
-						$("#referat").attr("required", "");
+						$("#referat").removeAttr("required");
 						$("#referat").parent().removeClass("hidden");
 						$("#ausbildungsart").parent().addClass("hidden");
 						$("#ausbildungsart").removeAttr("required");
@@ -81,11 +81,11 @@
 						$("#einstellungsjahr").parent().addClass("hidden");
 					}
 				}
-				$("#einstellungsjahr").datepicker({
-				    format: "yyyy",
-				    viewMode: "years", 
-				    minViewMode: "years"
-				});
+// 				$("#einstellungsjahr").datepicker({
+// 				    format: "yyyy",
+// 				    viewMode: "years", 
+// 				    minViewMode: "years"
+// 				});
 				$(document).ready(handleRolle());
 				$(document).ready(function(){
 					if($("h1").text().indexOf("Anlegen") >= 0){
