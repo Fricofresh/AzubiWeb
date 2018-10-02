@@ -33,18 +33,18 @@ import de.dpma.azubiweb.model.User.Geschlecht;
  *
  */
 public class BenutzerVerwaltungParent extends BenutzerVerwaltungsBasePage {
-
+	
 	private static final long serialVersionUID = 9031648713788591454L;
-
+	
 	/**
 	 * @see #initial(User)
 	 */
 	public BenutzerVerwaltungParent() {
-
+		
 		super();
 		initial(new User());
 	}
-
+	
 	/**
 	 * NICHT VERWENDEN, zur vollständigkeitshalber hinzugefügt.
 	 * 
@@ -52,12 +52,12 @@ public class BenutzerVerwaltungParent extends BenutzerVerwaltungsBasePage {
 	 */
 	@SuppressWarnings("Nicht verwendbar")
 	public BenutzerVerwaltungParent(PageParameters pageParameters) {
-
+		
 		super(pageParameters);
 		if (!pageParameters.get("User").isNull() || !pageParameters.get("User").isEmpty())
 			initial(pageParameters.get("User").to(User.class));
 	}
-
+	
 	/**
 	 * 
 	 * @see #initial(User)
@@ -65,69 +65,195 @@ public class BenutzerVerwaltungParent extends BenutzerVerwaltungsBasePage {
 	 * @param user
 	 */
 	public BenutzerVerwaltungParent(User user) {
-
+		
 		super();
 		initial(user);
 	}
-
+	
 	/**
 	 * Wird aufgerufen, wenn ein Objekt von einer der Klassen, die von
 	 * {@link BenutzerVerwaltungParent} erben, erstellt wurde bzw. die View, von
-	 * einer der Klassen {@link BenutzerVerwaltungParent} erben, aufgerufen wurde.
-	 * <br>
+	 * einer der Klassen {@link BenutzerVerwaltungParent} erben, aufgerufen
+	 * wurde. <br>
 	 * Belegt die {@link Component} mit Funktionen und entscheidet ob ein neuer
 	 * Benutzer angelegt werden soll oder ein Benutzer bearbeitet wird.
 	 * 
-	 * @param user
-	 *            der zu bearbeitende <strong>{@link User Benutzer}</strong> | bei
-	 *            einem leeren <strong>{@link User Benutzer}</strong> wird ein neuer
-	 *            erstellt.<br>
-	 *            Bei <strong>null</strong> wird ein NullPointerException geworfen.
+	 * @param oldUser
+	 *            der zu bearbeitende <strong>{@link User Benutzer}</strong> |
+	 *            bei einem leeren <strong>{@link User Benutzer}</strong> wird
+	 *            ein neuer erstellt.<br>
+	 *            Bei <strong>null</strong> wird ein NullPointerException
+	 *            geworfen.
 	 */
-	protected void initial(User user) {
-
-		if (user == null)
+	protected void initial(User oldUser) {
+		
+		if (oldUser == null)
 			throw new NullPointerException("Benutzer darf nicht null sein");
-		// Components deklarieren und Model setzen
-		DropDownChoice<Geschlecht> geschlechtDropDownChoice = new DropDownChoice<>("geschlechtDropDownChoice",
-				Model.ofList(Arrays.asList(Geschlecht.values())));
-		geschlechtDropDownChoice.setDefaultModel(Model.of());
-		// Alle Rollen als Auswahlmöglichkeiten anbieten
-		List<String> rollenData = new ArrayList<>();
-		for (Rolle rolle : rolleService.getAllRolles())
-			rollenData.add(rolle.getBeschreibung());
-		DropDownChoice<String> rolleDropDownChoice = new DropDownChoice<>("rolleDropDownChoice", rollenData);
-		rolleDropDownChoice.setDefaultModel(Model.of());
-		// Alle Referate als Auswahlmöglichkeiten anbieten
-		List<String> referatData = new ArrayList<>();
-		for (Referat referat : referatService.getAllReferat())
-			referatData.add(referat.getReferat());
-		DropDownChoice<String> referatDropDownChoice = new DropDownChoice<>("referatDropDownChoice", referatData);
-		referatDropDownChoice.setDefaultModel(Model.of());
-
-		DateTextField geburtstagDateTextField = new DateTextField("birthdayDateTextField", Model.of());
-
-		/*DatePicker datePicker = new DatePicker() {
-			private static final long serialVersionUID = 6400867917526511761L;
-
+		// Injector.get().inject(this);
+		User newUser = oldUser;
+		
+		DropDownChoice<Geschlecht> geschlechtDropDownChoice = initGeschlechtDropDownChoice();
+		DropDownChoice<String> rolleDropDownChoice = initRolleDropDownChoice();
+		DropDownChoice<String> referatDropDownChoice = initReferatDropDownChoice();
+		DateTextField geburtstagDateTextField = initGeburtstagDateTextField();
+		TextField<String> vornameTextField = initVornameTextField();
+		TextField<String> nachnameTextField = initNachnameTextField();
+		TextField<String> benutzernameTextField = initBenutzernameTextField();
+		EmailTextField emailEmailTextField = initEmailEmailTextField();
+		NumberTextField<Integer> einstellungsjahrNumberTextField = initEinstellungsjahrNumberTextField();
+		DropDownChoice<String> ausbildungsartDropDownChoice = initAusbildungsartDropDownChoice();
+		
+		// Überprüfung ob ein Benutzer übergeben wurde
+		boolean isNew = newUser.isEmpty();
+		
+		Button speichernUndZurückButton = initSpeichernUndZurückButton(newUser, isNew);
+		
+		// Setzen der Input-Felder, wenn ein Benutzer übergeben wurde
+		if (!isNew) {
+			geschlechtDropDownChoice.setModel(Model.of(newUser.getGeschlecht()));
+			rolleDropDownChoice.setModel(Model.of(newUser.getRolle().getBeschreibung()));
+			if (newUser.getRolle().getId() == Beschreibung.A.getRolleId()
+					&& referatService.getReferatByAnsprechpartner(newUser) != null)
+				referatDropDownChoice
+						.setModel(Model.of(referatService.getReferatByAnsprechpartner(newUser).getReferat()));
+			vornameTextField.setModel(Model.of(newUser.getVorname()));
+			nachnameTextField.setModel(Model.of(newUser.getNachname()));
+			benutzernameTextField.setModel(Model.of(newUser.getUsername()));
+			emailEmailTextField.setModel(Model.of(newUser.getEmail()));
+			geburtstagDateTextField.setModel(Model.of(newUser.getGeburtsDatum()));
+			if (newUser.getEinstiegsjahr() != null)
+				einstellungsjahrNumberTextField.setModel(Model.of(newUser.getEinstiegsjahr()));
+			if (!newUser.getAusbildungsart().isEmpty() && newUser.getAusbildungsart() != null)
+				ausbildungsartDropDownChoice
+						.setModel(Model.of(newUser.getAusbildungsart().get(0).getBerufsbildAbkürzung()));
+		}
+		
+		WebMarkupContainer erfolgreicherAlertLabelParent = new WebMarkupContainer("erfolgreicherAlertLabelParent");
+		Label erfolgreicherAlertLabel = new Label("erfolgreicherAlertLabel");
+		erfolgreicherAlertLabelParent.setVisible(false);
+		erfolgreicherAlertLabelParent.add(erfolgreicherAlertLabel);
+		Button speichernButton = new Button("speichernButton", Model.of()) {
+			
+			private static final long serialVersionUID = 1L;
+			
 			@Override
-			protected CharSequence getIconUrl() {
-				// Icon verschwinden lassen
-				return null;
+			public void onAfterSubmit() {
+				
+				super.onAfterSubmit();
+				System.out.println("HUHU, Käsekuchen");
+				// ermöglicht HTML Tags
+				erfolgreicherAlertLabel.setEscapeModelStrings(false);
+				// Setzen der Alertbox von Bootstrap
+				erfolgreicherAlertLabel.setDefaultModel(
+						Model.of("Der Benutzer <strong>" + newUser.getVorname() + " " + newUser.getNachname()
+								+ "</strong> wurde erfolgreich " + (isNew ? "angelegt" : "bearbeitet") + "."));
+				erfolgreicherAlertLabelParent.setVisible(true);
 			}
-
 		};
-		datePicker.setShowOnFieldClick(true);
-		datePicker.setAutoHide(true);
-		geburtstagDateTextField.add(datePicker);*/
-
-		TextField<String> vornameTextField = new TextField<>("vornameTextField", Model.of());
-		TextField<String> nachnameTextField = new TextField<>("nachnameTextField", Model.of());
-		TextField<String> benutzernameTextField = new TextField<>("benutzernameTextField", Model.of());
-		EmailTextField emailEmailTextField = new EmailTextField("emailEmailTextField", Model.of());
+		
+		Form<?> userForm = new Form<Void>("userForm") {
+			
+			private static final long serialVersionUID = 1L;
+			
+			@Override
+			protected void onSubmit() {
+				
+				// Der Wert der Input-Felder werden in User gesetzt
+				newUser.setGeschlecht(geschlechtDropDownChoice.getModelObject());
+				newUser.setRolle(
+						rolleService.getRolle(Beschreibung.valueOfString(rolleDropDownChoice.getModelObject())));
+				if (!vornameTextField.getModelObject().trim().isEmpty())
+					newUser.setVorname(vornameTextField.getModelObject().trim());
+				if (!nachnameTextField.getModelObject().trim().isEmpty())
+					newUser.setNachname(nachnameTextField.getModelObject().trim());
+				newUser.setUsername(benutzernameTextField.getModelObject());
+				newUser.setEmail(emailEmailTextField.getModelObject());
+				if (newUser.getRolle().getId() == Beschreibung.AZUBI.getRolleId())
+					newUser.setEinstiegsjahr(einstellungsjahrNumberTextField.getModelObject());
+				newUser.setAusbildungsart(Arrays.asList(ausbildungsartService
+						.getAusbildungsartByAbkürzung(ausbildungsartDropDownChoice.getModelObject())));
+				newUser.setGeburtsDatum(geburtstagDateTextField.getModelObject());
+				
+				// TODO Passwort generieren und per E-Mail senden
+				if (isNew) {
+					// Standart Passwort setzen
+					newUser.setPassword("Anfang12");
+					userService.saveUser(newUser);
+				}
+				else {
+					userService.updateUser(newUser);
+				}
+				
+				if (Beschreibung.A.getRolleId() == oldUser.getRolle().getId()) {
+					Referat referat = referatService.getReferatByAnsprechpartner(oldUser);
+					referat.removeAnsprechpartner(oldUser);
+					referatService.updateAnsprechpartner(referat);
+				}
+				
+				if (newUser.getRolle().getId() == Beschreibung.A.getRolleId()) {
+					Referat referat = referatService.getReferatByReferat(referatDropDownChoice.getModelObject());
+					referat.addAnsprechpartner(newUser);
+					referatService.updateAnsprechpartner(referat);
+				}
+				
+			}
+		};
+		
+		userForm.add(geschlechtDropDownChoice, rolleDropDownChoice, referatDropDownChoice, vornameTextField,
+				nachnameTextField, benutzernameTextField, emailEmailTextField, einstellungsjahrNumberTextField,
+				ausbildungsartDropDownChoice, speichernUndZurückButton, speichernButton, geburtstagDateTextField);
+		
+		add(titelLabel, userForm, erfolgreicherAlertLabelParent);
+	}
+	
+	private Button initSpeichernUndZurückButton(User user, boolean isNew) {
+		
+		Button speichernUndZurückButton = new Button("speichernUndZurückButton", Model.of()) {
+			
+			private static final long serialVersionUID = 1L;
+			
+			@Override
+			public void onAfterSubmit() {
+				
+				setResponsePage(BenutzerListe.class, new PageParameters().add("isNew", isNew).add("user",
+						user.getVorname() + " " + user.getNachname()));
+			}
+		};
+		return speichernUndZurückButton;
+	}
+	
+	private NumberTextField<Integer> initEinstellungsjahrNumberTextField() {
+		
 		NumberTextField<Integer> einstellungsjahrNumberTextField = new NumberTextField<>(
 				"einstellungsjahrNumberTextField", Model.of(LocalDate.now().getYear()));
-		// Alle Ausbildungsarten als Auswahlmöglichkeiten anbieten
+		return einstellungsjahrNumberTextField;
+	}
+	
+	private EmailTextField initEmailEmailTextField() {
+		
+		EmailTextField emailEmailTextField = new EmailTextField("emailEmailTextField", Model.of());
+		return emailEmailTextField;
+	}
+	
+	private TextField<String> initBenutzernameTextField() {
+		
+		TextField<String> benutzernameTextField = new TextField<>("benutzernameTextField", Model.of());
+		return benutzernameTextField;
+	}
+	
+	private TextField<String> initNachnameTextField() {
+		
+		TextField<String> nachnameTextField = new TextField<>("nachnameTextField", Model.of());
+		return nachnameTextField;
+	}
+	
+	private TextField<String> initVornameTextField() {
+		
+		return new TextField<>("vornameTextField", Model.of());
+	}
+	
+	private DropDownChoice<String> initAusbildungsartDropDownChoice() {
+		
 		List<String> ausbildungsart = new ArrayList<>();
 		for (Ausbildungsart ausbildungsarten : ausbildungsartService.getAllAusbildungsart()) {
 			if (ausbildungsarten.getBerufsbildAbkürzung() == null
@@ -139,101 +265,51 @@ public class BenutzerVerwaltungParent extends BenutzerVerwaltungsBasePage {
 		DropDownChoice<String> ausbildungsartDropDownChoice = new DropDownChoice<>("ausbildungsartDropDownChoice",
 				Model.ofList(ausbildungsart));
 		ausbildungsartDropDownChoice.setDefaultModel(Model.of());
-
-		// Überprüfung ob ein Benutzer übergeben wurde
-		boolean isNew = user.isEmpty();
-
-		Button speichernUndZurückButton = new Button("speichernUndZurückButton", Model.of()) {
-
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public void onAfterSubmit() {
-
-				setResponsePage(BenutzerListe.class, new PageParameters().add("isNew", isNew).add("user",
-						user.getVorname() + " " + user.getNachname()));
-			}
-		};
-		// Setzen der Input-Felder, wenn ein Benutzer übergeben wurde
-		if (!isNew) {
-			geschlechtDropDownChoice.setModel(Model.of(user.getGeschlecht()));
-			rolleDropDownChoice.setModel(Model.of(user.getRolle().getBeschreibung()));
-			if (user.getRolle().getId() == Beschreibung.A.getRolleId()
-					&& referatService.getReferatByAnsprechpartner(user) != null)
-				referatDropDownChoice.setModel(Model.of(referatService.getReferatByAnsprechpartner(user).getReferat()));
-			vornameTextField.setModel(Model.of(user.getVorname()));
-			nachnameTextField.setModel(Model.of(user.getNachname()));
-			benutzernameTextField.setModel(Model.of(user.getUsername()));
-			emailEmailTextField.setModel(Model.of(user.getEmail()));
-			geburtstagDateTextField.setModel(Model.of(user.getGeburtsDatum()));
-			if (user.getEinstiegsjahr() != null)
-				einstellungsjahrNumberTextField.setModel(Model.of(user.getEinstiegsjahr()));
-			if (!user.getAusbildungsart().isEmpty() && user.getAusbildungsart() != null)
-				ausbildungsartDropDownChoice
-						.setModel(Model.of(user.getAusbildungsart().get(0).getBerufsbildAbkürzung()));
-		}
-		WebMarkupContainer erfolgreicherAlertLabelParent = new WebMarkupContainer("erfolgreicherAlertLabelParent");
-		Label erfolgreicherAlertLabel = new Label("erfolgreicherAlertLabel");
-		erfolgreicherAlertLabelParent.setVisible(false);
-		erfolgreicherAlertLabelParent.add(erfolgreicherAlertLabel);
-		Button speichernButton = new Button("speichernButton", Model.of()) {
-
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public void onAfterSubmit() {
-
-				// ermöglicht HTML Tags
-				erfolgreicherAlertLabel.setEscapeModelStrings(false);
-				// Setzen der Alertbox von Bootstrap
-				erfolgreicherAlertLabel
-						.setDefaultModel(Model.of("Der Benutzer <strong>" + user.getVorname() + " " + user.getNachname()
-								+ "</strong> wurde erfolgreich " + (isNew ? "angelegt" : "bearbeitet") + "."));
-				erfolgreicherAlertLabelParent.setVisible(true);
-			}
-		};
-		Form<?> userForm = new Form<Void>("userForm") {
-
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			protected void onSubmit() {
-
-				// Der Wert der Input-Felder werden in User gesetzt
-				user.setGeschlecht(geschlechtDropDownChoice.getModelObject());
-				user.setRolle(rolleService.getRolle(Beschreibung.valueOfString(rolleDropDownChoice.getModelObject())));
-				if (!vornameTextField.getModelObject().trim().isEmpty())
-					user.setVorname(vornameTextField.getModelObject().trim());
-				if (!nachnameTextField.getModelObject().trim().isEmpty())
-					user.setNachname(nachnameTextField.getModelObject().trim());
-				user.setUsername(benutzernameTextField.getModelObject());
-				user.setEmail(emailEmailTextField.getModelObject());
-				if (user.getRolle().getId() == Beschreibung.AZUBI.getRolleId())
-					user.setEinstiegsjahr(einstellungsjahrNumberTextField.getModelObject());
-				user.setAusbildungsart(Arrays.asList(ausbildungsartService
-						.getAusbildungsartByAbkürzung(ausbildungsartDropDownChoice.getModelObject())));
-				user.setGeburtsDatum(geburtstagDateTextField.getModelObject());
-
-				// TODO Passwort generieren und per E-Mail senden
-				if (!isNew)
-					userService.updateUser(user);
-				else {
-					// Standart Passwort setzen
-					user.setPassword("Anfang12");
-					userService.saveUser(user);
-				}
-				if (user.getRolle().getId() == Beschreibung.A.getRolleId()) {
-					Referat referat = referatService.getReferatByReferat(referatDropDownChoice.getModelObject());
-					referat.addAnsprechpartner(user);
-					referatService.updateAnsprechpartner(referat);
-				}
-			}
-		};
-
-		userForm.add(geschlechtDropDownChoice, rolleDropDownChoice, referatDropDownChoice, vornameTextField,
-				nachnameTextField, benutzernameTextField, emailEmailTextField, einstellungsjahrNumberTextField,
-				ausbildungsartDropDownChoice, speichernUndZurückButton, speichernButton, geburtstagDateTextField);
-
-		add(titelLabel, userForm, erfolgreicherAlertLabelParent);
+		return ausbildungsartDropDownChoice;
+	}
+	
+	private DateTextField initGeburtstagDateTextField() {
+		
+		DateTextField geburtstagDateTextField = new DateTextField("birthdayDateTextField", Model.of());
+		/*
+		 * DatePicker datePicker = new DatePicker() { private static final long
+		 * serialVersionUID = 6400867917526511761L;
+		 * 
+		 * @Override protected CharSequence getIconUrl() { // Icon verschwinden
+		 * lassen return null; }
+		 * 
+		 * }; datePicker.setShowOnFieldClick(true);
+		 * datePicker.setAutoHide(true);
+		 * geburtstagDateTextField.add(datePicker);
+		 */
+		return geburtstagDateTextField;
+	}
+	
+	private DropDownChoice<String> initReferatDropDownChoice() {
+		
+		List<String> referatData = new ArrayList<>();
+		for (Referat referat : referatService.getAllReferat())
+			referatData.add(referat.getReferat());
+		DropDownChoice<String> referatDropDownChoice = new DropDownChoice<>("referatDropDownChoice", referatData);
+		referatDropDownChoice.setDefaultModel(Model.of());
+		return referatDropDownChoice;
+	}
+	
+	private DropDownChoice<String> initRolleDropDownChoice() {
+		
+		List<String> rollenData = new ArrayList<>();
+		for (Rolle rolle : rolleService.getAllRolles())
+			rollenData.add(rolle.getBeschreibung());
+		DropDownChoice<String> rolleDropDownChoice = new DropDownChoice<>("rolleDropDownChoice", rollenData);
+		rolleDropDownChoice.setDefaultModel(Model.of());
+		return rolleDropDownChoice;
+	}
+	
+	private DropDownChoice<Geschlecht> initGeschlechtDropDownChoice() {
+		
+		DropDownChoice<Geschlecht> geschlechtDropDownChoice = new DropDownChoice<>("geschlechtDropDownChoice",
+				Model.ofList(Arrays.asList(Geschlecht.values())));
+		geschlechtDropDownChoice.setDefaultModel(Model.of());
+		return geschlechtDropDownChoice;
 	}
 }
