@@ -3,15 +3,14 @@ package de.dpma.azubiweb.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 
 /**
@@ -32,10 +31,17 @@ public class Referat implements Serializable {
 	@Column(unique = true, nullable = false)
 	private String referatsname;
 	
-	@OneToMany(fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "referat", cascade = CascadeType.ALL /*
+																 * fetch =
+																 * FetchType.
+																 * EAGER
+																 */)
 	// @Column(unique = true)
-	@JoinTable(name = "REFERAT_ANSPRECHPARTNER", joinColumns = @JoinColumn(name = "REFERAT_ID", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "ANSPRECHPARTNER_ID", referencedColumnName = "id"))
-	private List<User> ansprechpartner = new ArrayList<>();
+	// @JoinTable(name = "REFERAT_ANSPRECHPARTNER", joinColumns =
+	// @JoinColumn(name = "REFERAT_ID", referencedColumnName = "id"),
+	// inverseJoinColumns = @JoinColumn(name = "ANSPRECHPARTNER_ID",
+	// referencedColumnName = "id"))
+	private List<Ansprechpartner> ansprechpartner = new ArrayList<>();
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -46,14 +52,15 @@ public class Referat implements Serializable {
 	public Referat(String referat, List<User> ansprechpartner, String referatsname) {
 		
 		this.referat = referat;
-		this.ansprechpartner = ansprechpartner;
+		ansprechpartner.forEach(a -> this.ansprechpartner.add(new Ansprechpartner(this, a)));
 		this.referatsname = referatsname;
 	}
 	
 	public Referat(String referat, User ansprechpartner, String referatsname) {
 		
 		this.referat = referat;
-		this.ansprechpartner.add(ansprechpartner);
+		this.ansprechpartner.clear();
+		this.ansprechpartner.add(new Ansprechpartner(this, ansprechpartner));
 		this.referatsname = referatsname;
 	}
 	
@@ -89,17 +96,24 @@ public class Referat implements Serializable {
 	
 	public List<User> getAnsprechpartner() {
 		
-		return ansprechpartner;
+		return ansprechpartner.stream().map(Ansprechpartner::getUser).collect(Collectors.toList());
 	}
 	
 	public void setAnsprechpartner(List<User> ansprechpartner) {
 		
-		this.ansprechpartner = ansprechpartner;
+		this.ansprechpartner.clear();
+		ansprechpartner.forEach(a -> this.ansprechpartner.add(new Ansprechpartner(this, a)));
 	}
 	
 	public void addAnsprechpartner(User ansprechpartner) {
 		
-		this.ansprechpartner.add(ansprechpartner);
+		this.ansprechpartner.add(new Ansprechpartner(this, ansprechpartner));
+	}
+	
+	public void removeAnsprechpartner(User oldUser) {
+		
+		this.ansprechpartner.stream().filter(e -> e.getUser().equals(oldUser)).findFirst()
+				.ifPresent(ansprechpartner::remove);
 	}
 	
 	@Override

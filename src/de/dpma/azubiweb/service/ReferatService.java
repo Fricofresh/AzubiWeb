@@ -3,6 +3,7 @@ package de.dpma.azubiweb.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import de.dpma.azubiweb.model.Referat;
@@ -90,6 +91,7 @@ public class ReferatService {
 	 *            Ansprechpartner
 	 * @return das gefundene Referat
 	 */
+	@Query("SELECT r FROM Referat r INNER JOIN r.id = Ansprechpartner.referat AND ?1 = Ansprechpartner.user")
 	public Referat getReferatByAnsprechpartner(User ansprechpartner) {
 		
 		return referatRepository.findByAnsprechpartner(ansprechpartner);
@@ -109,6 +111,7 @@ public class ReferatService {
 			// referatRepository.updateAnsprechpartner(referat.getId(), user);
 			// }
 			// referatRepository.delete(referat);
+			
 			referatRepository.save(referat);
 			return true;
 		}

@@ -116,21 +116,26 @@ public class BenutzerListe extends BenutzerVerwaltungsBasePage {
 			referatData.add(referat.getReferat());
 		
 		// Die Ausbilder werden nach Referat unterteilt.
-		ListView<String> referatListView = new ListView<String>("referatListView", referatData) {
+		ListView<Referat> referatListView = new ListView<Referat>("referatListView", referatService.getAllReferat()) {
 			
 			private static final long serialVersionUID = 1L;
 			
 			@Override
-			protected void populateItem(ListItem<String> item) {
+			protected void populateItem(ListItem<Referat> item) {
 				
-				String referat = item.getModelObject();
+				Referat referat = item.getModelObject();
 				Label referatLabel = new Label("referatLabel", Model.of(referat));
 				item.add(referatLabel);
 				// Separieren der Benutzer nach Referat
-				List<User> userData = new ArrayList<>();
-				for (User user : userService.getUserByRolle(rolleService.getRolle(Beschreibung.A)))
-					if (referatService.getReferatByAnsprechpartner(user).getReferat().equals(referat))
-						userData.add(user);
+				List<User> userData = referat.getAnsprechpartner();
+				// new ArrayList<>();
+				
+				// for (User user :
+				// userService.getUserByRolle(rolleService.getRolle(Beschreibung.A)))
+				// if
+				// (referatService.getReferatByAnsprechpartner(user).getReferat().equals(referat))
+				// userData.add(user);
+				
 				// Hinzufügen der gefilterten Benutzer in die Liste.
 				item.add(addAllUserToListView(userData, "ausbilder"));
 			}
