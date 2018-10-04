@@ -22,6 +22,7 @@ import de.dpma.azubiweb.model.Rolle;
 import de.dpma.azubiweb.model.Rolle.Beschreibung;
 import de.dpma.azubiweb.model.User;
 import de.dpma.azubiweb.model.User.Geschlecht;
+import de.dpma.azubiweb.util.AlertUtil.AlertType;
 import de.dpma.azubiweb.util.BestätigenPannel;
 
 /**
@@ -72,10 +73,10 @@ public class BenutzerListe extends BenutzerVerwaltungsBasePage {
 		setAusbildungsleiterListe();
 		
 		WebMarkupContainer erfolgreicherAlertLabelParent = new WebMarkupContainer("erfolgreicherAlertLabelParent");
-		Label erfolgreicherAlertLabel = new Label("erfolgreicherAlertLabel");
-		erfolgreicherAlertLabelParent.setVisible(false);
-		erfolgreicherAlertLabelParent.add(erfolgreicherAlertLabel);
-		add(erfolgreicherAlertLabelParent);
+		// Label erfolgreicherAlertLabel = new Label("erfolgreicherAlertLabel");
+		// erfolgreicherAlertLabelParent.setVisible(false);
+		// erfolgreicherAlertLabelParent.add(erfolgreicherAlertLabel);
+		// add(erfolgreicherAlertLabelParent);
 		
 		if (pageParameters != null && !pageParameters.isEmpty() && !pageParameters.get("user").isNull()
 				&& !pageParameters.get("user").isEmpty()) {
@@ -83,14 +84,12 @@ public class BenutzerListe extends BenutzerVerwaltungsBasePage {
 					: pageParameters.get("isNew").toBoolean());
 			String name = pageParameters.get("user").toString();
 			
-			erfolgreicherAlertLabel.setEscapeModelStrings(false);
 			if (isNew == null) {
-				erfolgreicherAlertLabel.setDefaultModel(
-						Model.of("Der Benutzer <strong>" + name + "</strong> wurde erfolgreich gelöscht."));
+				setAlert(AlertType.SUCCESS, "Der Benutzer <strong>" + name + "</strong> wurde erfolgreich gelöscht.");
 			}
 			else {
-				erfolgreicherAlertLabel.setDefaultModel(Model.of("Der Benutzer <strong>" + name
-						+ "</strong> wurde erfolgreich " + (isNew ? "angelegt" : "bearbeitet") + "."));
+				setAlert(AlertType.SUCCESS, "Der Benutzer <strong>" + name + "</strong> wurde erfolgreich "
+						+ (isNew ? "angelegt" : "bearbeitet") + ".");
 			}
 			erfolgreicherAlertLabelParent.setVisible(true);
 		}
@@ -112,8 +111,8 @@ public class BenutzerListe extends BenutzerVerwaltungsBasePage {
 		
 		// TODO Vergleichen mit den Azubis und umschreiben.
 		List<String> referatData = new ArrayList<>();
-		for (Referat referat : referatService.getAllReferat())
-			referatData.add(referat.getReferat());
+		// for (Referat referat : referatService.getAllReferat())
+		// referatData.add(referat.getReferat());
 		
 		// Die Ausbilder werden nach Referat unterteilt.
 		ListView<Referat> referatListView = new ListView<Referat>("referatListView", referatService.getAllReferat()) {
@@ -124,12 +123,12 @@ public class BenutzerListe extends BenutzerVerwaltungsBasePage {
 			protected void populateItem(ListItem<Referat> item) {
 				
 				Referat referat = item.getModelObject();
-				Label referatLabel = new Label("referatLabel", Model.of(referat));
+				Label referatLabel = new Label("referatLabel", Model.of(referat.getReferat()));
 				item.add(referatLabel);
 				// Separieren der Benutzer nach Referat
 				List<User> userData = referat.getAnsprechpartner();
 				// new ArrayList<>();
-				
+				//
 				// for (User user :
 				// userService.getUserByRolle(rolleService.getRolle(Beschreibung.A)))
 				// if

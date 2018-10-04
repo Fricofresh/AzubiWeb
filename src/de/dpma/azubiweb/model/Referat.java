@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -31,15 +32,11 @@ public class Referat implements Serializable {
 	@Column(unique = true, nullable = false)
 	private String referatsname;
 	
-	@OneToMany(mappedBy = "referat", cascade = CascadeType.ALL /*
-																 * fetch =
-																 * FetchType.
-																 * EAGER
-																 */)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	// @Column(unique = true)
-	// @JoinTable(name = "REFERAT_ANSPRECHPARTNER", joinColumns =
-	// @JoinColumn(name = "REFERAT_ID", referencedColumnName = "id"),
-	// inverseJoinColumns = @JoinColumn(name = "ANSPRECHPARTNER_ID",
+	// @JoinTable(joinColumns =
+	// @JoinColumn(name = "referat_fk", referencedColumnName = "id")
+	// , inverseJoinColumns = @JoinColumn(name = "Rippchen",
 	// referencedColumnName = "id"))
 	private List<Ansprechpartner> ansprechpartner = new ArrayList<>();
 	

@@ -3,8 +3,8 @@ package de.dpma.azubiweb.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import de.dpma.azubiweb.model.Referat;
 import de.dpma.azubiweb.model.ReferatRepository;
@@ -21,6 +21,7 @@ import de.dpma.azubiweb.model.User;
  * @author Kenneth Böhmer
  */
 @Service
+@Transactional
 public class ReferatService {
 	
 	@Autowired
@@ -91,7 +92,6 @@ public class ReferatService {
 	 *            Ansprechpartner
 	 * @return das gefundene Referat
 	 */
-	@Query("SELECT r FROM Referat r INNER JOIN r.id = Ansprechpartner.referat AND ?1 = Ansprechpartner.user")
 	public Referat getReferatByAnsprechpartner(User ansprechpartner) {
 		
 		return referatRepository.findByAnsprechpartner(ansprechpartner);
