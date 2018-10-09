@@ -85,12 +85,12 @@ public class BenutzerVerwaltungParent extends BenutzerVerwaltungsBasePage {
 	 *            Bei <strong>null</strong> wird ein NullPointerException
 	 *            geworfen.
 	 */
-	protected void initial(User oldUser) {
+	protected void initial(final User oldUser) {
 		
 		if (oldUser == null)
 			throw new NullPointerException("Benutzer darf nicht null sein");
 		// Injector.get().inject(this);
-		User newUser = oldUser;
+		User newUser = (User) oldUser.clone();
 		
 		DropDownChoice<Geschlecht> geschlechtDropDownChoice = initGeschlechtDropDownChoice();
 		DropDownChoice<String> rolleDropDownChoice = initRolleDropDownChoice();
@@ -119,7 +119,6 @@ public class BenutzerVerwaltungParent extends BenutzerVerwaltungsBasePage {
 			nachnameTextField.setModel(Model.of(newUser.getNachname()));
 			benutzernameTextField.setModel(Model.of(newUser.getUsername()));
 			emailEmailTextField.setModel(Model.of(newUser.getEmail()));
-			// geburtstagDateTextField.setModel(Model.of(newUser.getGeburtsDatum()));
 			if (newUser.getEinstiegsjahr() != null)
 				einstellungsjahrNumberTextField.setModel(Model.of(newUser.getEinstiegsjahr()));
 			if (!newUser.getAusbildungsart().isEmpty() && newUser.getAusbildungsart() != null)
@@ -170,7 +169,6 @@ public class BenutzerVerwaltungParent extends BenutzerVerwaltungsBasePage {
 					newUser.setEinstiegsjahr(einstellungsjahrNumberTextField.getModelObject());
 				newUser.setAusbildungsart(Arrays.asList(ausbildungsartService
 						.getAusbildungsartByAbkürzung(ausbildungsartDropDownChoice.getModelObject())));
-				// newUser.setGeburtsDatum(geburtstagDateTextField.getModelObject());
 				
 				// TODO Passwort generieren und per E-Mail senden
 				if (isNew) {
@@ -182,7 +180,7 @@ public class BenutzerVerwaltungParent extends BenutzerVerwaltungsBasePage {
 					userService.updateUser(newUser);
 				}
 				
-				if (Beschreibung.A.getRolleId() == oldUser.getRolle().getId()) {
+				if (!oldUser.isEmpty() && Beschreibung.A.getRolleId() == oldUser.getRolle().getId()) {
 					Referat referat = referatService.getReferatByAnsprechpartner(oldUser);
 					referatService.deleteAnsprechpartner(oldUser);
 				}

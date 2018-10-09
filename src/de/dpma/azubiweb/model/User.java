@@ -23,7 +23,7 @@ import javax.persistence.ManyToOne;
  */
 // TODO rekusives löschen
 @Entity
-public class User implements Serializable {
+public class User implements Serializable, Cloneable {
 	
 	public enum Geschlecht {
 		männlich, weiblich, diverses;
@@ -387,16 +387,6 @@ public class User implements Serializable {
 		this.geschlecht = geschlecht;
 	}
 	
-	@Override
-	public String toString() {
-		
-		return String.format(
-				"id=%d, Username=%s, Password=%s, Rolle=%s, Vorname=%s, Nachname=%s, E-Mail=%s, Ausbildungsart=%s, Einstiegsjahr=%d, Geschlecht=%s",
-				id, username, password, rolle, vorname, nachname, email,
-				ausbildungsart.size() == 1 ? ausbildungsart.get(0).toString() : ausbildungsart.toString(),
-				einstiegsjahr, geschlecht);
-	}
-	
 	public boolean isEmpty() {
 		
 		if (id == 0 && username == null || username.isEmpty() && password == null || password.isEmpty() && rolle == null
@@ -408,4 +398,24 @@ public class User implements Serializable {
 		return false;
 	}
 	
+	@Override
+	public String toString() {
+		
+		return String.format(
+				"id=%d, Username=%s, Password=%s, Rolle=%s, Vorname=%s, Nachname=%s, E-Mail=%s, Ausbildungsart=%s, Einstiegsjahr=%d, Geschlecht=%s",
+				id, username, password, rolle, vorname, nachname, email,
+				ausbildungsart.size() == 1 ? ausbildungsart.get(0).toString() : ausbildungsart.toString(),
+				einstiegsjahr, geschlecht);
+	}
+	
+	@Override
+	public Object clone() {
+		
+		try {
+			return super.clone();
+		}
+		catch (Exception e) {
+		}
+		return null;
+	}
 }
