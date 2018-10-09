@@ -6,7 +6,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.apache.wicket.Component;
-import org.apache.wicket.extensions.markup.html.form.DateTextField;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Button;
@@ -96,7 +95,6 @@ public class BenutzerVerwaltungParent extends BenutzerVerwaltungsBasePage {
 		DropDownChoice<Geschlecht> geschlechtDropDownChoice = initGeschlechtDropDownChoice();
 		DropDownChoice<String> rolleDropDownChoice = initRolleDropDownChoice();
 		DropDownChoice<String> referatDropDownChoice = initReferatDropDownChoice();
-		DateTextField geburtstagDateTextField = initGeburtstagDateTextField();
 		TextField<String> vornameTextField = initVornameTextField();
 		TextField<String> nachnameTextField = initNachnameTextField();
 		TextField<String> benutzernameTextField = initBenutzernameTextField();
@@ -199,7 +197,7 @@ public class BenutzerVerwaltungParent extends BenutzerVerwaltungsBasePage {
 		
 		userForm.add(geschlechtDropDownChoice, rolleDropDownChoice, referatDropDownChoice, vornameTextField,
 				nachnameTextField, benutzernameTextField, emailEmailTextField, einstellungsjahrNumberTextField,
-				ausbildungsartDropDownChoice, speichernUndZurückButton, speichernButton, geburtstagDateTextField);
+				ausbildungsartDropDownChoice, speichernUndZurückButton, speichernButton);
 		
 		add(titelLabel, userForm, erfolgreicherAlertLabelParent);
 	}
@@ -263,23 +261,6 @@ public class BenutzerVerwaltungParent extends BenutzerVerwaltungsBasePage {
 				Model.ofList(ausbildungsart));
 		ausbildungsartDropDownChoice.setDefaultModel(Model.of());
 		return ausbildungsartDropDownChoice;
-	}
-	
-	private DateTextField initGeburtstagDateTextField() {
-		
-		DateTextField geburtstagDateTextField = new DateTextField("birthdayDateTextField", Model.of());
-		/*
-		 * DatePicker datePicker = new DatePicker() { private static final long
-		 * serialVersionUID = 6400867917526511761L;
-		 * 
-		 * @Override protected CharSequence getIconUrl() { // Icon verschwinden
-		 * lassen return null; }
-		 * 
-		 * }; datePicker.setShowOnFieldClick(true);
-		 * datePicker.setAutoHide(true);
-		 * geburtstagDateTextField.add(datePicker);
-		 */
-		return geburtstagDateTextField;
 	}
 	
 	private DropDownChoice<String> initReferatDropDownChoice() {

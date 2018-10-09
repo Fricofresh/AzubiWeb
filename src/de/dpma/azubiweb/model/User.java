@@ -46,7 +46,7 @@ public class User implements Serializable {
 	@Column(unique = true, nullable = false)
 	private String email;
 	
-	private Date geburtsDatum;
+	// private Date geburtsDatum;
 	
 	private Integer einstiegsjahr;
 	
@@ -80,7 +80,7 @@ public class User implements Serializable {
 		this.ausbildungsart = Arrays.asList(ausbildung);
 		this.einstiegsjahr = einstiegsjahr;
 		this.geschlecht = geschlecht;
-		this.geburtsDatum = geburtsDatum;
+		// this.geburtsDatum = geburtsDatum;
 	}
 	
 	public User(String username, String password, Rolle rolle, String vorname, String nachname, String email,
@@ -96,7 +96,7 @@ public class User implements Serializable {
 		this.ausbildungsart = Arrays.asList(ausbildung);
 		this.einstiegsjahr = einstiegsjahr;
 		this.geschlecht = geschlecht;
-		this.geburtsDatum = geburtsDatum;
+		// this.geburtsDatum = geburtsDatum;
 	}
 	
 	public User(String username, String password, Rolle rolle, String vorname, String nachname, String email,
@@ -111,7 +111,7 @@ public class User implements Serializable {
 		this.email = email;
 		this.ausbildungsart = Arrays.asList(ausbildung);
 		this.geschlecht = geschlecht;
-		this.geburtsDatum = geburtsDatum;
+		// this.geburtsDatum = geburtsDatum;
 	}
 	
 	public User(String username, String password, Rolle rolle, String vorname, String nachname,
@@ -126,7 +126,7 @@ public class User implements Serializable {
 		this.email = vorname + "." + nachname + "@dpma.de";
 		this.ausbildungsart = Arrays.asList(ausbildung);
 		this.geschlecht = geschlecht;
-		this.geburtsDatum = geburtsDatum;
+		// this.geburtsDatum = geburtsDatum;
 	}
 	
 	public User(String username, String password, Rolle rolle, String vorname, String nachname,
@@ -142,7 +142,7 @@ public class User implements Serializable {
 		this.ausbildungsart = Arrays.asList(ausbildung);
 		this.einstiegsjahr = einstiegsjahr;
 		this.geschlecht = geschlecht;
-		this.geburtsDatum = geburtsDatum;
+		// this.geburtsDatum = geburtsDatum;
 	}
 	
 	public User(String username, String password, Rolle rolle, String vorname, String nachname, String email,
@@ -158,7 +158,7 @@ public class User implements Serializable {
 		this.ausbildungsart = ausbildung;
 		this.einstiegsjahr = einstiegsjahr;
 		this.geschlecht = geschlecht;
-		this.geburtsDatum = geburtsDatum;
+		// this.geburtsDatum = geburtsDatum;
 	}
 	
 	public User(String username, String password, Rolle rolle, String vorname, String nachname,
@@ -174,7 +174,7 @@ public class User implements Serializable {
 		this.ausbildungsart = ausbildung;
 		this.einstiegsjahr = einstiegsjahr;
 		this.geschlecht = geschlecht;
-		this.geburtsDatum = geburtsDatum;
+		// this.geburtsDatum = geburtsDatum;
 	}
 	
 	public User(String username, String password, Rolle rolle, String vorname, String nachname, String email,
@@ -189,7 +189,7 @@ public class User implements Serializable {
 		this.email = email;
 		this.ausbildungsart = ausbildung;
 		this.geschlecht = geschlecht;
-		this.geburtsDatum = geburtsDatum;
+		// this.geburtsDatum = geburtsDatum;
 	}
 	
 	public User(String username, String password, Rolle rolle, String vorname, String nachname,
@@ -204,7 +204,7 @@ public class User implements Serializable {
 		this.email = vorname + "." + nachname + "@dpma.de";
 		this.ausbildungsart = ausbildung;
 		this.geschlecht = geschlecht;
-		this.geburtsDatum = geburtsDatum;
+		// this.geburtsDatum = geburtsDatum;
 	}
 	
 	public User(String username, String password, Rolle rolle, String vorname, String nachname, String email,
@@ -220,7 +220,7 @@ public class User implements Serializable {
 		this.ausbildungsart = Arrays.asList(ausbildung);
 		this.einstiegsjahr = einstiegsjahr;
 		this.geschlecht = geschlecht;
-		this.geburtsDatum = geburtsDatum;
+		// this.geburtsDatum = geburtsDatum;
 	}
 	
 	public User(String username, String password, Rolle rolle, String vorname, String nachname,
@@ -235,7 +235,7 @@ public class User implements Serializable {
 		this.ausbildungsart = Arrays.asList(ausbildung);
 		this.einstiegsjahr = einstiegsjahr;
 		this.geschlecht = geschlecht;
-		this.geburtsDatum = geburtsDatum;
+		// this.geburtsDatum = geburtsDatum;
 	}
 	
 	public User(String username, String password, Rolle rolle, String vorname, String nachname, String email,
@@ -249,7 +249,7 @@ public class User implements Serializable {
 		this.nachname = nachname;
 		this.email = email;
 		this.geschlecht = geschlecht;
-		this.geburtsDatum = geburtsDatum;
+		// this.geburtsDatum = geburtsDatum;
 	}
 	
 	public User(String username, String password, Rolle rolle, String vorname, String nachname, Geschlecht geschlecht,
@@ -262,7 +262,7 @@ public class User implements Serializable {
 		this.vorname = vorname;
 		this.nachname = nachname;
 		this.geschlecht = geschlecht;
-		this.geburtsDatum = geburtsDatum;
+		// this.geburtsDatum = geburtsDatum;
 	}
 	
 	public User(String password, Rolle rolle, String vorname, String nachname, Geschlecht geschlecht,
@@ -274,7 +274,7 @@ public class User implements Serializable {
 		this.vorname = vorname;
 		this.nachname = nachname;
 		this.geschlecht = geschlecht;
-		this.geburtsDatum = geburtsDatum;
+		// this.geburtsDatum = geburtsDatum;
 	}
 	
 	public int getId() {
@@ -347,15 +347,15 @@ public class User implements Serializable {
 		this.einstiegsjahr = einstiegsjahr;
 	}
 	
-	public Date getGeburtsDatum() {
-		
-		return geburtsDatum;
-	}
-	
-	public void setGeburtsDatum(Date geburtsDatum) {
-		
-		this.geburtsDatum = geburtsDatum;
-	}
+	// public Date getGeburtsDatum() {
+	//
+	// return geburtsDatum;
+	// }
+	//
+	// public void setGeburtsDatum(Date geburtsDatum) {
+	//
+	// this.geburtsDatum = geburtsDatum;
+	// }
 	
 	public List<Ausbildungsart> getAusbildungsart() {
 		
