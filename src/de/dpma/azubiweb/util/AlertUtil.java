@@ -17,7 +17,19 @@ public class AlertUtil {
 	
 	public static String getCss(AlertType alertType) {
 		
-		// TODO Auto-generated method stub
+		if (AlertType.SUCCESS.equals(alertType)) {
+			return "";
+		}
+		else if (AlertType.ERROR.equals(alertType)) {
+			return "";
+		}
+		else if (AlertType.WARNING.equals(alertType)) {
+			return "";
+		}
+		else if (AlertType.INFORMATION.equals(alertType)) {
+			return "";
+		}
+		
 		return null;
 	}
 }
