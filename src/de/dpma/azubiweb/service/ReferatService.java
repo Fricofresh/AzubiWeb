@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import de.dpma.azubiweb.model.Ansprechpartner;
-import de.dpma.azubiweb.model.AnsprechpartnerRepository;
 import de.dpma.azubiweb.model.Referat;
 import de.dpma.azubiweb.model.ReferatRepository;
 import de.dpma.azubiweb.model.User;
@@ -30,7 +29,7 @@ public class ReferatService {
 	private ReferatRepository referatRepository;
 	
 	@Autowired
-	private AnsprechpartnerRepository ansprechpartnerRepository;
+	private AnsprechpartnerService ansprechpartnerService;
 	
 	/**
 	 * Gibt alle Referate zurück.
@@ -137,6 +136,9 @@ public class ReferatService {
 	public boolean deleteReferat(Referat referat) {
 		
 		try {
+			for (User user : referat.getAnsprechpartner()) {
+				deleteAnsprechpartner(user);
+			}
 			referatRepository.delete(referat);
 			return true;
 		}
@@ -147,11 +149,11 @@ public class ReferatService {
 	
 	public void addAnsprechpartner(Ansprechpartner ansprechpartner) {
 		
-		ansprechpartnerRepository.save(ansprechpartner);
+		ansprechpartnerService.addAnsprechpartner(ansprechpartner);
 	}
 	
-	public void deleteAnsprechpartner(Ansprechpartner ansprechpartner) {
+	public void deleteAnsprechpartner(User user) {
 		
-		ansprechpartnerRepository.delete(ansprechpartnerRepository.findByUser(ansprechpartner.getUser()));
+		ansprechpartnerService.deleteAnsprechpartner(user);
 	}
 }
