@@ -13,6 +13,7 @@ import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.EmailTextField;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.NumberTextField;
+import org.apache.wicket.markup.html.form.PasswordTextField;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
@@ -101,6 +102,7 @@ public class BenutzerVerwaltungParent extends BenutzerVerwaltungsBasePage {
 		EmailTextField emailEmailTextField = initEmailEmailTextField();
 		NumberTextField<Integer> einstellungsjahrNumberTextField = initEinstellungsjahrNumberTextField();
 		DropDownChoice<String> ausbildungsartDropDownChoice = initAusbildungsartDropDownChoice();
+		PasswordTextField passwortPasswordField = initPasswortPasswordTextField();
 		
 		// Überprüfung ob ein Benutzer übergeben wurde
 		boolean isNew = newUser.isEmpty();
@@ -169,11 +171,16 @@ public class BenutzerVerwaltungParent extends BenutzerVerwaltungsBasePage {
 					newUser.setEinstiegsjahr(einstellungsjahrNumberTextField.getModelObject());
 				newUser.setAusbildungsart(Arrays.asList(ausbildungsartService
 						.getAusbildungsartByAbkürzung(ausbildungsartDropDownChoice.getModelObject())));
+				if (passwortPasswordField.getValue() == null && passwortPasswordField.getValue().isEmpty()
+						&& oldUser.getPassword().isEmpty()) {
+					newUser.setPassword("Anfang12");
+				}
+				else if (passwortPasswordField.getValue() != null && !passwortPasswordField.getValue().isEmpty()) {
+					newUser.setPassword(passwortPasswordField.getValue());
+				}
 				
 				// TODO Passwort generieren und per E-Mail senden
 				if (isNew) {
-					// Standart Passwort setzen
-					newUser.setPassword("Anfang12");
 					userService.saveUser(newUser);
 				}
 				else {
@@ -181,7 +188,6 @@ public class BenutzerVerwaltungParent extends BenutzerVerwaltungsBasePage {
 				}
 				
 				if (!oldUser.isEmpty() && Beschreibung.A.getRolleId() == oldUser.getRolle().getId()) {
-					Referat referat = referatService.getReferatByAnsprechpartner(oldUser);
 					referatService.deleteAnsprechpartner(oldUser);
 				}
 				
@@ -195,7 +201,7 @@ public class BenutzerVerwaltungParent extends BenutzerVerwaltungsBasePage {
 		
 		userForm.add(geschlechtDropDownChoice, rolleDropDownChoice, referatDropDownChoice, vornameTextField,
 				nachnameTextField, benutzernameTextField, emailEmailTextField, einstellungsjahrNumberTextField,
-				ausbildungsartDropDownChoice, speichernUndZurückButton, speichernButton);
+				ausbildungsartDropDownChoice, speichernUndZurückButton, speichernButton, passwortPasswordField);
 		
 		add(titelLabel, userForm, erfolgreicherAlertLabelParent);
 	}
@@ -287,5 +293,10 @@ public class BenutzerVerwaltungParent extends BenutzerVerwaltungsBasePage {
 				Model.ofList(Arrays.asList(Geschlecht.values())));
 		geschlechtDropDownChoice.setDefaultModel(Model.of());
 		return geschlechtDropDownChoice;
+	}
+	
+	private PasswordTextField initPasswortPasswordTextField() {
+		
+		return new PasswordTextField("passwortPasswortField", Model.of());
 	}
 }
