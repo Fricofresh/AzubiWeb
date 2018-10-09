@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import de.dpma.azubiweb.model.Ansprechpartner;
+import de.dpma.azubiweb.model.AnsprechpartnerRepository;
 import de.dpma.azubiweb.model.Referat;
 import de.dpma.azubiweb.model.ReferatRepository;
 import de.dpma.azubiweb.model.User;
@@ -26,6 +28,9 @@ public class ReferatService {
 	
 	@Autowired
 	private ReferatRepository referatRepository;
+	
+	@Autowired
+	private AnsprechpartnerRepository ansprechpartnerRepository;
 	
 	/**
 	 * Gibt alle Referate zurück.
@@ -59,6 +64,8 @@ public class ReferatService {
 		referatRepository.save(referat);
 		// referatRepository.updateAnsprechpartner(referat.getId(),
 		// referat.getAnsprechpartner());
+		// oldAnsprechpartner = ansprechpartnerRepository.findByReferat(referat)
+		// ansprechpartnerRepository.
 	}
 	
 	/**
@@ -138,4 +145,13 @@ public class ReferatService {
 		}
 	}
 	
+	public void addAnsprechpartner(Ansprechpartner ansprechpartner) {
+		
+		ansprechpartnerRepository.save(ansprechpartner);
+	}
+	
+	public void deleteAnsprechpartner(Ansprechpartner ansprechpartner) {
+		
+		ansprechpartnerRepository.delete(ansprechpartnerRepository.findByUser(ansprechpartner.getUser()));
+	}
 }

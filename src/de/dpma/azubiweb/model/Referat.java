@@ -12,6 +12,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
 /**
@@ -19,7 +20,6 @@ import javax.persistence.OneToMany;
  *
  */
 @Entity
-
 public class Referat implements Serializable {
 	
 	@Id
@@ -33,11 +33,7 @@ public class Referat implements Serializable {
 	private String referatsname;
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	// @Column(unique = true)
-	// @JoinTable(joinColumns =
-	// @JoinColumn(name = "referat_fk", referencedColumnName = "id")
-	// , inverseJoinColumns = @JoinColumn(name = "Rippchen",
-	// referencedColumnName = "id"))
+	@JoinColumn(name = "REFERAT_ID")
 	private List<Ansprechpartner> ansprechpartner = new ArrayList<>();
 	
 	private static final long serialVersionUID = 1L;

@@ -18,6 +18,7 @@ import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
+import de.dpma.azubiweb.model.Ansprechpartner;
 import de.dpma.azubiweb.model.Ausbildungsart;
 import de.dpma.azubiweb.model.Referat;
 import de.dpma.azubiweb.model.Rolle;
@@ -140,7 +141,6 @@ public class BenutzerVerwaltungParent extends BenutzerVerwaltungsBasePage {
 			public void onAfterSubmit() {
 				
 				super.onAfterSubmit();
-				System.out.println("HUHU, Käsekuchen");
 				// ermöglicht HTML Tags
 				erfolgreicherAlertLabel.setEscapeModelStrings(false);
 				// Setzen der Alertbox von Bootstrap
@@ -186,14 +186,12 @@ public class BenutzerVerwaltungParent extends BenutzerVerwaltungsBasePage {
 				
 				if (Beschreibung.A.getRolleId() == oldUser.getRolle().getId()) {
 					Referat referat = referatService.getReferatByAnsprechpartner(oldUser);
-					referat.removeAnsprechpartner(oldUser);
-					referatService.updateAnsprechpartner(referat);
+					referatService.deleteAnsprechpartner(new Ansprechpartner(referat, oldUser));
 				}
 				
-				if (newUser.getRolle().getId() == Beschreibung.A.getRolleId()) {
+				if (Beschreibung.A.getRolleId() == newUser.getRolle().getId()) {
 					Referat referat = referatService.getReferatByReferat(referatDropDownChoice.getModelObject());
-					referat.addAnsprechpartner(newUser);
-					referatService.updateAnsprechpartner(referat);
+					referatService.addAnsprechpartner(new Ansprechpartner(referat, newUser));
 				}
 				
 			}

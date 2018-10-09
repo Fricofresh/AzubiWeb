@@ -19,16 +19,10 @@ public class Ansprechpartner implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	
-	@OneToOne
+	@OneToOne(optional = false)
 	private User user;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	// @JoinColumn(name = "REFERAT_ID")
-	// @JoinTable(name = "Referat", joinColumns =
-	// @JoinColumn(name = "referat_fk", referencedColumnName = "id"),
-	// inverseJoinColumns =
-	// @JoinColumn(name = "Rippchen", referencedColumnName = "id")
-	// )
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	private Referat referat;
 	
 	public Ansprechpartner() {

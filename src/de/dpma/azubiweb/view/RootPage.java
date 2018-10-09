@@ -129,6 +129,7 @@ public class RootPage extends WebPage {
 				return cssClass;
 			}
 		}));
+		alertMessage.setEscapeModelStrings(false);
 		alertMessage.setDefaultModel(Model.of(message));
 	}
 	
