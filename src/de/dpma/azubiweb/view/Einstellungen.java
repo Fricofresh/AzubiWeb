@@ -13,6 +13,7 @@ import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
 import de.dpma.azubiweb.model.Rolle.Beschreibung;
+import de.dpma.azubiweb.util.AlertUtil.AlertType;
 
 /**
  * Klasse für die Einstellungen für die einzelnen Benutzer
@@ -96,9 +97,10 @@ public class Einstellungen extends BenutzerVerwaltungsBasePage {
 				if (!passwort.isEmpty() && passwort.length() >= 6) {
 					user.setPassword(passwort);
 					// Aktuallisiert das Passwort in der Datenbank
-					if (session.getUserService().updateUserPasswort(user))
+					if (session.getUserService().updateUserPasswort(user)) {
 						// TODO Richtiges zurückgehen
-						setResponsePage(new PageReference(getPageId() - 2).getPage().getClass());
+						setAlert(AlertType.SUCCESS, "Passwort erfolgreich geändert.");
+					}
 					else // TODO zur vorherigen Seite weiterleiten
 						Session.get().error("Ein Fehler ist aufgetreten");
 				}
