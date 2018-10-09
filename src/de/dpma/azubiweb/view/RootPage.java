@@ -119,16 +119,9 @@ public class RootPage extends WebPage {
 	}
 	
 	protected void setAlert(AlertUtil.AlertType alertType, String message) {
+		
 		alertMessage.getParent().add(AttributeModifier.remove("hidden"));
-		alertMessage.add(new AttributeModifier("class", new Model() {
-			
-			public Object getObject(final Component component) {
-				
-				String cssClass = AlertUtil.getCss(alertType);
-				
-				return cssClass;
-			}
-		}));
+		alertMessage.add(AttributeModifier.replace("class", Model.of(AlertUtil.getCss(alertType))));
 		alertMessage.setEscapeModelStrings(false);
 		alertMessage.setDefaultModel(Model.of(message));
 	}
@@ -256,8 +249,7 @@ public class RootPage extends WebPage {
 	/**
 	 * Setzt die Sichtbarkeit Navigationsleiste
 	 * 
-	 * @param hide
-	 *            true = unsichtbar, false = sichtbar
+	 * @param hide true = unsichtbar, false = sichtbar
 	 */
 	protected void setVisibleNav(boolean hide) {
 		
