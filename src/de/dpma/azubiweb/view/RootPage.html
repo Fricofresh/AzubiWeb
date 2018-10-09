@@ -89,10 +89,10 @@
 		<div class="container hgrand">
 			<h1 wicket:id="titelLabel"></h1>
 			<wicket:child/>
-		</div>
-		<div class="alert alert-success alert-dismissible fade in position-sticky-bottom" wicket:id="alertMessageParent">
-          	<span wicket:id="alertMessage"/>
-			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+			<div class="alert alert-success alert-dismissible fade in position-sticky-bottom" wicket:id="alertMessageParent" hidden>
+				<span wicket:id="alertMessage"/>
+			  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+		  	</div>
 		</div>
 	</body>
 </html>

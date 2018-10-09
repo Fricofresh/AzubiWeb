@@ -119,7 +119,7 @@ public class RootPage extends WebPage {
 	}
 	
 	protected void setAlert(AlertUtil.AlertType alertType, String message) {
-		
+		alertMessage.getParent().add(AttributeModifier.remove("hidden"));
 		alertMessage.add(new AttributeModifier("class", new Model() {
 			
 			public Object getObject(final Component component) {
