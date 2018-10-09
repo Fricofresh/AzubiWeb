@@ -121,7 +121,7 @@ public class BenutzerVerwaltungParent extends BenutzerVerwaltungsBasePage {
 			nachnameTextField.setModel(Model.of(newUser.getNachname()));
 			benutzernameTextField.setModel(Model.of(newUser.getUsername()));
 			emailEmailTextField.setModel(Model.of(newUser.getEmail()));
-			geburtstagDateTextField.setModel(Model.of(newUser.getGeburtsDatum()));
+			// geburtstagDateTextField.setModel(Model.of(newUser.getGeburtsDatum()));
 			if (newUser.getEinstiegsjahr() != null)
 				einstellungsjahrNumberTextField.setModel(Model.of(newUser.getEinstiegsjahr()));
 			if (!newUser.getAusbildungsart().isEmpty() && newUser.getAusbildungsart() != null)
@@ -172,7 +172,7 @@ public class BenutzerVerwaltungParent extends BenutzerVerwaltungsBasePage {
 					newUser.setEinstiegsjahr(einstellungsjahrNumberTextField.getModelObject());
 				newUser.setAusbildungsart(Arrays.asList(ausbildungsartService
 						.getAusbildungsartByAbkürzung(ausbildungsartDropDownChoice.getModelObject())));
-				newUser.setGeburtsDatum(geburtstagDateTextField.getModelObject());
+				// newUser.setGeburtsDatum(geburtstagDateTextField.getModelObject());
 				
 				// TODO Passwort generieren und per E-Mail senden
 				if (isNew) {
@@ -186,7 +186,7 @@ public class BenutzerVerwaltungParent extends BenutzerVerwaltungsBasePage {
 				
 				if (Beschreibung.A.getRolleId() == oldUser.getRolle().getId()) {
 					Referat referat = referatService.getReferatByAnsprechpartner(oldUser);
-					referatService.deleteAnsprechpartner(new Ansprechpartner(referat, oldUser));
+					referatService.deleteAnsprechpartner(oldUser);
 				}
 				
 				if (Beschreibung.A.getRolleId() == newUser.getRolle().getId()) {
@@ -213,8 +213,7 @@ public class BenutzerVerwaltungParent extends BenutzerVerwaltungsBasePage {
 			@Override
 			public void onAfterSubmit() {
 				
-				setResponsePage(BenutzerListe.class, new PageParameters().add("isNew", isNew).add("user",
-						user.getVorname() + " " + user.getNachname()));
+				setResponsePage(new BenutzerListe(user, isNew));
 			}
 		};
 		return speichernUndZurückButton;

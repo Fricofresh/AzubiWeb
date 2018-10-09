@@ -55,6 +55,18 @@ public class BenutzerListe extends BenutzerVerwaltungsBasePage {
 		initial(pageParameters);
 	}
 	
+	public BenutzerListe(User user) {
+		
+		super();
+		initial(new PageParameters().add("user", user.getVorname() + " " + user.getNachname()));
+	}
+	
+	public BenutzerListe(User user, boolean isNew) {
+		
+		super();
+		initial(new PageParameters().add("isNew", isNew).add("user", user.getVorname() + " " + user.getNachname()));
+	}
+	
 	/**
 	 * Wird aufgerufen, wenn ein Objekt von {@link BenutzerListe} erstellt wurde
 	 * bzw. die View von {@link BenutzerListe} aufgerufen wurde. <br>
@@ -241,10 +253,10 @@ public class BenutzerListe extends BenutzerVerwaltungsBasePage {
 					@Override
 					public void onClick(AjaxRequestTarget arg0) {
 						
-						userService.deleteUser(user);
-						// neuladen der Seite mit dazugehörigen Alert Inhalt.
-						setResponsePage(BenutzerListe.class,
-								new PageParameters().add("user", user.getVorname() + " " + user.getNachname()));
+						if (userService.deleteUser(user))
+							// neuladen der Seite mit dazugehörigen Alert
+							// Inhalt.
+							setResponsePage(new BenutzerListe(user));
 					}
 				});
 			}
