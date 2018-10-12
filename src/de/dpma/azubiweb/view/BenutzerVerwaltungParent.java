@@ -297,6 +297,8 @@ public class BenutzerVerwaltungParent extends BenutzerVerwaltungsBasePage {
 	
 	private PasswordTextField initPasswortPasswordTextField() {
 		
-		return new PasswordTextField("passwortPasswortField", Model.of());
+		PasswordTextField passwordTextField = new PasswordTextField("passwortPasswortField", Model.of());
+		passwordTextField.setRequired(false);
+		return passwordTextField;
 	}
 }
