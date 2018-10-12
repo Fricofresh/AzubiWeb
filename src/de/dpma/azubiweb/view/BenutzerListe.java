@@ -229,9 +229,12 @@ public class BenutzerListe extends BenutzerVerwaltungsBasePage {
 				// Setzen des Listenpunktes
 				// add(new Image("image2", new
 				// PackageResourceReference(Home.class, "Image2.gif")));
-				item.add(new Image(preName + "Geschlecht", "").add(new AttributeModifier("src",
-						user.getGeschlecht() == Geschlecht.männlich ? "pictures/Businessman_#000000_128px.png"
-								: "Woman_#000000_128px.png")));
+				item.add(
+						new Image(preName + "Geschlecht", "")
+								.add(new AttributeModifier("src",
+										user.getGeschlecht() == Geschlecht.männlich ? "pictures/Businessman.png"
+												: "pictures/Woman.png"))
+								.add(AttributeModifier.replace("class", "listenBild")));
 				item.add(new Label(preName + "Label", user.getVorname() + " " + user.getNachname()));
 				
 				item.add(new Link<String>("bearbeitenLink") {
