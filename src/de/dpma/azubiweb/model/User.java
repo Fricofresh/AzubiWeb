@@ -3,7 +3,6 @@ package de.dpma.azubiweb.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -46,8 +45,6 @@ public class User implements Serializable, Cloneable {
 	@Column(unique = true, nullable = false)
 	private String email;
 	
-	// private Date geburtsDatum;
-	
 	private Integer einstiegsjahr;
 	
 	@ManyToMany(fetch = FetchType.EAGER)
@@ -67,7 +64,7 @@ public class User implements Serializable, Cloneable {
 	}
 	
 	public User(int id, String username, String password, Rolle rolle, String vorname, String nachname, String email,
-			Ausbildungsart ausbildung, int einstiegsjahr, Geschlecht geschlecht, Date geburtsDatum) {
+			Ausbildungsart ausbildung, int einstiegsjahr, Geschlecht geschlecht) {
 		
 		super();
 		this.id = id;
@@ -80,11 +77,10 @@ public class User implements Serializable, Cloneable {
 		this.ausbildungsart = Arrays.asList(ausbildung);
 		this.einstiegsjahr = einstiegsjahr;
 		this.geschlecht = geschlecht;
-		// this.geburtsDatum = geburtsDatum;
 	}
 	
 	public User(String username, String password, Rolle rolle, String vorname, String nachname, String email,
-			Ausbildungsart ausbildung, int einstiegsjahr, Geschlecht geschlecht, Date geburtsDatum) {
+			Ausbildungsart ausbildung, int einstiegsjahr, Geschlecht geschlecht) {
 		
 		super();
 		this.username = username;
@@ -96,11 +92,10 @@ public class User implements Serializable, Cloneable {
 		this.ausbildungsart = Arrays.asList(ausbildung);
 		this.einstiegsjahr = einstiegsjahr;
 		this.geschlecht = geschlecht;
-		// this.geburtsDatum = geburtsDatum;
 	}
 	
 	public User(String username, String password, Rolle rolle, String vorname, String nachname, String email,
-			Ausbildungsart ausbildung, Geschlecht geschlecht, Date geburtsDatum) {
+			Ausbildungsart ausbildung, Geschlecht geschlecht) {
 		
 		super();
 		this.username = username;
@@ -111,11 +106,10 @@ public class User implements Serializable, Cloneable {
 		this.email = email;
 		this.ausbildungsart = Arrays.asList(ausbildung);
 		this.geschlecht = geschlecht;
-		// this.geburtsDatum = geburtsDatum;
 	}
 	
 	public User(String username, String password, Rolle rolle, String vorname, String nachname,
-			Ausbildungsart ausbildung, Geschlecht geschlecht, Date geburtsDatum) {
+			Ausbildungsart ausbildung, Geschlecht geschlecht) {
 		
 		super();
 		this.username = username;
@@ -123,14 +117,12 @@ public class User implements Serializable, Cloneable {
 		this.rolle = rolle;
 		this.vorname = vorname;
 		this.nachname = nachname;
-		this.email = vorname + "." + nachname + "@dpma.de";
 		this.ausbildungsart = Arrays.asList(ausbildung);
 		this.geschlecht = geschlecht;
-		// this.geburtsDatum = geburtsDatum;
 	}
 	
 	public User(String username, String password, Rolle rolle, String vorname, String nachname,
-			Ausbildungsart ausbildung, int einstiegsjahr, Geschlecht geschlecht, Date geburtsDatum) {
+			Ausbildungsart ausbildung, int einstiegsjahr, Geschlecht geschlecht) {
 		
 		super();
 		this.username = username;
@@ -138,15 +130,13 @@ public class User implements Serializable, Cloneable {
 		this.rolle = rolle;
 		this.vorname = vorname;
 		this.nachname = nachname;
-		this.email = vorname + "." + nachname + "@dpma.de";
 		this.ausbildungsart = Arrays.asList(ausbildung);
 		this.einstiegsjahr = einstiegsjahr;
 		this.geschlecht = geschlecht;
-		// this.geburtsDatum = geburtsDatum;
 	}
 	
 	public User(String username, String password, Rolle rolle, String vorname, String nachname, String email,
-			List<Ausbildungsart> ausbildung, int einstiegsjahr, Geschlecht geschlecht, Date geburtsDatum) {
+			List<Ausbildungsart> ausbildung, int einstiegsjahr, Geschlecht geschlecht) {
 		
 		super();
 		this.username = username;
@@ -158,11 +148,10 @@ public class User implements Serializable, Cloneable {
 		this.ausbildungsart = ausbildung;
 		this.einstiegsjahr = einstiegsjahr;
 		this.geschlecht = geschlecht;
-		// this.geburtsDatum = geburtsDatum;
 	}
 	
 	public User(String username, String password, Rolle rolle, String vorname, String nachname,
-			List<Ausbildungsart> ausbildung, int einstiegsjahr, Geschlecht geschlecht, Date geburtsDatum) {
+			List<Ausbildungsart> ausbildung, int einstiegsjahr, Geschlecht geschlecht) {
 		
 		super();
 		this.username = username;
@@ -170,15 +159,13 @@ public class User implements Serializable, Cloneable {
 		this.rolle = rolle;
 		this.vorname = vorname;
 		this.nachname = nachname;
-		this.email = vorname + "." + nachname + "@dpma.de";
 		this.ausbildungsart = ausbildung;
 		this.einstiegsjahr = einstiegsjahr;
 		this.geschlecht = geschlecht;
-		// this.geburtsDatum = geburtsDatum;
 	}
 	
 	public User(String username, String password, Rolle rolle, String vorname, String nachname, String email,
-			List<Ausbildungsart> ausbildung, Geschlecht geschlecht, Date geburtsDatum) {
+			List<Ausbildungsart> ausbildung, Geschlecht geschlecht) {
 		
 		super();
 		this.username = username;
@@ -189,11 +176,10 @@ public class User implements Serializable, Cloneable {
 		this.email = email;
 		this.ausbildungsart = ausbildung;
 		this.geschlecht = geschlecht;
-		// this.geburtsDatum = geburtsDatum;
 	}
 	
 	public User(String username, String password, Rolle rolle, String vorname, String nachname,
-			List<Ausbildungsart> ausbildung, Geschlecht geschlecht, Date geburtsDatum) {
+			List<Ausbildungsart> ausbildung, Geschlecht geschlecht) {
 		
 		super();
 		this.username = username;
@@ -201,14 +187,12 @@ public class User implements Serializable, Cloneable {
 		this.rolle = rolle;
 		this.vorname = vorname;
 		this.nachname = nachname;
-		this.email = vorname + "." + nachname + "@dpma.de";
 		this.ausbildungsart = ausbildung;
 		this.geschlecht = geschlecht;
-		// this.geburtsDatum = geburtsDatum;
 	}
 	
 	public User(String username, String password, Rolle rolle, String vorname, String nachname, String email,
-			Ausbildungsart[] ausbildung, int einstiegsjahr, Geschlecht geschlecht, Date geburtsDatum) {
+			Ausbildungsart[] ausbildung, int einstiegsjahr, Geschlecht geschlecht) {
 		
 		super();
 		this.username = username;
@@ -220,11 +204,10 @@ public class User implements Serializable, Cloneable {
 		this.ausbildungsart = Arrays.asList(ausbildung);
 		this.einstiegsjahr = einstiegsjahr;
 		this.geschlecht = geschlecht;
-		// this.geburtsDatum = geburtsDatum;
 	}
 	
 	public User(String username, String password, Rolle rolle, String vorname, String nachname,
-			Ausbildungsart[] ausbildung, int einstiegsjahr, Geschlecht geschlecht, Date geburtsDatum) {
+			Ausbildungsart[] ausbildung, int einstiegsjahr, Geschlecht geschlecht) {
 		
 		super();
 		this.username = username;
@@ -235,11 +218,10 @@ public class User implements Serializable, Cloneable {
 		this.ausbildungsart = Arrays.asList(ausbildung);
 		this.einstiegsjahr = einstiegsjahr;
 		this.geschlecht = geschlecht;
-		// this.geburtsDatum = geburtsDatum;
 	}
 	
 	public User(String username, String password, Rolle rolle, String vorname, String nachname, String email,
-			Geschlecht geschlecht, Date geburtsDatum) {
+			Geschlecht geschlecht) {
 		
 		super();
 		this.username = username;
@@ -249,11 +231,9 @@ public class User implements Serializable, Cloneable {
 		this.nachname = nachname;
 		this.email = email;
 		this.geschlecht = geschlecht;
-		// this.geburtsDatum = geburtsDatum;
 	}
 	
-	public User(String username, String password, Rolle rolle, String vorname, String nachname, Geschlecht geschlecht,
-			Date geburtsDatum) {
+	public User(String username, String password, Rolle rolle, String vorname, String nachname, Geschlecht geschlecht) {
 		
 		super();
 		this.username = username;
@@ -262,11 +242,22 @@ public class User implements Serializable, Cloneable {
 		this.vorname = vorname;
 		this.nachname = nachname;
 		this.geschlecht = geschlecht;
-		// this.geburtsDatum = geburtsDatum;
 	}
 	
-	public User(String password, Rolle rolle, String vorname, String nachname, Geschlecht geschlecht,
-			Date geburtsDatum) {
+	public User(String password, Rolle rolle, String vorname, String nachname, Ausbildungsart ausbildung,
+			int einstiegsjahr, Geschlecht geschlecht) {
+		
+		super();
+		this.password = password;
+		this.rolle = rolle;
+		this.vorname = vorname;
+		this.nachname = nachname;
+		this.ausbildungsart = Arrays.asList(ausbildung);
+		this.einstiegsjahr = einstiegsjahr;
+		this.geschlecht = geschlecht;
+	}
+	
+	public User(String password, Rolle rolle, String vorname, String nachname, Geschlecht geschlecht) {
 		
 		super();
 		this.password = password;
@@ -274,7 +265,6 @@ public class User implements Serializable, Cloneable {
 		this.vorname = vorname;
 		this.nachname = nachname;
 		this.geschlecht = geschlecht;
-		// this.geburtsDatum = geburtsDatum;
 	}
 	
 	public int getId() {
@@ -347,14 +337,10 @@ public class User implements Serializable, Cloneable {
 		this.einstiegsjahr = einstiegsjahr;
 	}
 	
-	// public Date getGeburtsDatum() {
 	//
-	// return geburtsDatum;
 	// }
 	//
-	// public void setGeburtsDatum(Date geburtsDatum) {
 	//
-	// this.geburtsDatum = geburtsDatum;
 	// }
 	
 	public List<Ausbildungsart> getAusbildungsart() {
