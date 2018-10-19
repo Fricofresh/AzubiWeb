@@ -71,8 +71,6 @@ public class ApplicationStart extends WicketBootSecuredWebApplication {
 	public void init() {
 		
 		super.init();
-		// Schaltet die AjaxDebug Panel aus.
-		getDebugSettings().setAjaxDebugModeEnabled(false);
 		
 		// Setzt die URL für die einzelnen Seiten
 		mountPage("/LoginPage", LoginPage.class);
@@ -80,7 +78,9 @@ public class ApplicationStart extends WicketBootSecuredWebApplication {
 		mountPage("/BenutzerAnlage", BenutzerAnlage.class);
 		mountPage("/BenutzerBearbeiten", BenutzerBearbeiten.class);
 		mountPage("/BenutzerListe", BenutzerListe.class);
-			
+		
+		getDebugSettings().setAjaxDebugModeEnabled(false);
+		
 		// IUnauthorizedComponentInstantiationListener iucil = new
 		// IUnauthorizedComponentInstantiationListener() {
 		//
