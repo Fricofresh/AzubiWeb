@@ -9,6 +9,7 @@ import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.Link;
+import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
@@ -100,6 +101,7 @@ public class RootPage extends WebPage {
 		addBerichtsheft();
 		addSteckbrief();
 		addEinsatzplan();
+		addFeedback();
 		
 		add(navLeisteWebMarkupContainer);
 		
@@ -246,10 +248,17 @@ public class RootPage extends WebPage {
 		});
 	}
 	
+	private void addFeedback() {
+		
+		FeedbackPanel feedbackFeedbackPanel = new FeedbackPanel("feedbackFeedbackPanel");
+		add(feedbackFeedbackPanel);
+	}
+	
 	/**
 	 * Setzt die Sichtbarkeit Navigationsleiste
 	 * 
-	 * @param hide true = unsichtbar, false = sichtbar
+	 * @param hide
+	 *            true = unsichtbar, false = sichtbar
 	 */
 	protected void setVisibleNav(boolean hide) {
 		

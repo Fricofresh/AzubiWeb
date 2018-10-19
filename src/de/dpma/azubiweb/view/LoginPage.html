@@ -31,9 +31,6 @@
 			 <form class="hidden" id="passwortVergessen" wicket:id="passwortVergessen">
 				 <input wicket:id="userLabel" id="userLabel" name="">
 			 </form>
-			<div class="alert alert-success alert-dismissible fade in position-sticky-bottom hidden">
-				<div wicket:id="feedback" id="feedback"/>
-			</div>
 			<script>
 				function openPasswordForgett() {
 					var user = prompt("Bitte geben Sie Ihren Benutzernamen ein.", $('#username').val());
@@ -41,15 +38,6 @@
 						$("#userLabel").val(user);
 						$("#passwortVergessen").submit();
 					}
-				}
-				var fb = $("#feedback");
-				if (fb.has("span").length > 0) {
-					fb.parent().removeClass("hidden");
-					if ($(".feedbackPanelERROR")[0])
-						fb.parent().removeClass("alert-success").addClass("alert-warning");
-					else if ($(".feedbackPanelSUCCESS")[0])
-						fb.parent().removeClass("alert-warning").addClass("alert-success");
-					$(":regex(class, feedbackPanel*)")[1].addClass("nobullet");
 				}
 			</script>
 
