@@ -7,7 +7,6 @@ import java.util.List;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.image.Image;
 import org.apache.wicket.markup.html.link.Link;
@@ -84,12 +83,6 @@ public class BenutzerListe extends BenutzerVerwaltungsBasePage {
 		setAusbilderListe();
 		setAusbildungsleiterListe();
 		
-		WebMarkupContainer erfolgreicherAlertLabelParent = new WebMarkupContainer("erfolgreicherAlertLabelParent");
-		// Label erfolgreicherAlertLabel = new Label("erfolgreicherAlertLabel");
-		// erfolgreicherAlertLabelParent.setVisible(false);
-		// erfolgreicherAlertLabelParent.add(erfolgreicherAlertLabel);
-		// add(erfolgreicherAlertLabelParent);
-		
 		if (pageParameters != null && !pageParameters.isEmpty() && !pageParameters.get("user").isNull()
 				&& !pageParameters.get("user").isEmpty()) {
 			Boolean isNew = (pageParameters.get("isNew").isNull() || pageParameters.get("isNew").isEmpty() ? null
@@ -103,7 +96,6 @@ public class BenutzerListe extends BenutzerVerwaltungsBasePage {
 				setAlert(AlertType.SUCCESS, "Der Benutzer <strong>" + name + "</strong> wurde erfolgreich "
 						+ (isNew ? "angelegt" : "bearbeitet") + ".");
 			}
-			erfolgreicherAlertLabelParent.setVisible(true);
 		}
 	}
 	
@@ -256,6 +248,7 @@ public class BenutzerListe extends BenutzerVerwaltungsBasePage {
 					@Override
 					public void onClick(AjaxRequestTarget arg0) {
 						
+						System.out.println(user + " Benutzerliste");
 						if (userService.deleteUser(user))
 							// neuladen der Seite mit dazugehörigen Alert
 							// Inhalt.
