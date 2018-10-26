@@ -18,14 +18,26 @@ public class AnsprechpartnerService {
 		ansprechpartnerRepository.save(ansprechpartner);
 	}
 	
-	public void deleteAnsprechpartner(User user) {
+	public boolean deleteAnsprechpartner(User user) {
 		
-		ansprechpartnerRepository.delete(ansprechpartnerRepository.findByUser(user));
+		try {
+			ansprechpartnerRepository.delete(ansprechpartnerRepository.findByUser(user));
+			return true;
+		}
+		catch (Exception e) {
+			return false;
+		}
 	}
 	
-	public void deleteAnsprechpartner(int id) {
+	public boolean deleteAnsprechpartner(int id) {
 		
-		ansprechpartnerRepository.delete(ansprechpartnerRepository.findByUser(id));
+		try {
+			ansprechpartnerRepository.delete(ansprechpartnerRepository.findByUser(id));
+			return true;
+		}
+		catch (Exception e) {
+			return false;
+		}
 	}
 	
 	// public void deleteAnsprechpartner(String username) {
