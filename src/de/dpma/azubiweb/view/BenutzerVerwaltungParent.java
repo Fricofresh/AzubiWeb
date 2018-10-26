@@ -90,8 +90,10 @@ public class BenutzerVerwaltungParent extends BenutzerVerwaltungsBasePage {
 		
 		if (oldUser == null)
 			throw new NullPointerException("Benutzer darf nicht null sein");
-		// Injector.get().inject(this);
+		
 		User newUser = (User) oldUser.clone();
+		
+		boolean isNew = oldUser.isEmpty();
 		
 		DropDownChoice<Geschlecht> geschlechtDropDownChoice = initGeschlechtDropDownChoice();
 		DropDownChoice<String> rolleDropDownChoice = initRolleDropDownChoice();
@@ -103,13 +105,12 @@ public class BenutzerVerwaltungParent extends BenutzerVerwaltungsBasePage {
 		NumberTextField<Integer> einstellungsjahrNumberTextField = initEinstellungsjahrNumberTextField();
 		DropDownChoice<String> ausbildungsartDropDownChoice = initAusbildungsartDropDownChoice();
 		PasswordTextField passwortPasswordField = initPasswortPasswordTextField();
-		
-		// Überprüfung ob ein Benutzer übergeben wurde
-		boolean isNew = newUser.isEmpty();
-		
+		WebMarkupContainer erfolgreicherAlertLabelParent = initErfolgreicherAlertLabelParent();
+		Label erfolgreicherAlertLabel = initErfolgreicherAlertLabel(erfolgreicherAlertLabelParent);
 		Button speichernUndZurückButton = initSpeichernUndZurückButton(newUser, isNew);
+		Button speichernButton = initSpeichernButton(newUser, erfolgreicherAlertLabelParent, erfolgreicherAlertLabel,
+				isNew);
 		
-		// Setzen der Input-Felder, wenn ein Benutzer übergeben wurde
 		if (!isNew) {
 			geschlechtDropDownChoice.setModel(Model.of(newUser.getGeschlecht()));
 			rolleDropDownChoice.setModel(Model.of(newUser.getRolle().getBeschreibung()));
@@ -127,28 +128,6 @@ public class BenutzerVerwaltungParent extends BenutzerVerwaltungsBasePage {
 				ausbildungsartDropDownChoice
 						.setModel(Model.of(newUser.getAusbildungsart().get(0).getBerufsbildAbkürzung()));
 		}
-		
-		WebMarkupContainer erfolgreicherAlertLabelParent = new WebMarkupContainer("erfolgreicherAlertLabelParent");
-		Label erfolgreicherAlertLabel = new Label("erfolgreicherAlertLabel");
-		erfolgreicherAlertLabelParent.setVisible(false);
-		erfolgreicherAlertLabelParent.add(erfolgreicherAlertLabel);
-		Button speichernButton = new Button("speichernButton", Model.of()) {
-			
-			private static final long serialVersionUID = 1L;
-			
-			@Override
-			public void onAfterSubmit() {
-				
-				super.onAfterSubmit();
-				// ermöglicht HTML Tags
-				erfolgreicherAlertLabel.setEscapeModelStrings(false);
-				// Setzen der Alertbox von Bootstrap
-				erfolgreicherAlertLabel.setDefaultModel(
-						Model.of("Der Benutzer <strong>" + newUser.getVorname() + " " + newUser.getNachname()
-								+ "</strong> wurde erfolgreich " + (isNew ? "angelegt" : "bearbeitet") + "."));
-				erfolgreicherAlertLabelParent.setVisible(true);
-			}
-		};
 		
 		Form<?> userForm = new Form<Void>("userForm") {
 			
@@ -187,7 +166,7 @@ public class BenutzerVerwaltungParent extends BenutzerVerwaltungsBasePage {
 					userService.updateUser(newUser);
 				}
 				
-				if (!oldUser.isEmpty() && Beschreibung.A.getRolleId() == oldUser.getRolle().getId()) {
+				if (!isNew && Beschreibung.A.getRolleId() == oldUser.getRolle().getId()) {
 					referatService.deleteAnsprechpartner(oldUser);
 				}
 				
@@ -204,6 +183,42 @@ public class BenutzerVerwaltungParent extends BenutzerVerwaltungsBasePage {
 				ausbildungsartDropDownChoice, speichernUndZurückButton, speichernButton, passwortPasswordField);
 		
 		add(titelLabel, userForm, erfolgreicherAlertLabelParent);
+	}
+	
+	private Button initSpeichernButton(User newUser, WebMarkupContainer erfolgreicherAlertLabelParent,
+			Label erfolgreicherAlertLabel, boolean isNew) {
+		
+		Button speichernButton = new Button("speichernButton", Model.of()) {
+			
+			private static final long serialVersionUID = 1L;
+			
+			@Override
+			public void onAfterSubmit() {
+				
+				super.onAfterSubmit();
+				// ermöglicht HTML Tags
+				erfolgreicherAlertLabel.setEscapeModelStrings(false);
+				// Setzen der Alertbox von Bootstrap
+				erfolgreicherAlertLabel.setDefaultModel(
+						Model.of("Der Benutzer <strong>" + newUser.getVorname() + " " + newUser.getNachname()
+								+ "</strong> wurde erfolgreich " + (isNew ? "angelegt" : "bearbeitet") + "."));
+				erfolgreicherAlertLabelParent.setVisible(true);
+			}
+		};
+		return speichernButton;
+	}
+	
+	private Label initErfolgreicherAlertLabel(WebMarkupContainer erfolgreicherAlertLabelParent) {
+		
+		Label erfolgreicherAlertLabel = new Label("erfolgreicherAlertLabel");
+		erfolgreicherAlertLabelParent.setVisible(false);
+		erfolgreicherAlertLabelParent.add(erfolgreicherAlertLabel);
+		return erfolgreicherAlertLabel;
+	}
+	
+	private WebMarkupContainer initErfolgreicherAlertLabelParent() {
+		
+		return new WebMarkupContainer("erfolgreicherAlertLabelParent");
 	}
 	
 	private Button initSpeichernUndZurückButton(User user, boolean isNew) {
