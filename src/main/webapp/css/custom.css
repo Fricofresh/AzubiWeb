@@ -67,3 +67,8 @@ nav {
   stroke: currentColor;
   fill: currentColor;
 }
+
+.listenBild {
+	width:  30px;
+	height: 30px;
+}

@@ -7,7 +7,6 @@ import java.util.List;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.image.Image;
 import org.apache.wicket.markup.html.link.Link;
@@ -22,6 +21,7 @@ import de.dpma.azubiweb.model.Rolle;
 import de.dpma.azubiweb.model.Rolle.Beschreibung;
 import de.dpma.azubiweb.model.User;
 import de.dpma.azubiweb.model.User.Geschlecht;
+import de.dpma.azubiweb.util.AlertUtil.AlertType;
 import de.dpma.azubiweb.util.BestätigenPannel;
 
 /**
@@ -54,6 +54,18 @@ public class BenutzerListe extends BenutzerVerwaltungsBasePage {
 		initial(pageParameters);
 	}
 	
+	public BenutzerListe(User user) {
+		
+		super();
+		initial(new PageParameters().add("user", user.getVorname() + " " + user.getNachname()));
+	}
+	
+	public BenutzerListe(User user, boolean isNew) {
+		
+		super();
+		initial(new PageParameters().add("isNew", isNew).add("user", user.getVorname() + " " + user.getNachname()));
+	}
+	
 	/**
 	 * Wird aufgerufen, wenn ein Objekt von {@link BenutzerListe} erstellt wurde
 	 * bzw. die View von {@link BenutzerListe} aufgerufen wurde. <br>
@@ -71,28 +83,19 @@ public class BenutzerListe extends BenutzerVerwaltungsBasePage {
 		setAusbilderListe();
 		setAusbildungsleiterListe();
 		
-		WebMarkupContainer erfolgreicherAlertLabelParent = new WebMarkupContainer("erfolgreicherAlertLabelParent");
-		Label erfolgreicherAlertLabel = new Label("erfolgreicherAlertLabel");
-		erfolgreicherAlertLabelParent.setVisible(false);
-		erfolgreicherAlertLabelParent.add(erfolgreicherAlertLabel);
-		add(erfolgreicherAlertLabelParent);
-		
 		if (pageParameters != null && !pageParameters.isEmpty() && !pageParameters.get("user").isNull()
 				&& !pageParameters.get("user").isEmpty()) {
 			Boolean isNew = (pageParameters.get("isNew").isNull() || pageParameters.get("isNew").isEmpty() ? null
 					: pageParameters.get("isNew").toBoolean());
 			String name = pageParameters.get("user").toString();
 			
-			erfolgreicherAlertLabel.setEscapeModelStrings(false);
 			if (isNew == null) {
-				erfolgreicherAlertLabel.setDefaultModel(
-						Model.of("Der Benutzer <strong>" + name + "</strong> wurde erfolgreich gelöscht."));
+				setAlert(AlertType.SUCCESS, "Der Benutzer <strong>" + name + "</strong> wurde erfolgreich gelöscht.");
 			}
 			else {
-				erfolgreicherAlertLabel.setDefaultModel(Model.of("Der Benutzer <strong>" + name
-						+ "</strong> wurde erfolgreich " + (isNew ? "angelegt" : "bearbeitet") + "."));
+				setAlert(AlertType.SUCCESS, "Der Benutzer <strong>" + name + "</strong> wurde erfolgreich "
+						+ (isNew ? "angelegt" : "bearbeitet") + ".");
 			}
-			erfolgreicherAlertLabelParent.setVisible(true);
 		}
 	}
 	
@@ -112,25 +115,30 @@ public class BenutzerListe extends BenutzerVerwaltungsBasePage {
 		
 		// TODO Vergleichen mit den Azubis und umschreiben.
 		List<String> referatData = new ArrayList<>();
-		for (Referat referat : referatService.getAllReferat())
-			referatData.add(referat.getReferat());
+		// for (Referat referat : referatService.getAllReferat())
+		// referatData.add(referat.getReferat());
 		
 		// Die Ausbilder werden nach Referat unterteilt.
-		ListView<String> referatListView = new ListView<String>("referatListView", referatData) {
+		ListView<Referat> referatListView = new ListView<Referat>("referatListView", referatService.getAllReferat()) {
 			
 			private static final long serialVersionUID = 1L;
 			
 			@Override
-			protected void populateItem(ListItem<String> item) {
+			protected void populateItem(ListItem<Referat> item) {
 				
-				String referat = item.getModelObject();
-				Label referatLabel = new Label("referatLabel", Model.of(referat));
+				Referat referat = item.getModelObject();
+				Label referatLabel = new Label("referatLabel", Model.of(referat.getReferat()));
 				item.add(referatLabel);
 				// Separieren der Benutzer nach Referat
-				List<User> userData = new ArrayList<>();
-				for (User user : userService.getUserByRolle(rolleService.getRolle(Beschreibung.A)))
-					if (referatService.getReferatByAnsprechpartner(user).getReferat().equals(referat))
-						userData.add(user);
+				List<User> userData = referat.getAnsprechpartner();
+				// new ArrayList<>();
+				//
+				// for (User user :
+				// userService.getUserByRolle(rolleService.getRolle(Beschreibung.A)))
+				// if
+				// (referatService.getReferatByAnsprechpartner(user).getReferat().equals(referat))
+				// userData.add(user);
+				
 				// Hinzufügen der gefilterten Benutzer in die Liste.
 				item.add(addAllUserToListView(userData, "ausbilder"));
 			}
@@ -213,9 +221,12 @@ public class BenutzerListe extends BenutzerVerwaltungsBasePage {
 				// Setzen des Listenpunktes
 				// add(new Image("image2", new
 				// PackageResourceReference(Home.class, "Image2.gif")));
-				item.add(new Image(preName + "Geschlecht", "").add(new AttributeModifier("src",
-						user.getGeschlecht() == Geschlecht.männlich ? "pictures/Businessman_#000000_128px.png"
-								: "Woman_#000000_128px.png")));
+				item.add(
+						new Image(preName + "Geschlecht", "")
+								.add(new AttributeModifier("src",
+										user.getGeschlecht() == Geschlecht.männlich ? "pictures/Businessman.png"
+												: "pictures/Woman.png"))
+								.add(AttributeModifier.replace("class", "listenBild")));
 				item.add(new Label(preName + "Label", user.getVorname() + " " + user.getNachname()));
 				
 				item.add(new Link<String>("bearbeitenLink") {
@@ -237,10 +248,11 @@ public class BenutzerListe extends BenutzerVerwaltungsBasePage {
 					@Override
 					public void onClick(AjaxRequestTarget arg0) {
 						
-						userService.deleteUser(user);
-						// neuladen der Seite mit dazugehörigen Alert Inhalt.
-						setResponsePage(BenutzerListe.class,
-								new PageParameters().add("user", user.getVorname() + " " + user.getNachname()));
+						System.out.println(user + " Benutzerliste");
+						if (userService.deleteUser(user))
+							// neuladen der Seite mit dazugehörigen Alert
+							// Inhalt.
+							setResponsePage(new BenutzerListe(user));
 					}
 				});
 			}

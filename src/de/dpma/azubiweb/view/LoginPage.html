@@ -8,16 +8,16 @@
  			<form wicket:id="form" method="post">
 				<div class="form-group">
 					Benutzername: <br/>
-						<div class="input-group">
+						<div class="input-group col-md-2 mb-3">
 							<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-							<input wicket:id="username" type="text" id="username">
+							<input class="form-control" wicket:id="username" type="text" id="username">
 						</div>
 				</div>
 				<div class="form-group">
 					Passwort: <br/>
-						<div class="input-group">
+						<div class="input-group col-md-2 mb-3">
 							<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-						<input wicket:id="password" type="password">
+						<input class="form-control" wicket:id="password" type="password">
 						</div>
 				</div>
 			    <div class="form-check">
@@ -31,9 +31,6 @@
 			 <form class="hidden" id="passwortVergessen" wicket:id="passwortVergessen">
 				 <input wicket:id="userLabel" id="userLabel" name="">
 			 </form>
-			<div class="alert alert-success alert-dismissible fade in position-sticky-bottom hidden">
-				<div wicket:id="feedback" id="feedback"/>
-			</div>
 			<script>
 				function openPasswordForgett() {
 					var user = prompt("Bitte geben Sie Ihren Benutzernamen ein.", $('#username').val());
@@ -41,15 +38,6 @@
 						$("#userLabel").val(user);
 						$("#passwortVergessen").submit();
 					}
-				}
-				var fb = $("#feedback");
-				if (fb.has("span").length > 0) {
-					fb.parent().removeClass("hidden");
-					if ($(".feedbackPanelERROR")[0])
-						fb.parent().removeClass("alert-success").addClass("alert-warning");
-					else if ($(".feedbackPanelSUCCESS")[0])
-						fb.parent().removeClass("alert-warning").addClass("alert-success");
-					$(":regex(class, feedbackPanel*)")[1].addClass("nobullet");
 				}
 			</script>
 

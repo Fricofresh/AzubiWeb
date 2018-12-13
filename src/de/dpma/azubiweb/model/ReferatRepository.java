@@ -46,6 +46,7 @@ public interface ReferatRepository extends CrudRepository<Referat, Integer> {
 	 *            Ansprechpartner
 	 * @return das gefundene Referat
 	 */
+	@Query("SELECT r FROM Referat r JOIN r.ansprechpartner a WHERE a.user = ?1")
 	public Referat findByAnsprechpartner(User ansprechpartner);
 	
 	/**

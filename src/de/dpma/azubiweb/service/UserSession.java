@@ -1,6 +1,5 @@
 package de.dpma.azubiweb.service;
 
-import org.apache.wicket.Session;
 import org.apache.wicket.authroles.authentication.AuthenticatedWebSession;
 import org.apache.wicket.authroles.authorization.strategies.role.Roles;
 import org.apache.wicket.injection.Injector;
@@ -37,8 +36,6 @@ public class UserSession extends AuthenticatedWebSession {
 	 * Authentifiziert den Benutzer. <br>
 	 * Setzt den Benutzer und Benutzernamen um später wieder darauf zuzugreifen.
 	 * <br>
-	 * Wird mit der statischen Methode {@link Session#signIn(String, String)
-	 * signIn} aufgerufen.
 	 * 
 	 * @param username
 	 *            der Benutzername
@@ -99,9 +96,6 @@ public class UserSession extends AuthenticatedWebSession {
 		return user;
 	}
 	
-	/**
-	 * @return gibt die {@link UserSession} Klasse zurück.
-	 */
 	public UserService getUserService() {
 		
 		return userService;

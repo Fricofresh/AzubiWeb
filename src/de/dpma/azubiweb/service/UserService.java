@@ -28,6 +28,9 @@ public class UserService {
 	@Autowired
 	private UserRepository userRepository;
 	
+	@Autowired
+	private AnsprechpartnerService ansprechpartnerService;
+	
 	private PasswordAuthentication pa = new PasswordAuthentication();
 	
 	/**
@@ -178,6 +181,7 @@ public class UserService {
 	public boolean deleteUser(User user) {
 		
 		try {
+			ansprechpartnerService.deleteAnsprechpartner(user);
 			userRepository.delete(user);
 			return true;
 		}
@@ -193,9 +197,10 @@ public class UserService {
 	 *            BenutzerId
 	 * @return true == Falls keine Exception geworfen wurde.
 	 */
-	public boolean deleteUserById(int id) {
+	public boolean deleteUser(int id) {
 		
 		try {
+			ansprechpartnerService.deleteAnsprechpartner(id);
 			userRepository.deleteById(id);
 			return true;
 		}
@@ -211,9 +216,10 @@ public class UserService {
 	 *            Benutzername
 	 * @return true == Falls keine Exception geworfen wurde.
 	 */
-	public boolean deleteUserByUsername(String username) {
+	public boolean deleteUser(String username) {
 		
 		try {
+			ansprechpartnerService.deleteAnsprechpartner(userRepository.findByUsernameIgnoreCase(username));
 			userRepository.deleteUserByUsername(username);
 			return true;
 		}
