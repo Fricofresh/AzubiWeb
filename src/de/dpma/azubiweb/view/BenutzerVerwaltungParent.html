@@ -12,13 +12,12 @@
 						<label for="rolle">Rolle <span class="required">*</span></label>
 						<select class="form-control" wicket:id="rolleDropDownChoice" id="rolle" onchange="handleRolle()" required/>
 					</div>
-					<div class="col-md-2  mb-3">
-						<label for="geburtsdatum">Geburtsdatum <span class="required">*</span></label>
-						<input type="text" class="form-control" wicket:id="birthdayDateTextField" id="birthday" required/>
-					</div>
 					<div class="col-md-2 mb-3 hidden">
 						<label for="referat">Referat <span class="required">*</span></label>
 						<select class="form-control" wicket:id="referatDropDownChoice" id="referat"/>
+					</div><div class="col-md-2 mb-3 ">
+						<label for="password">Passwort</label>
+						<input class="form-control" wicket:id="passwortPasswortField" id="password" type="password">
 					</div>
 				</div>
 				<div class="form-group row">
@@ -49,7 +48,7 @@
 						<select class="form-control" wicket:id="ausbildungsartDropDownChoice" id="ausbildungsart"/>
 					</div>
 				</div>
-				<button class="btn btn-success" type="submit"wicket:id="speichernButton">Speichern</button>
+				<button class="btn btn-success" type="submit" wicket:id="speichernButton">Speichern</button>
 				<button class="btn btn-success" type="submit" wicket:id="speichernUndZurückButton">Speichern und zurück</button>
 			</form>
 			<div class="alert alert-success alert-dismissible fade in mt-15" wicket:id="erfolgreicherAlertLabelParent">
@@ -81,11 +80,11 @@
 						$("#einstellungsjahr").parent().addClass("hidden");
 					}
 				}
-				$("#einstellungsjahr").datepicker({
-				    format: "yyyy",
-				    viewMode: "years", 
-				    minViewMode: "years"
-				});
+// 				$("#einstellungsjahr").datepicker({
+// 				    format: "yyyy",
+// 				    viewMode: "years", 
+// 				    minViewMode: "years"
+// 				});
 				$(document).ready(handleRolle());
 				$(document).ready(function(){
 					if($("h1").text().indexOf("Anlegen") >= 0){

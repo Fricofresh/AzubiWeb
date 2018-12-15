@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import de.dpma.azubiweb.model.Ansprechpartner;
 import de.dpma.azubiweb.model.Referat;
 import de.dpma.azubiweb.model.ReferatRepository;
 import de.dpma.azubiweb.model.User;
@@ -20,10 +22,14 @@ import de.dpma.azubiweb.model.User;
  * @author Kenneth Böhmer
  */
 @Service
+@Transactional
 public class ReferatService {
 	
 	@Autowired
 	private ReferatRepository referatRepository;
+	
+	@Autowired
+	private AnsprechpartnerService ansprechpartnerService;
 	
 	/**
 	 * Gibt alle Referate zurück.
@@ -57,6 +63,8 @@ public class ReferatService {
 		referatRepository.save(referat);
 		// referatRepository.updateAnsprechpartner(referat.getId(),
 		// referat.getAnsprechpartner());
+		// oldAnsprechpartner = ansprechpartnerRepository.findByReferat(referat)
+		// ansprechpartnerRepository.
 	}
 	
 	/**
@@ -109,6 +117,7 @@ public class ReferatService {
 			// referatRepository.updateAnsprechpartner(referat.getId(), user);
 			// }
 			// referatRepository.delete(referat);
+			
 			referatRepository.save(referat);
 			return true;
 		}
@@ -127,6 +136,9 @@ public class ReferatService {
 	public boolean deleteReferat(Referat referat) {
 		
 		try {
+			for (User user : referat.getAnsprechpartner()) {
+				deleteAnsprechpartner(user);
+			}
 			referatRepository.delete(referat);
 			return true;
 		}
@@ -135,4 +147,13 @@ public class ReferatService {
 		}
 	}
 	
+	public void addAnsprechpartner(Ansprechpartner ansprechpartner) {
+		
+		ansprechpartnerService.addAnsprechpartner(ansprechpartner);
+	}
+	
+	public void deleteAnsprechpartner(User user) {
+		
+		ansprechpartnerService.deleteAnsprechpartner(user);
+	}
 }

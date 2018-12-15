@@ -24,7 +24,7 @@ public class AusbildungsartService {
 	@Autowired
 	private AusbildungsartRepository ausbildungsartRepository;
 	
-	/**
+	/** 
 	 * Speichert eine Ausbildungsart.
 	 * 
 	 * @param ausbildungsart

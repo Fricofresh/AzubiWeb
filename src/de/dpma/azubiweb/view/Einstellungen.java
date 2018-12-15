@@ -8,11 +8,11 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.PasswordTextField;
-import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
 import de.dpma.azubiweb.model.Rolle.Beschreibung;
+import de.dpma.azubiweb.util.AlertUtil.AlertType;
 
 /**
  * Klasse für die Einstellungen für die einzelnen Benutzer
@@ -83,7 +83,6 @@ public class Einstellungen extends BenutzerVerwaltungsBasePage {
 			}
 		};
 		abbrechenButton.setDefaultFormProcessing(false);
-		FeedbackPanel feedbackPanel = new FeedbackPanel("feedback");
 		// einstellungenForm ist für die Passwort Änderung.
 		Form<?> einstellungenForm = new Form<Void>("einstellungenForm") {
 			
@@ -96,9 +95,10 @@ public class Einstellungen extends BenutzerVerwaltungsBasePage {
 				if (!passwort.isEmpty() && passwort.length() >= 6) {
 					user.setPassword(passwort);
 					// Aktuallisiert das Passwort in der Datenbank
-					if (session.getUserService().updateUserPasswort(user))
+					if (session.getUserService().updateUserPasswort(user)) {
 						// TODO Richtiges zurückgehen
-						setResponsePage(new PageReference(getPageId() - 2).getPage().getClass());
+						setAlert(AlertType.SUCCESS, "Passwort erfolgreich geändert.");
+					}
 					else // TODO zur vorherigen Seite weiterleiten
 						Session.get().error("Ein Fehler ist aufgetreten");
 				}
@@ -107,7 +107,7 @@ public class Einstellungen extends BenutzerVerwaltungsBasePage {
 				
 			}
 		};
-		einstellungenForm.add(neuesPasswortPasswordTextField, bestätigenButton, abbrechenButton, feedbackPanel);
+		einstellungenForm.add(neuesPasswortPasswordTextField, bestätigenButton, abbrechenButton);
 		add(einstellungenForm, geschlechtLabel, rolleLabel, referatLabel, vornameLabel, nachnameLabel,
 				benutzernameLabel, emailEmailLabel, einstellungsjahrLabel, ausbildungsartLabel);
 	}
