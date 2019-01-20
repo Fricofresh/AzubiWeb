@@ -25,7 +25,7 @@ import javax.persistence.ManyToOne;
 public class User implements Serializable, Cloneable {
 	
 	public enum Geschlecht {
-		männlich, weiblich, diverses;
+		Herr, Frau;
 	}
 	
 	@Id
