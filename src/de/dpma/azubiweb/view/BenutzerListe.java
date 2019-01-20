@@ -127,8 +127,8 @@ public class BenutzerListe extends BenutzerVerwaltungsBasePage {
 			protected void populateItem(ListItem<Referat> item) {
 				
 				Referat referat = item.getModelObject();
-				Label referatLabel = new Label("referatLabel", Model.of(referat.getReferat()));
-				
+				Label referatLabel = new Label("referatLabel",
+						Model.of(referat.getReferat() + " " + referat.getReferatsname()));
 				item.add(referatLabel);
 				// Separieren der Benutzer nach Referat
 				List<User> userData = referat.getAnsprechpartner();
