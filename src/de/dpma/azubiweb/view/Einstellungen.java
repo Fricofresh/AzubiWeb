@@ -10,8 +10,10 @@ import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.PasswordTextField;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import de.dpma.azubiweb.model.Rolle.Beschreibung;
+import de.dpma.azubiweb.service.UserService;
 import de.dpma.azubiweb.util.AlertUtil.AlertType;
 
 /**
@@ -24,6 +26,9 @@ import de.dpma.azubiweb.util.AlertUtil.AlertType;
 public class Einstellungen extends BenutzerVerwaltungsBasePage {
 	
 	private static final long serialVersionUID = -3177439622281163213L;
+	
+	@Autowired
+	private UserService userService;
 	
 	/**
 	 * @see #initial()
@@ -51,6 +56,7 @@ public class Einstellungen extends BenutzerVerwaltungsBasePage {
 	 */
 	private void initial() {
 		
+		user = userService.getUserByID(user.getId());
 		Label geschlechtLabel = new Label("geschlechtLabel", Model.of(user.getGeschlecht()));
 		Label rolleLabel = new Label("rolleLabel", Model.of(user.getRolle().getBeschreibung()));
 		Label referatLabel = new Label("referatLabel",
