@@ -18,4 +18,6 @@ public interface SteckbriefRepository extends CrudRepository<Steckbrief, Integer
 	 */
 	@Override
 	public List<Steckbrief> findAll();
+	
+	public Steckbrief findByUser(User user);
 }
