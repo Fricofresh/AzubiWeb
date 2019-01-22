@@ -4,17 +4,16 @@ import org.apache.wicket.Component;
 import org.apache.wicket.PageReference;
 import org.apache.wicket.Session;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
-import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.PasswordTextField;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.wicket.spring.injection.annot.SpringBean;
 
-import de.dpma.azubiweb.model.Rolle.Beschreibung;
 import de.dpma.azubiweb.service.UserService;
 import de.dpma.azubiweb.util.AlertUtil.AlertType;
+import de.dpma.azubiweb.view.panel.UserInformationPanel;
 
 /**
  * Klasse für die Einstellungen für die einzelnen Benutzer
@@ -27,7 +26,7 @@ public class Einstellungen extends BenutzerVerwaltungsBasePage {
 	
 	private static final long serialVersionUID = -3177439622281163213L;
 	
-	@Autowired
+	@SpringBean
 	private UserService userService;
 	
 	/**
@@ -57,21 +56,10 @@ public class Einstellungen extends BenutzerVerwaltungsBasePage {
 	private void initial() {
 		
 		user = userService.getUserByID(user.getId());
-		Label geschlechtLabel = new Label("geschlechtLabel", Model.of(user.getGeschlecht()));
-		Label rolleLabel = new Label("rolleLabel", Model.of(user.getRolle().getBeschreibung()));
-		Label referatLabel = new Label("referatLabel",
-				Model.of(user.getRolle().getId() == Beschreibung.A.getRolleId()
-						? referatService.getReferatByAnsprechpartner(user).getReferat()
-						: ""));
-		Label vornameLabel = new Label("vornameLabel", Model.of(user.getVorname()));
-		Label nachnameLabel = new Label("nachnameLabel", Model.of(user.getNachname()));
-		Label benutzernameLabel = new Label("benutzernameLabel", Model.of(user.getUsername()));
-		Label emailEmailLabel = new Label("emailEmailLabel", Model.of(user.getEmail()));
-		Label einstellungsjahrLabel = new Label("einstellungsjahrLabel", Model.of(user.getEinstiegsjahr()));
-		Label ausbildungsartLabel = new Label("ausbildungsartLabel",
-				Model.of(user.getRolle().getId() != Beschreibung.A.getRolleId()
-						? user.getAusbildungsart().get(0).getBerufsbildAbkürzung()
-						: ""));
+		
+		UserInformationPanel userInformationPanel = new UserInformationPanel("userInformationPanel", Model.of(user));
+		userInformationPanel.handleToAll(e -> e.setEnabled(false));
+		userInformationPanel.getPasswortPasswordField().setVisible(false);
 		
 		PasswordTextField neuesPasswortPasswordTextField = new PasswordTextField("neuesPasswortPasswordTextField",
 				Model.of(""));
@@ -114,8 +102,7 @@ public class Einstellungen extends BenutzerVerwaltungsBasePage {
 			}
 		};
 		einstellungenForm.add(neuesPasswortPasswordTextField, bestätigenButton, abbrechenButton);
-		add(einstellungenForm, geschlechtLabel, rolleLabel, referatLabel, vornameLabel, nachnameLabel,
-				benutzernameLabel, emailEmailLabel, einstellungsjahrLabel, ausbildungsartLabel);
+		add(einstellungenForm, userInformationPanel);
 	}
 	
 }
