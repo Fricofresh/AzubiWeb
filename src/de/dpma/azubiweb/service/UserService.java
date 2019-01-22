@@ -92,7 +92,7 @@ public class UserService {
 	 */
 	public User getUserByID(int id) {
 		
-		return userRepository.findById(id);
+		return userRepository.findById(id).get();
 	}
 	
 	/**
