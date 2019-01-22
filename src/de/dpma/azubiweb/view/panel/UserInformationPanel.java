@@ -79,7 +79,6 @@ public class UserInformationPanel extends Panel {
 		
 		initAndAddAllCompnents();
 		User user = model.getObject();
-		getGeschlechtDropDownChoice().setEnabled(false);
 		if (user != null && !user.isEmpty()) {
 			getGeschlechtDropDownChoice().setModel(Model.of(user.getGeschlecht()));
 			getRolleDropDownChoice().setModel(Model.of(user.getRolle().getBeschreibung()));
@@ -121,7 +120,6 @@ public class UserInformationPanel extends Panel {
 		einstellungsjahrNumberTextField = initEinstellungsjahrNumberTextField();
 		ausbildungsartDropDownChoice = initAusbildungsartDropDownChoice();
 		passwortPasswordField = initPasswortPasswordTextField();
-		geschlechtDropDownChoice.setEnabled(false);
 		add(geschlechtDropDownChoice, rolleDropDownChoice, referatDropDownChoice, vornameTextField, nachnameTextField,
 				benutzernameTextField, emailEmailTextField, einstellungsjahrNumberTextField,
 				ausbildungsartDropDownChoice, passwortPasswordField);
