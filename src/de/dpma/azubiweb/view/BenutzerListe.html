@@ -21,8 +21,8 @@
 				<a class="linkcursor mr-5" onclick="expandAll()">Alles ausklappen</a>
 				<a class="linkcursor" onclick="expandNone()">Alles einklappen</a>
 			</ul>
-			<br>
-				<br>
+			<br/>
+				<br/>
 					<ul class="list-group">
 						<li
 							class="list-group-item d-flex flex-column list-group-item-action">
@@ -31,7 +31,7 @@
 								<span class="p-1 glyphicon glyphicon-triangle-bottom" />
 							</a>
 						</li>
-						<ul class="list-group" wicket:id="ausbildungsJahrListView" )>
+						<ul class="list-group" wicket:id="ausbildungsJahrListView" >
 							<li
 								class="list-group-item d-flex flex-column list-group-item-action">
 								<label wicket:id="ausbildungsJahrLabel" />
@@ -149,8 +149,7 @@
 						el.removeClass("glyphicon-triangle-bottom").addClass("glyphicon-triangle-left");
 						}
 						$("document").ready(expandNone());
-						$(":regex(class,
-						.glyphicon-triangle-*)").attr("onclick", "expand($(this))");
+						$(":regex(class, .glyphicon-triangle-*)").attr("onclick", "expand($(this))");
 					</script>
 		</wicket:extend>
 	</body>
