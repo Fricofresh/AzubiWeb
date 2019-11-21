@@ -148,6 +148,8 @@ public final class PasswordAuthentication {
 	
 	public boolean isHashed(String password) {
 		
+		if (password == null)
+			return false;
 		Matcher m = layout.matcher(password);
 		return m.matches();
 	}

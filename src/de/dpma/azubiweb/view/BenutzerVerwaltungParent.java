@@ -150,11 +150,12 @@ public class BenutzerVerwaltungParent extends BenutzerVerwaltungsBasePage {
 					newUser.setEinstiegsjahr(einstellungsjahrNumberTextField.getModelObject());
 				newUser.setAusbildungsart(Arrays.asList(ausbildungsartService
 						.getAusbildungsartByAbkürzung(ausbildungsartDropDownChoice.getModelObject())));
-				if (passwortPasswordField.getValue() == null && passwortPasswordField.getValue().isEmpty()
-						&& oldUser.getPassword().isEmpty()) {
-					newUser.setPassword("Anfang12");
+				if (passwortPasswordField.getValue() == null && passwortPasswordField.getValue().isEmpty()) {
+					if (oldUser.getPassword().isEmpty()) {
+						newUser.setPassword("Anfang12");
+					}
 				}
-				else if (passwortPasswordField.getValue() != null && !passwortPasswordField.getValue().isEmpty()) {
+				else {
 					newUser.setPassword(passwortPasswordField.getValue());
 				}
 				
