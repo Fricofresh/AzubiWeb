@@ -39,15 +39,6 @@ public interface UserRepository extends CrudRepository<User, Integer> {
 	public void deleteUserByUsername(String username);
 	
 	/**
-	 * Holt sich den Benutzer über die ID.
-	 * 
-	 * @param id
-	 *            User ID
-	 * @return den Benutzer
-	 */
-	public User findById(int id);
-	
-	/**
 	 * Holt sich alle Benutzer.
 	 */
 	@Override

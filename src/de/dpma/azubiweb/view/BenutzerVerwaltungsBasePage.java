@@ -32,13 +32,27 @@ public class BenutzerVerwaltungsBasePage extends RootPage {
 	
 	protected UserService userService = session.getUserService();
 	
+	/**
+	 * @see {@link RootPage#RootPage() RootPage()}
+	 */
 	public BenutzerVerwaltungsBasePage() {
 		
 		super();
+		initialize();
 	}
 	
+	private void initialize() {
+		
+		// Injector.get().inject(this);
+	}
+	
+	/**
+	 * @see {@link RootPage#RootPage() RootPage()}
+	 * @param pageParameters
+	 */
 	public BenutzerVerwaltungsBasePage(PageParameters pageParameters) {
 		
 		super(pageParameters);
+		initialize();
 	}
 }

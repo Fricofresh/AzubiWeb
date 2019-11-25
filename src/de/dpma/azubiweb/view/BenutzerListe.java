@@ -127,7 +127,8 @@ public class BenutzerListe extends BenutzerVerwaltungsBasePage {
 			protected void populateItem(ListItem<Referat> item) {
 				
 				Referat referat = item.getModelObject();
-				Label referatLabel = new Label("referatLabel", Model.of(referat.getReferat()));
+				Label referatLabel = new Label("referatLabel",
+						Model.of(referat.getReferat() + " " + referat.getReferatsname()));
 				item.add(referatLabel);
 				// Separieren der Benutzer nach Referat
 				List<User> userData = referat.getAnsprechpartner();
@@ -224,7 +225,7 @@ public class BenutzerListe extends BenutzerVerwaltungsBasePage {
 				item.add(
 						new Image(preName + "Geschlecht", "")
 								.add(new AttributeModifier("src",
-										user.getGeschlecht() == Geschlecht.männlich ? "pictures/Businessman.png"
+										user.getGeschlecht() == Geschlecht.Herr ? "pictures/Businessman.png"
 												: "pictures/Woman.png"))
 								.add(AttributeModifier.replace("class", "listenBild")));
 				item.add(new Label(preName + "Label", user.getVorname() + " " + user.getNachname()));
