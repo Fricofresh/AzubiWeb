@@ -152,7 +152,7 @@ public class UserService {
 			user.setUsername(vorname.substring(0, 2) + (nachname.length() <= 6 ? nachname : nachname.substring(0, 6)));
 		if (user.getEmail() == null || user.getEmail().isEmpty())
 			user.setEmail(vorname + "." + nachname + "@dpma.de");
-		if (!pa.isHashed(user.getPassword()))
+		if (user.getPassword() != null && !pa.isHashed(user.getPassword()))
 			user.setPassword(pa.hash(user.getPassword().toCharArray()));
 		return user;
 	}

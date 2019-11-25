@@ -151,8 +151,7 @@ public class RootPage extends WebPage {
 			@Override
 			public void onClick() {
 				
-				// TODO Do Something
-				
+				setResponsePage(Steckbrief.class);
 			}
 		});
 	}

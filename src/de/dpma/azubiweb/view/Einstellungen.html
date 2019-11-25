@@ -1,88 +1,38 @@
 <!DOCTYPE html>
 <html lang="de">
-	<wicket:head>
-		<title>Azubiweb - Einstellung</title>
-	</wicket:head>
-	<body>
-		<wicket:extend>
-			<form wicket:id="einstellungenForm">
-				<div class="form-group row">
-					<div class="col-md-3 mb-3">
-						<h2>Passwort ändern</h2>
-					</div>
-				</div>
-				<div class="form-group row">
-					<div class="col-md-3 mb-3">
-						<label for="passwort">Neues Passwort</label>
-						<input class="form-control" type="password" placeholder="neues Passwort" wicket:id="neuesPasswortPasswordTextField" id="passwort" name="Passwort ändern">
-					</div>
-				</div>
-				<div class="form-group row">
-					<div class="col-md-3 mb-3">
-						<button class="btn btn-primary" type="submit" wicket:id="bestätigenButton">Bestätigen</button>
-						<button class="btn btn-secondary" type="submit" wicket:id="abbrechenButton">Abbrechen</button>
-					 </div>
-				</div>
-			</form>
-						<h2>Stammdaten</h2>
+<wicket:head>
+	<title>Azubiweb - Einstellung</title>
+</wicket:head>
+<body>
+	<wicket:extend>
+		<form wicket:id="einstellungenForm">
 			<div class="form-group row">
-				<div class="col-md-2 mb-3">
-					<label for="geschlecht">Geschlecht</label>
-					<label class="form-control" wicket:id="geschlechtLabel" id="geschlecht"/>
-				</div>
-				<div class="col-md-2 mb-3">
-					<label for="rolle">Rolle</label>
-					<label class="form-control" wicket:id="rolleLabel" id="rolle"/>
-				</div>
-				<div class="col-md-2 mb-3">
-					<label for="referat">Referat</label>
-					<label class="form-control" wicket:id="referatLabel" id="referat"/>
+				<div class="col-md-3 mb-3">
+					<h2>Passwort ändern</h2>
 				</div>
 			</div>
 			<div class="form-group row">
 				<div class="col-md-3 mb-3">
-					<label for="vorname">Vorname</label>
-					<label class="form-control" wicket:id="vornameLabel" id="vorname"/>
-				</div>
-				<div class="col-md-3 mb-3">
-					<label for="nachname">Nachname</label>
-					<label class="form-control" wicket:id="nachnameLabel" id="nachname"/>
-				</div>
-				<div class="col-md-3 mb-3">
-					<label for="benutzername">Benutzername</label>
-					<label class="form-control" wicket:id="benutzernameLabel" id="benutzername"/>
+					<label for="passwort">Neues Passwort</label> <input
+						class="form-control" type="password" placeholder="neues Passwort"
+						wicket:id="neuesPasswortPasswordTextField" id="passwort"
+						name="Passwort ändern">
 				</div>
 			</div>
 			<div class="form-group row">
 				<div class="col-md-3 mb-3">
-					<label for="email">E-Mail</label>
-					<label class="form-control" wicket:id="emailEmailLabel" id="email"/>
-				</div>
-				<div class="col-md-3 mb-3">
-					<label for="einstellungsjahr">Einstellungsjahr</label>
-					<label class="form-control" wicket:id="einstellungsjahrLabel" id="einstellungsjahr"/>
-				</div>
-				<div class="col-md-3 mb-3">
-					<label for="ausbildungsart">Ausbildungsart</label>
-					<label class="form-control" wicket:id="ausbildungsartLabel" id="ausbildungsart"/>
+					<button class="btn btn-primary" type="submit"
+						wicket:id="bestätigenButton">Bestätigen</button>
+					<button class="btn btn-secondary" type="submit"
+						wicket:id="abbrechenButton">Abbrechen</button>
 				</div>
 			</div>
-			<script>
-				function handleRolle() {
-					var rolleValue = $("#rolle").text();
-					console.log(rolleValue);
-					if (rolleValue === "Ausbilder") {
-						$("#ausbildungsart").parent().addClass("hidden");
-						$("#einstellungsjahr").parent().addClass("hidden");
-					}else if(rolleValue === "Ausbildungsleiter"){
-						$("#referat").parent().addClass("hidden");
-						$("#einstellungsjahr").parent().addClass("hidden");
-					} else if (rolleValue === "Auszubildende") {
-						$("#referat").parent().addClass("hidden");
-					}
-				}
-				$(document).ready(handleRolle());
-			</script>
-		</wicket:extend>
-	</body>
+		</form>
+		<h2>Stammdaten</h2>
+		<div wicket:id="userInformationPanel" />
+		<script>
+			$(":regex(for, password)").hide();
+		</script>
+	</wicket:extend>
+</body>
 </html>

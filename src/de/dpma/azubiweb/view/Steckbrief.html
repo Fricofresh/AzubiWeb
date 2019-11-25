@@ -5,113 +5,68 @@
 	</wicket:head>
 	<body>
 		<wicket:extend>
-		<div class="media">
-		<div class="media-right">
-		<img src="image.png" class="media-object" style="width:60px">
-		</div>
-		<div class="media-body">
-		<h4 class="media-heading">Kinan Saeb</h4>
-		</div>
-		</div>
-		<div class="form-group row">
-		<div class="col-md-3 mb-3">
-		<h2>Ausbilder/in</h2>
-		</div>
-		</div>
-		
-		<div class="form-group row">
-		<div class="col-md-3 mb-3">
-		<label>Ausbilder/in:
-		<select name="ausbilder" size="4">
-		<option>Herr Baumgartner</option>
-		<option>Herr Klemm</option>
-		<option>Frau Stremme</option>
-		<option>Frau Titel-Tier</option>
-		
-		</select>
-		</label>
-		</div>
-		</div>
-		
-		<div class="form-group row">
-		<div class="col-md-3 mb-3">
-		<h2>Abwesenheit</h2>
-		</div>
-		</div>
-		<div class="form-group row">
-		<div class="col-md-4 mb-4">
-		<input class="form-control" type="text" placeholder="Grund der Abwesenheit" id="abwesenheitsGrund">
-		<input class="form-control" type="date" id="abwesendVon">
-		<h3>-</h3>
-		<input class="form-control" type="date" id="abwesendBis">
-		</div>
-		</div>
 			<div class="form-group row">
-		<div class="col-md-3 mb-3">
-		<h2>Schulungen</h2>
-		</div>
-		</div>
-		<div class="form-group row">
-		<div class="col-md-3 mb-3">
-		<input class="form-control" type="text" placeholder="Schulungen" id="schulungen">
-		</div>
-		</div>
-		<div class="form-group row">
-		<div class="col-md-3 mb-3">
-		<div class="form-group row">
-		<div class="col-md-3 mb-3">
-		<h2>Bisherige Ausbildungsstationen</h2>
-		</div>
-		</div>
-		<div class="form-group row">
-		<div class="col-md-3 mb-3">
-	<label>Ausbildungsstationen:
-		<select name="ausbildungsstationen" size="5" multiple>
-		<option>4.1.3</option>
-		<option>2.4.1</option>
-		<option>2.3.3</option>
-		<option>2.4.3</option>
-		<option>2.4.4</option>
-
-		</select>
-		</label>		</div>
-		</div>
-		<h2>Kenntnisse & F‰higkeiten</h2>
-		</div>
-		</div>
-		<div class="form-group row">
-		<div class="col-md-3 mb-3">
-		<input class="form-control" type="text" placeholder="Kenntnisse & F‰higkeiten" id="kenntnisse">
-		</div>
-		</div>
-		
-		<div class="form-group row">
-		<div class="col-md-3 mb-3">	
-		<h2>Erwartungen</h2>
-		</div>
-		</div>
-		<div class="form-group row">
-		<div class="col-md-3 mb-3">
-		<textarea class="form-control" rows="5" id="erwartungen">Erwartungen...</textarea>
-		</div>
-		</div>
-		<h2>Bild hochladen</h2>
-		<form method ="post" enctype="multipart/form-data">
-		<label>W‰hlen Sie eine .png oder .jpeg Datei aus.
-		<input name="datei" type="file" size="50" accept="*">
-		<button>Hochladen</button>
-		</label>
-		</form>
-		<div class="form-group row">
-		<div class="col-md-3 mb-3">
-	<button class="btn btn-primary" type="submit">Best‰tigen</button>
-		<button class="btn btn-secondary" type="submit">Reset</button>
-			<button class="btn btn-secondary" type="submit">Abbrechen</button>
-	
-		</div>
-		</div>
-		
-		
+				<div class="col-md-6 mb-3">
+					<h2>Bild hochladen</h2>
+					<form method="post" enctype="multipart/form-data">
+						<label>W√§hlen Sie eine eine Datei aus.</label>
+						<input name="datei" type="file" size="50" accept="image/*" />
+						<!-- <button>Hochladen</button> -->
+					</form>
+				</div>
+			</div>
+			<div class="form-group row">
+				<div class="col-md-6 mb-3">
+					<div class="row">
+						<img wicket:id="azubiImage" alt="Profilbild" name="profilbild" class="img-circle" />
+					</div>
+					<label for="profilbild" wicket:id="nameLabel" class="media-heading" />
+				</div>
+			</div>
+			<div class="form-group row">
+				<div class="col-md-6 mb-3">
+					<label>Dein kommendes Ausbildungsreferat:</label>
+				</div>
+			</div>
+			<div class="form-group row">
+				<div class="col-md-6 mb-3">
+					<label wicket:id="referatLabel">Hier sollte das Referat angezeigt werden, welches der Azubi als n√§chstes eingesetzt wird. Falls dieser Text sichtbar ist, bitte Informieren Sie Ihren Ausbildungsleiter oder den zust√§ndigen Administrator.</label>
+				</div>
+			</div>
+			<!-- <div class="form-group row"><div class="col-md-3 mb-3"><h2>Ausbilder/in</h2></div></div><div class="form-group row"><div class="col-md-3 mb-3"><label for="ausbilder">Ausbilder/in:</label><select wicket:id="ausbilderDropDownChoice" name="Ausbilder" id="ausbilder" /></div></div> -->
+			<!-- <div class="form-group row"><div class="col-md-3 mb-3"><h2>Abwesenheit</h2></div></div><div class="form-group row"><div class="col-md-4 mb-4"><input class="form-control" type="text" placeholder="Grund der Abwesenheit" id="abwesenheitsGrund"><input class="form-control" type="date" id="abwesendVon"><h3>-</h3><input class="form-control" type="date" id="abwesendBis"></div></div> -->
+			<!-- <div class="form-group row"><div class="col-md-3 mb-3"><h2>Schulungen</h2></div></div><div class="form-group row"><div class="col-md-3 mb-3"><input class="form-control" type="text" placeholder="Schulungen" id="schulungen"></div></div> -->
+			<!-- <div class="form-group row"><div class="col-md-5 mb-3"><h2>Bisherige Ausbildungsstationen</h2></div></div><div class="form-group row"><div class="col-md-3 mb-3"><label for="ausbildungsstationen">Ausbildungsstationen:</label><select wicket:id="ausbildungsstationDropDownChoice" name="ausbildungsstationen" multiple /></div></div> -->
+			<div class="form-group row">
+				<div class="col-md-5 mb-3">
+					<h2>Kenntnisse & F√§higkeiten</h2>
+				</div>
+			</div>
+			<div class="form-group row">
+				<div class="col-md-5 mb-3">
+					<div class="input-group">
+						<input class="form-control" type="text" placeholder="Kenntnisse & F√§higkeiten" id="kenntnisse" />
+						<div class="input-group-addon btn btn-default">Hinzuf√ºgen</div>
+					</div>
+				</div>
+			</div>
+			<div class="form-group row">
+				<div class="col-md-3 mb-3">
+					<h2>Erwartungen</h2>
+				</div>
+			</div>
+			<div class="form-group row">
+				<div class="col-md-10 mb-3">
+					<textarea class="form-control" rows="5" id="erwartungen" />
+				</div>
+			</div>
+			<div class="form-group row">
+				<div class="col-md-3 mb-3">
+					<button class="btn btn-success" type="submit">Speichern</button>
+					<button class="btn btn-warning" type="reset">Reset</button>
+					<button class="btn btn-danger" type="button">Abbrechen</button>
+				</div>
+			</div>
 		</wicket:extend>
 	</body>
 </html>

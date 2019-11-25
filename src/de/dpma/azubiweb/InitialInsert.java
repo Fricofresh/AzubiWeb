@@ -140,9 +140,8 @@ public class InitialInsert {
 				ausbildungsartService.getAusbildungsartByAbkürzung("KFB"), 2017, Geschlecht.Herr));
 		userService.saveUser(new User(password, rolleService.getRolle(Rolle.Beschreibung.AZUBI), "Oliver", "Eckehard",
 				ausbildungsartService.getAusbildungsartByAbkürzung("KFB"), 2017, Geschlecht.Herr));
-		userService
-				.saveUser(new User(password, rolleService.getRolle(Rolle.Beschreibung.AZUBI), "Nina", "Reinhardstätter",
-						ausbildungsartService.getAusbildungsartByAbkürzung("KFB"), 2017, Geschlecht.Frau));
+		userService.saveUser(new User(password, rolleService.getRolle(Rolle.Beschreibung.AZUBI), "Nina",
+				"Reinhardstätter", ausbildungsartService.getAusbildungsartByAbkürzung("KFB"), 2017, Geschlecht.Frau));
 		userService.saveUser(new User(password, rolleService.getRolle(Rolle.Beschreibung.AZUBI), "Markus", "Beier",
 				ausbildungsartService.getAusbildungsartByAbkürzung("Elektroniker/in"), 2016, Geschlecht.Herr));
 		userService.saveUser(new User(password, rolleService.getRolle(Rolle.Beschreibung.AZUBI), "Martin", "Kolumnus",
@@ -155,31 +154,30 @@ public class InitialInsert {
 						ausbildungsartService.getAusbildungsartByAbkürzung("FIAE")),
 				Geschlecht.Herr));
 		userService.saveUser(new User("MaRupert", password, rolleService.getRolle(Rolle.Beschreibung.AL), "Max",
-				"Rupert", Arrays.asList(ausbildungsartService.getAusbildungsartByAbkürzung("FAMI")),
-				Geschlecht.Herr));
-		userService.saveUser(new User("PaDieter", password, rolleService.getRolle(Rolle.Beschreibung.AL), "Paul",
-				"Dieter",
-				Arrays.asList(ausbildungsartService.getAusbildungsartByAbkürzung("KFB"),
-						ausbildungsartService.getAusbildungsartByBerufsbildM("Elektroniker/in"),
-						ausbildungsartService.getAusbildungsartByBerufsbildM("Tischler/in")),
-				Geschlecht.Herr));
+				"Rupert", Arrays.asList(ausbildungsartService.getAusbildungsartByAbkürzung("FAMI")), Geschlecht.Herr));
+		userService
+				.saveUser(new User("PaDieter", password, rolleService.getRolle(Rolle.Beschreibung.AL), "Paul", "Dieter",
+						Arrays.asList(ausbildungsartService.getAusbildungsartByAbkürzung("KFB"),
+								ausbildungsartService.getAusbildungsartByBerufsbildM("Elektroniker/in"),
+								ausbildungsartService.getAusbildungsartByBerufsbildM("Tischler/in")),
+						Geschlecht.Herr));
 		// End Alle AusbildungsLeiter
 		
 		// Alle Ausbilder
-		userService.saveUser(new User(password, rolleService.getRolle(Rolle.Beschreibung.A), "Patrick", "PatPat",
-				Geschlecht.Herr));
+		userService.saveUser(
+				new User(password, rolleService.getRolle(Rolle.Beschreibung.A), "Patrick", "PatPat", Geschlecht.Herr));
 		userService.saveUser(new User(password, rolleService.getRolle(Rolle.Beschreibung.A), "Kristiane", "Christina",
 				Geschlecht.Frau));
-		userService.saveUser(new User(password, rolleService.getRolle(Rolle.Beschreibung.A), "Agust", "Mensch",
-				Geschlecht.Herr));
-		userService.saveUser(new User(password, rolleService.getRolle(Rolle.Beschreibung.A), "Matina", "Keller",
-				Geschlecht.Frau));
+		userService.saveUser(
+				new User(password, rolleService.getRolle(Rolle.Beschreibung.A), "Agust", "Mensch", Geschlecht.Herr));
+		userService.saveUser(
+				new User(password, rolleService.getRolle(Rolle.Beschreibung.A), "Matina", "Keller", Geschlecht.Frau));
 		userService.saveUser(
 				new User(password, rolleService.getRolle(Rolle.Beschreibung.A), "Olga", "Geber", Geschlecht.Frau));
 		userService.saveUser(
 				new User(password, rolleService.getRolle(Rolle.Beschreibung.A), "Bianca", "Bad", Geschlecht.Frau));
-		userService.saveUser(new User(password, rolleService.getRolle(Rolle.Beschreibung.A), "Nicole", "Fröhlich",
-				Geschlecht.Frau));
+		userService.saveUser(
+				new User(password, rolleService.getRolle(Rolle.Beschreibung.A), "Nicole", "Fröhlich", Geschlecht.Frau));
 		// End Alle Ausbilder
 	}
 	
@@ -189,19 +187,17 @@ public class InitialInsert {
 	private void insertAllReferat() {
 		
 		referatService
-				.saveReferat(new Referat("2.4.3", userService.getUserByName("KrChrist"), "Strategische IT-Aufgaben"));
-		referatService.saveReferat(
-				new Referat("2.3.3", userService.getUserByName("AgMensch"), "Management für Prozesse und SOA"));
-		referatService.saveReferat(
-				new Referat("2.4.1", userService.getUserByName("PaPatPat"), "DPMApatente/-gebrauchsmuster und SAP"));
+				.saveReferat(new Referat("2.4.3", userService.getUserByName("KrChrist"), "Anwendungsbetreuung  II"));
+		referatService.saveReferat(new Referat("2.3.3", userService.getUserByName("AgMensch"),
+				"Facharchitektur und Management für Prozesse"));
+		referatService.saveReferat(new Referat("2.4.1", userService.getUserByName("PaPatPat"), "Entwicklung"));
 		referatService
-				.saveReferat(new Referat("2.4.2", userService.getUserByName("MaKeller"), "DEPATIS und DPMAmarken"));
-		referatService.saveReferat(new Referat("3", userService.getUserByName("OlGeber"), "Marke und Design"));
-		referatService.saveReferat(new Referat("4.2.4",
-				Arrays.asList(userService.getUserByName("BiBad"), userService.getUserByName("NiFroehl")),
-				"Gebäude- und Raummanagement, Innerer Dienst"));
-		// referatService.saveReferat(new Referat("",
-		// userService.getUserByName(""), ""));
+				.saveReferat(new Referat("2.4.2", userService.getUserByName("MaKeller"), "Anwendungsbetreuung  I"));
+		referatService.saveReferat(new Referat("3", userService.getUserByName("OlGeber"), "Marken und Designs"));
+		referatService.saveReferat(new Referat("4.2.4", userService.getUserByName("BiBad"),
+				"Gebäude und Raummanagement, Innerer Dienst, Zentrales Veranstaltungsmanagement"));
+		referatService.saveReferat(
+				new Referat("2.5.3", userService.getUserByName("NiFroehl"), "Endgeräte und Softwareverteilung"));
 		// referatService.saveReferat(new Referat("",
 		// userService.getUserByName(""), ""));
 		// referatService.saveReferat(new Referat("",

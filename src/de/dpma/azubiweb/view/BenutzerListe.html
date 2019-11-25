@@ -2,130 +2,155 @@
 <!DOCTYPE html>
 <html lang="de">
 	<wicket:head>
-			<title>Azubiweb - Benutzer Liste</title>
+		<title>Azubiweb - Benutzer Liste</title>
 	</wicket:head>
 	<body>
 		<wicket:extend>
+			<div class="row">
+				<div class="col-md-4 pull-right">
+					<div class="form-group">
+						<input class="form-control" type="text" placeholder="Suche">
+							<!--<div class="input-group-addon btn btn-primary">
+								<i class="glyphicon glyphicon-search"></i>
+							</div> -->
+						</input>
+					</div>
+				</div>
+			</div>
 			<ul class="pull-right nopadding">
-				<a class="linkcursor mr-5" onclick="expandAll()">Alles ausklappen</a> 
+				<a class="linkcursor mr-5" onclick="expandAll()">Alles ausklappen</a>
 				<a class="linkcursor" onclick="expandNone()">Alles einklappen</a>
-			</ul><br><br>
-			<ul class="list-group">
-            	<li class="list-group-item d-flex flex-column list-group-item-action">
-					<label>Auszubildende</label>
-					<a class="pull-right mr-5">
-						<span class="p-1 glyphicon glyphicon-triangle-bottom"/>
-					</a>
-				</li>
-				<ul class="list-group" wicket:id="ausbildungsJahrListView")>
-					<li class="list-group-item d-flex flex-column list-group-item-action">
-						<label wicket:id="ausbildungsJahrLabel"/>
-						<a class="pull-right mr-5">
-							<span class="p-1 glyphicon glyphicon-triangle-bottom"/>
-						</a>
-					</li>
-	            	<ul class="list-group" wicket:id="ausbildungsartListView">
-						<li class="list-group-item d-flex flex-column list-group-item-action">
-							<span wicket:id="ausbildungsartLabel"/> 
+			</ul>
+			<br/>
+				<br/>
+					<ul class="list-group">
+						<li
+							class="list-group-item d-flex flex-column list-group-item-action">
+							<label>Auszubildende</label>
 							<a class="pull-right mr-5">
-								<span class="p-1 glyphicon glyphicon-triangle-bottom"/>
+								<span class="p-1 glyphicon glyphicon-triangle-bottom" />
 							</a>
 						</li>
-		                <ul class="list-group-item d-flex flex-column list-group-item-action" wicket:id="azubiListView"> 
-		                    <img alt="" wicket:id="azubiGeschlecht"/>
-		                    
-		                    <a wicket:id="azubiLabel"/>
-		                    
-		                    <a class="pull-right" wicket:id="löschenLink">
-		                        <span class="p-1 glyphicon glyphicon-trash"></span>
-		                    </a>
-		                    
-		                    <a class="pull-right mr-5" wicket:id="bearbeitenLink">
-		                        <span class="p-2 glyphicon glyphicon-pencil"></span>
-		                    </a>
-		                </ul>
-					</ul>
-				</ul>
-            </ul>
-            <ul class="list-group">
-				<li class="list-group-item d-flex flex-column list-group-item-action">
-					<label>Ausbilder</label>
-					<a class="pull-right mr-5">
-						<span class="p-1 glyphicon glyphicon-triangle-bottom"/>
-					</a>
-				</li>
-				<ul class="list-group" wicket:id="referatListView")>
-					
-					<li class="list-group-item d-flex flex-column list-group-item-action">
-						<span wicket:id="referatLabel"/> 
-						<a class="pull-right mr-5">
-							<span class="p-1 glyphicon glyphicon-triangle-bottom"/>
-						</a>
-					</li>
-					<ul class="nopadding">
-						<ul class="list-group-item d-flex flex-column list-group-item-action" wicket:id="ausbilderListView">
-							<img alt="" wicket:id="ausbilderGeschlecht"/>
-							
-							<a wicket:id="ausbilderLabel"/>
-							
-							<a class="pull-right" wicket:id="löschenLink">
-								<span class="p-1 glyphicon glyphicon-trash"/>
-							</a>
-							
-							<a class="pull-right mr-5" wicket:id="bearbeitenLink">
-								<span class="p-2 glyphicon glyphicon-pencil"/>
-							</a>
+						<ul class="list-group" wicket:id="ausbildungsJahrListView" >
+							<li
+								class="list-group-item d-flex flex-column list-group-item-action">
+								<label wicket:id="ausbildungsJahrLabel" />
+								<a class="pull-right mr-5">
+									<span class="p-1 glyphicon glyphicon-triangle-bottom" />
+								</a>
+							</li>
+							<ul class="list-group" wicket:id="ausbildungsartListView">
+								<li
+									class="list-group-item d-flex flex-column list-group-item-action">
+									<span wicket:id="ausbildungsartLabel" />
+									<a class="pull-right mr-5">
+										<span class="p-1 glyphicon glyphicon-triangle-bottom" />
+									</a>
+								</li>
+								<ul
+									class="list-group-item d-flex flex-column list-group-item-action"
+									wicket:id="azubiListView">
+									<img alt="" wicket:id="azubiGeschlecht" />
+
+									<a wicket:id="azubiLabel" />
+
+									<a class="pull-right" wicket:id="löschenLink">
+										<span class="p-1 glyphicon glyphicon-trash"></span>
+									</a>
+
+									<a class="pull-right mr-5" wicket:id="bearbeitenLink">
+										<span class="p-2 glyphicon glyphicon-pencil"></span>
+									</a>
+								</ul>
+							</ul>
 						</ul>
 					</ul>
-				</ul>
-            </ul>
-            <ul class="list-group">
-				<li class="list-group-item d-flex flex-column list-group-item-action">
-					<label>Ausbildungsleiter</label>
-					<a class="pull-right mr-5">
-						<span class="p-1 glyphicon glyphicon-triangle-bottom"/>
-					</a>
-				</li>
-				<ul class="nopadding">
-					<li class="list-group-item d-flex flex-column list-group-item-action" wicket:id="ausbildungsleiterListView"> 
-						<img alt="" wicket:id="ausbildungsleiterGeschlecht"/>
-						
-						<a wicket:id="ausbildungsleiterLabel"/>
-						
-						<a class="pull-right" wicket:id="löschenLink">
-							<span class="p-1 glyphicon glyphicon-trash"/>
-						</a>
-						
-						<a class="pull-right mr-5" wicket:id="bearbeitenLink">
-							<span class="p-2 glyphicon glyphicon-pencil"/>
-						</a>
-					</li>
-				</ul>
-            </ul>
-			<script>
-				function expand(b) {
-					var el = b;
-					el.parent().parent().parent().children("ul").slideToggle();
-					if(el.hasClass("glyphicon-triangle-left"))
+					<ul class="list-group">
+						<li
+							class="list-group-item d-flex flex-column list-group-item-action">
+							<label>Ausbilder</label>
+							<a class="pull-right mr-5">
+								<span class="p-1 glyphicon glyphicon-triangle-bottom" />
+							</a>
+						</li>
+						<ul class="list-group" wicket:id="referatListView" )>
+
+							<li
+								class="list-group-item d-flex flex-column list-group-item-action">
+								<span wicket:id="referatLabel" />
+								<a class="pull-right mr-5">
+									<span class="p-1 glyphicon glyphicon-triangle-bottom" />
+								</a>
+							</li>
+							<ul class="nopadding">
+								<ul
+									class="list-group-item d-flex flex-column list-group-item-action"
+									wicket:id="ausbilderListView">
+									<img alt="" wicket:id="ausbilderGeschlecht" />
+
+									<a wicket:id="ausbilderLabel" />
+
+									<a class="pull-right" wicket:id="löschenLink">
+										<span class="p-1 glyphicon glyphicon-trash" />
+									</a>
+
+									<a class="pull-right mr-5" wicket:id="bearbeitenLink">
+										<span class="p-2 glyphicon glyphicon-pencil" />
+									</a>
+								</ul>
+							</ul>
+						</ul>
+					</ul>
+					<ul class="list-group">
+						<li
+							class="list-group-item d-flex flex-column list-group-item-action">
+							<label>Ausbildungsleiter</label>
+							<a class="pull-right mr-5">
+								<span class="p-1 glyphicon glyphicon-triangle-bottom" />
+							</a>
+						</li>
+						<ul class="nopadding">
+							<li
+								class="list-group-item d-flex flex-column list-group-item-action"
+								wicket:id="ausbildungsleiterListView">
+								<img alt="" wicket:id="ausbildungsleiterGeschlecht" />
+
+								<a wicket:id="ausbildungsleiterLabel" />
+
+								<a class="pull-right" wicket:id="löschenLink">
+									<span class="p-1 glyphicon glyphicon-trash" />
+								</a>
+
+								<a class="pull-right mr-5" wicket:id="bearbeitenLink">
+									<span class="p-2 glyphicon glyphicon-pencil" />
+								</a>
+							</li>
+						</ul>
+					</ul>
+					<script>
+						function expand(b) {
+						var el = b;
+						el.parent().parent().parent().children("ul").slideToggle();
+						if(el.hasClass("glyphicon-triangle-left"))
 						el.removeClass("glyphicon-triangle-left").addClass("glyphicon-triangle-bottom");
-					else if(el.hasClass("glyphicon glyphicon-triangle-bottom"))
+						else if(el.hasClass("glyphicon glyphicon-triangle-bottom"))
 						el.removeClass("glyphicon-triangle-bottom").addClass("glyphicon-triangle-left");
-				}
+						}
 
-				function expandAll() {
-					var el = $(".glyphicon-triangle-left");
-					el.parent().parent().parent().children("ul").slideToggle();
-					el.removeClass("glyphicon-triangle-left").addClass("glyphicon-triangle-bottom");
-				}
+						function expandAll() {
+						var el = $(".glyphicon-triangle-left");
+						el.parent().parent().parent().children("ul").slideToggle();
+						el.removeClass("glyphicon-triangle-left").addClass("glyphicon-triangle-bottom");
+						}
 
-				function expandNone() {
-					var el = $(".glyphicon-triangle-bottom");
-					el.parent().parent().parent().children("ul").slideToggle();
-					el.removeClass("glyphicon-triangle-bottom").addClass("glyphicon-triangle-left");
-				}
-				$("document").ready(expandNone());
-				$(":regex(class, .glyphicon-triangle-*)").attr("onclick", "expand($(this))");
-			</script>
-        </wicket:extend>
-    </body>
+						function expandNone() {
+						var el = $(".glyphicon-triangle-bottom");
+						el.parent().parent().parent().children("ul").slideToggle();
+						el.removeClass("glyphicon-triangle-bottom").addClass("glyphicon-triangle-left");
+						}
+						$("document").ready(expandNone());
+						$(":regex(class, .glyphicon-triangle-*)").attr("onclick", "expand($(this))");
+					</script>
+		</wicket:extend>
+	</body>
 </html>

@@ -1,9 +1,6 @@
 package de.dpma.azubiweb.view;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.markup.html.WebMarkupContainer;
@@ -19,12 +16,11 @@ import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
 import de.dpma.azubiweb.model.Ansprechpartner;
-import de.dpma.azubiweb.model.Ausbildungsart;
 import de.dpma.azubiweb.model.Referat;
-import de.dpma.azubiweb.model.Rolle;
 import de.dpma.azubiweb.model.Rolle.Beschreibung;
 import de.dpma.azubiweb.model.User;
 import de.dpma.azubiweb.model.User.Geschlecht;
+import de.dpma.azubiweb.view.panel.UserInformationPanel;
 
 /**
  * Enthält alle Funktionen für {@link BenutzerAnlage} und
@@ -95,39 +91,25 @@ public class BenutzerVerwaltungParent extends BenutzerVerwaltungsBasePage {
 		
 		boolean isNew = oldUser.isEmpty();
 		
-		DropDownChoice<Geschlecht> geschlechtDropDownChoice = initGeschlechtDropDownChoice();
-		DropDownChoice<String> rolleDropDownChoice = initRolleDropDownChoice();
-		DropDownChoice<String> referatDropDownChoice = initReferatDropDownChoice();
-		TextField<String> vornameTextField = initVornameTextField();
-		TextField<String> nachnameTextField = initNachnameTextField();
-		TextField<String> benutzernameTextField = initBenutzernameTextField();
-		EmailTextField emailEmailTextField = initEmailEmailTextField();
-		NumberTextField<Integer> einstellungsjahrNumberTextField = initEinstellungsjahrNumberTextField();
-		DropDownChoice<String> ausbildungsartDropDownChoice = initAusbildungsartDropDownChoice();
-		PasswordTextField passwortPasswordField = initPasswortPasswordTextField();
-		WebMarkupContainer erfolgreicherAlertLabelParent = initErfolgreicherAlertLabelParent();
-		Label erfolgreicherAlertLabel = initErfolgreicherAlertLabel(erfolgreicherAlertLabelParent);
+		UserInformationPanel userInformationPanel = new UserInformationPanel("userInformationPanel",
+				isNew ? Model.of() : Model.of(oldUser));
+		
+		DropDownChoice<Geschlecht> geschlechtDropDownChoice = userInformationPanel.getGeschlechtDropDownChoice();
+		DropDownChoice<String> rolleDropDownChoice = userInformationPanel.getRolleDropDownChoice();
+		DropDownChoice<String> referatDropDownChoice = userInformationPanel.getReferatDropDownChoice();
+		TextField<String> vornameTextField = userInformationPanel.getVornameTextField();
+		TextField<String> nachnameTextField = userInformationPanel.getNachnameTextField();
+		TextField<String> benutzernameTextField = userInformationPanel.getBenutzernameTextField();
+		EmailTextField emailEmailTextField = userInformationPanel.getEmailEmailTextField();
+		NumberTextField<Integer> einstellungsjahrNumberTextField = userInformationPanel
+				.getEinstellungsjahrNumberTextField();
+		DropDownChoice<String> ausbildungsartDropDownChoice = userInformationPanel.getAusbildungsartDropDownChoice();
+		PasswordTextField passwortPasswordField = userInformationPanel.getPasswortPasswordField();
+		WebMarkupContainer erfolgreicherAlertLabelParent = getErfolgreicherAlertLabelParent();
+		Label erfolgreicherAlertLabel = getErfolgreicherAlertLabel(erfolgreicherAlertLabelParent);
 		Button speichernUndZurückButton = initSpeichernUndZurückButton(newUser, isNew);
 		Button speichernButton = initSpeichernButton(newUser, erfolgreicherAlertLabelParent, erfolgreicherAlertLabel,
 				isNew);
-		
-		if (!isNew) {
-			geschlechtDropDownChoice.setModel(Model.of(newUser.getGeschlecht()));
-			rolleDropDownChoice.setModel(Model.of(newUser.getRolle().getBeschreibung()));
-			if (newUser.getRolle().getId() == Beschreibung.A.getRolleId()
-					&& referatService.getReferatByAnsprechpartner(newUser) != null)
-				referatDropDownChoice
-						.setModel(Model.of(referatService.getReferatByAnsprechpartner(newUser).getReferat()));
-			vornameTextField.setModel(Model.of(newUser.getVorname()));
-			nachnameTextField.setModel(Model.of(newUser.getNachname()));
-			benutzernameTextField.setModel(Model.of(newUser.getUsername()));
-			emailEmailTextField.setModel(Model.of(newUser.getEmail()));
-			if (newUser.getEinstiegsjahr() != null)
-				einstellungsjahrNumberTextField.setModel(Model.of(newUser.getEinstiegsjahr()));
-			if (!newUser.getAusbildungsart().isEmpty() && newUser.getAusbildungsart() != null)
-				ausbildungsartDropDownChoice
-						.setModel(Model.of(newUser.getAusbildungsart().get(0).getBerufsbildAbkürzung()));
-		}
 		
 		Form<?> userForm = new Form<Void>("userForm") {
 			
@@ -179,11 +161,24 @@ public class BenutzerVerwaltungParent extends BenutzerVerwaltungsBasePage {
 			}
 		};
 		
-		userForm.add(geschlechtDropDownChoice, rolleDropDownChoice, referatDropDownChoice, vornameTextField,
-				nachnameTextField, benutzernameTextField, emailEmailTextField, einstellungsjahrNumberTextField,
-				ausbildungsartDropDownChoice, speichernUndZurückButton, speichernButton, passwortPasswordField);
+		userForm.add(userInformationPanel, speichernUndZurückButton, speichernButton);
 		
 		add(titelLabel, userForm, erfolgreicherAlertLabelParent);
+	}
+	
+	private Button initSpeichernUndZurückButton(User user, boolean isNew) {
+		
+		Button speichernUndZurückButton = new Button("speichernUndZurückButton", Model.of()) {
+			
+			private static final long serialVersionUID = 1L;
+			
+			@Override
+			public void onAfterSubmit() {
+				
+				setResponsePage(new BenutzerListe(user, isNew));
+			}
+		};
+		return speichernUndZurückButton;
 	}
 	
 	private Button initSpeichernButton(User newUser, WebMarkupContainer erfolgreicherAlertLabelParent,
@@ -209,7 +204,7 @@ public class BenutzerVerwaltungParent extends BenutzerVerwaltungsBasePage {
 		return speichernButton;
 	}
 	
-	private Label initErfolgreicherAlertLabel(WebMarkupContainer erfolgreicherAlertLabelParent) {
+	public Label getErfolgreicherAlertLabel(WebMarkupContainer erfolgreicherAlertLabelParent) {
 		
 		Label erfolgreicherAlertLabel = new Label("erfolgreicherAlertLabel");
 		erfolgreicherAlertLabelParent.setVisible(false);
@@ -217,104 +212,8 @@ public class BenutzerVerwaltungParent extends BenutzerVerwaltungsBasePage {
 		return erfolgreicherAlertLabel;
 	}
 	
-	private WebMarkupContainer initErfolgreicherAlertLabelParent() {
+	public WebMarkupContainer getErfolgreicherAlertLabelParent() {
 		
 		return new WebMarkupContainer("erfolgreicherAlertLabelParent");
-	}
-	
-	private Button initSpeichernUndZurückButton(User user, boolean isNew) {
-		
-		Button speichernUndZurückButton = new Button("speichernUndZurückButton", Model.of()) {
-			
-			private static final long serialVersionUID = 1L;
-			
-			@Override
-			public void onAfterSubmit() {
-				
-				setResponsePage(new BenutzerListe(user, isNew));
-			}
-		};
-		return speichernUndZurückButton;
-	}
-	
-	private NumberTextField<Integer> initEinstellungsjahrNumberTextField() {
-		
-		NumberTextField<Integer> einstellungsjahrNumberTextField = new NumberTextField<>(
-				"einstellungsjahrNumberTextField", Model.of(LocalDate.now().getYear()));
-		return einstellungsjahrNumberTextField;
-	}
-	
-	private EmailTextField initEmailEmailTextField() {
-		
-		EmailTextField emailEmailTextField = new EmailTextField("emailEmailTextField", Model.of());
-		return emailEmailTextField;
-	}
-	
-	private TextField<String> initBenutzernameTextField() {
-		
-		TextField<String> benutzernameTextField = new TextField<>("benutzernameTextField", Model.of());
-		return benutzernameTextField;
-	}
-	
-	private TextField<String> initNachnameTextField() {
-		
-		TextField<String> nachnameTextField = new TextField<>("nachnameTextField", Model.of());
-		return nachnameTextField;
-	}
-	
-	private TextField<String> initVornameTextField() {
-		
-		return new TextField<>("vornameTextField", Model.of());
-	}
-	
-	private DropDownChoice<String> initAusbildungsartDropDownChoice() {
-		
-		List<String> ausbildungsart = new ArrayList<>();
-		for (Ausbildungsart ausbildungsarten : ausbildungsartService.getAllAusbildungsart()) {
-			if (ausbildungsarten.getBerufsbildAbkürzung() == null
-					|| ausbildungsarten.getBerufsbildAbkürzung().isEmpty())
-				ausbildungsart.add(ausbildungsarten.getBerufsbildM());
-			else
-				ausbildungsart.add(ausbildungsarten.getBerufsbildAbkürzung());
-		}
-		DropDownChoice<String> ausbildungsartDropDownChoice = new DropDownChoice<>("ausbildungsartDropDownChoice",
-				Model.ofList(ausbildungsart));
-		ausbildungsartDropDownChoice.setDefaultModel(Model.of());
-		return ausbildungsartDropDownChoice;
-	}
-	
-	private DropDownChoice<String> initReferatDropDownChoice() {
-		
-		List<String> referatData = new ArrayList<>();
-		for (Referat referat : referatService.getAllReferat())
-			referatData.add(referat.getReferat());
-		DropDownChoice<String> referatDropDownChoice = new DropDownChoice<>("referatDropDownChoice", referatData);
-		referatDropDownChoice.setDefaultModel(Model.of());
-		return referatDropDownChoice;
-	}
-	
-	private DropDownChoice<String> initRolleDropDownChoice() {
-		
-		List<String> rollenData = new ArrayList<>();
-		for (Rolle rolle : rolleService.getAllRolles())
-			rollenData.add(rolle.getBeschreibung());
-		DropDownChoice<String> rolleDropDownChoice = new DropDownChoice<>("rolleDropDownChoice", rollenData);
-		rolleDropDownChoice.setDefaultModel(Model.of());
-		return rolleDropDownChoice;
-	}
-	
-	private DropDownChoice<Geschlecht> initGeschlechtDropDownChoice() {
-		
-		DropDownChoice<Geschlecht> geschlechtDropDownChoice = new DropDownChoice<>("geschlechtDropDownChoice",
-				Model.ofList(Arrays.asList(Geschlecht.values())));
-		geschlechtDropDownChoice.setDefaultModel(Model.of());
-		return geschlechtDropDownChoice;
-	}
-	
-	private PasswordTextField initPasswortPasswordTextField() {
-		
-		PasswordTextField passwordTextField = new PasswordTextField("passwortPasswortField", Model.of());
-		passwordTextField.setRequired(false);
-		return passwordTextField;
 	}
 }
